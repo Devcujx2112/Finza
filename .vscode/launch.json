@@ -1,0 +1,80 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "staging-debug",
+            "type": "dart",
+            "request": "launch",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "staging",
+                "-t", 
+                "lib/main.dart"
+            ]
+        },
+        {
+            "name": "staging-release",
+            "type": "dart",
+            "request": "launch",
+            "flutterMode": "release",
+            "args": [
+                "--flavor",
+                "staging",
+                "-t", 
+                "lib/main.dart"
+            ]
+        },
+        {
+            "name": "uat-debug",
+            "type": "dart",
+            "request": "launch",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "uat",
+                "-t", 
+                "lib/main.dart"
+            ]
+        },
+        {
+            "name": "uat-release",
+            "type": "dart",
+            "request": "launch",
+            "flutterMode": "release",
+            "args": [
+                "--flavor",
+                "uat",
+                "-t", 
+                "lib/main.dart"
+            ]
+        },
+        {
+            "name": "production-debug",
+            "type": "dart",
+            "request": "launch",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "production",
+                "-t", 
+                "lib/main.dart"
+            ]
+        },
+        {
+            "name": "production-release",
+            "type": "dart",
+            "request": "launch",
+            "flutterMode": "release",
+            "args": [
+                "--flavor",
+                "production",
+                "-t", 
+                "lib/main.dart"
+            ]
+        },
+    ]
+}
