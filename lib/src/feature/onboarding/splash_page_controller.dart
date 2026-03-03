@@ -2,7 +2,7 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class OnboardingController extends GetxController {
+class SplashPageController extends GetxController {
   static const _seenKey = "seen_onboarding";
   Rx<bool> isOnboarding = false.obs;
 
