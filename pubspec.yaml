@@ -19,6 +19,7 @@ dependencies:
   shared_preferences: ^2.5.3
   get: ^4.7.3
   flutter_screenutil: ^5.9.3
+  dio: ^5.9.2
 
 dev_dependencies:
   flutter_test:
