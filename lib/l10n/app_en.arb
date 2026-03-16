@@ -1,0 +1,7 @@
+{
+  "@@locale": "en",
+  "appName": "Finza",
+  "addExpense": "Add expense",
+  "totalBalance": "Total balance",
+  "introduction":"Welcome to Expense Manager Finza"
+}
