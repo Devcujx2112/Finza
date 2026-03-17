@@ -118,6 +118,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Welcome to Expense Manager Finza'**
   String get introduction;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

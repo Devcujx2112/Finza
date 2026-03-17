@@ -19,4 +19,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get introduction => 'Chào mừng đến với ứng dụng quản lý chi phí Finza';
+
+  @override
+  String get next => 'Tiếp';
 }

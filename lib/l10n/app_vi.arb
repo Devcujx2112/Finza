@@ -3,5 +3,6 @@
   "appName": "Finza",
   "addExpense": "Thêm chi tiêu",
   "totalBalance": "Tổng số dư",
-  "introduction":"Chào mừng đến với ứng dụng quản lý chi phí Finza"
+  "introduction":"Chào mừng đến với ứng dụng quản lý chi phí Finza",
+  "next":"Tiếp"
 }

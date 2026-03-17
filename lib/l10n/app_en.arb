@@ -3,5 +3,6 @@
   "appName": "Finza",
   "addExpense": "Add expense",
   "totalBalance": "Total balance",
-  "introduction":"Welcome to Expense Manager Finza"
+  "introduction":"Welcome to Expense Manager Finza",
+  "next":"Next"
 }

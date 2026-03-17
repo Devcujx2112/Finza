@@ -19,4 +19,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get introduction => 'Welcome to Expense Manager Finza';
+
+  @override
+  String get next => 'Next';
 }

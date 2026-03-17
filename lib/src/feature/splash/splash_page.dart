@@ -1,5 +1,5 @@
 import 'package:app/src/feature/home/homepage_view.dart';
-import 'package:app/src/feature/onboarding/splash_page_controller.dart';
+import 'package:app/src/feature/splash/splash_page_controller.dart';
 import 'package:app/src/feature/onboarding/onboarding_view.dart';
 import 'package:flutter/material.dart';
 

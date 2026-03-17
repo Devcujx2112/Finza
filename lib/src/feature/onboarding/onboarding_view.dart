@@ -4,7 +4,6 @@ import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 class OnboardingView extends StatefulWidget {
   const OnboardingView({super.key});
@@ -51,7 +50,7 @@ class _OnboardingViewState extends State<OnboardingView> with AdaptivePage {
     final app = AppLocalizations.of(context);
 
     return Container(
-      color: AppColors.lightBackgroundColor,
+      color: AppColors.primarySecondaryColor,
       child: Column(
         children: [
           Expanded(
@@ -84,24 +83,34 @@ class _OnboardingViewState extends State<OnboardingView> with AdaptivePage {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 220.w,
                     height: 220.h,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.lightGreyColor),
-                    child: Center(
-                        child: Assets.images.imgOnboard.image(
-                      width: 150.w,
-                      height: 150.h,
-                    )),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          width: 200.w,
+                          height: 200.h,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.lightGreyColor,
+                          ),
+                        ),
+                        Assets.images.imgOnboard.image(
+                          width: 260.w,
+                          height: 260.h,
+                          fit: BoxFit.contain,
+                        ),
+                      ],
+                    ),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     spacing: 20.h,
                     children: [
                       Text(
-                        "Next",
+                        app?.next ?? '',
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.bold,
@@ -111,17 +120,20 @@ class _OnboardingViewState extends State<OnboardingView> with AdaptivePage {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            width: 8,
-                            height: 8,
+                            width: 8.sp,
+                            height: 8.sp,
                             decoration: BoxDecoration(
-                              color: AppColors.lightTextColor,
+                              border: Border.all(
+                                color: AppColors.lightTextColor,
+                              ),
+                              color: AppColors.primarySecondaryColor,
                               shape: BoxShape.circle,
                             ),
                           ),
-                          const SizedBox(width: 8),
+                          SizedBox(width: 8.sp),
                           Container(
-                            width: 8,
-                            height: 8,
+                            width: 8.sp,
+                            height: 8.sp,
                             decoration: BoxDecoration(
                               border: Border.all(
                                 color: AppColors.lightTextColor,
