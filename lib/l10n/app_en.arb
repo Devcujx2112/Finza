@@ -4,5 +4,7 @@
   "addExpense": "Add expense",
   "totalBalance": "Total balance",
   "introduction":"Welcome to Expense Manager Finza",
-  "next":"Next"
+  "next":"Next",
+  "goHomePage":"Homepage",
+  "introductionSecond":"One place to manage your time and finances"
 }

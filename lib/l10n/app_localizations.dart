@@ -124,6 +124,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Next'**
   String get next;
+
+  /// No description provided for @goHomePage.
+  ///
+  /// In en, this message translates to:
+  /// **'Homepage'**
+  String get goHomePage;
+
+  /// No description provided for @introductionSecond.
+  ///
+  /// In en, this message translates to:
+  /// **'One place to manage your time and finances'**
+  String get introductionSecond;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

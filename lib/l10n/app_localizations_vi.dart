@@ -22,4 +22,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get next => 'Tiếp';
+
+  @override
+  String get goHomePage => 'Trang chủ';
+
+  @override
+  String get introductionSecond => 'Một nơi để quản lý thời gian và tài chính của bạn';
 }

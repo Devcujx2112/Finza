@@ -22,4 +22,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get next => 'Next';
+
+  @override
+  String get goHomePage => 'Homepage';
+
+  @override
+  String get introductionSecond => 'One place to manage your time and finances';
 }
