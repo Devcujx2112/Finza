@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// ignore: must_be_immutable
 class BottomBar extends StatefulWidget {
   BottomBar({super.key, this.currentIndex});
 
