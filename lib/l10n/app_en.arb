@@ -6,5 +6,9 @@
   "introduction":"Welcome to Expense Manager Finza",
   "next":"Next",
   "goHomePage":"Homepage",
-  "introductionSecond":"One place to manage your time and finances"
+  "introductionSecond":"One place to manage your time and finances",
+  "homePage":"Home",
+  "schedule":"Schedule",
+  "budget":"Budget",
+  "profile":"Profile"
 }

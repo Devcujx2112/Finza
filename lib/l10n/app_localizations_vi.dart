@@ -28,4 +28,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get introductionSecond => 'Một nơi để quản lý thời gian và tài chính của bạn';
+
+  @override
+  String get homePage => 'Home';
+
+  @override
+  String get schedule => 'Schedule';
+
+  @override
+  String get budget => 'Budget';
+
+  @override
+  String get profile => 'Profile';
 }

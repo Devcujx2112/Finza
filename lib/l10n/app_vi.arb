@@ -6,5 +6,9 @@
   "introduction":"Chào mừng đến với ứng dụng quản lý chi phí Finza",
   "next":"Tiếp",
   "goHomePage":"Trang chủ",
-  "introductionSecond":"Một nơi để quản lý thời gian và tài chính của bạn"
+  "introductionSecond":"Một nơi để quản lý thời gian và tài chính của bạn",
+  "homePage":"Home",
+  "schedule":"Schedule",
+  "budget":"Budget",
+  "profile":"Profile"
 }

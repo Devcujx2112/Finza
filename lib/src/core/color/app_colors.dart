@@ -12,4 +12,8 @@ class AppColors {
   static const Color darkBackgroundColor = Color(0xFF093030);
   static const Color darkTextColor = Color(0xFFF1FFF3);
   static const Color transparentColor = Colors.transparent;
+
+  static const Color backgroundMenu = Color(0xFFDFF7E2);
+  static const Color colorMenuBar = Color(0xFF052224);
+  static const Color backgroundHomepage = Color(0xFF00D09E);
 }

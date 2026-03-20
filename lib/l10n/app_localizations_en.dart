@@ -28,4 +28,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get introductionSecond => 'One place to manage your time and finances';
+
+  @override
+  String get homePage => 'Home';
+
+  @override
+  String get schedule => 'Schedule';
+
+  @override
+  String get budget => 'Budget';
+
+  @override
+  String get profile => 'Profile';
 }

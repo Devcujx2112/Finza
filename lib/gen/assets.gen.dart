@@ -36,6 +36,26 @@ class $AssetsImagesGen {
   SvgGenImage get icGoogleLogin =>
       const SvgGenImage('assets/images/ic_google_login.svg');
 
+  /// File path: assets/images/ic_menuBudget.svg
+  SvgGenImage get icMenuBudget =>
+      const SvgGenImage('assets/images/ic_menuBudget.svg');
+
+  /// File path: assets/images/ic_menuCalendar.svg
+  SvgGenImage get icMenuCalendar =>
+      const SvgGenImage('assets/images/ic_menuCalendar.svg');
+
+  /// File path: assets/images/ic_menuHome.svg
+  SvgGenImage get icMenuHome =>
+      const SvgGenImage('assets/images/ic_menuHome.svg');
+
+  /// File path: assets/images/ic_menuProfile.svg
+  SvgGenImage get icMenuProfile =>
+      const SvgGenImage('assets/images/ic_menuProfile.svg');
+
+  /// File path: assets/images/ic_notification.svg
+  SvgGenImage get icNotification =>
+      const SvgGenImage('assets/images/ic_notification.svg');
+
   /// File path: assets/images/img_onboard.png
   AssetGenImage get imgOnboard =>
       const AssetGenImage('assets/images/img_onboard.png');
@@ -48,8 +68,18 @@ class $AssetsImagesGen {
   SvgGenImage get logoApp => const SvgGenImage('assets/images/logo_app.svg');
 
   /// List of all assets
-  List<dynamic> get values =>
-      [icFabLogin, icGoogleLogin, imgOnboard, imgOnboard2, logoApp];
+  List<dynamic> get values => [
+        icFabLogin,
+        icGoogleLogin,
+        icMenuBudget,
+        icMenuCalendar,
+        icMenuHome,
+        icMenuProfile,
+        icNotification,
+        imgOnboard,
+        imgOnboard2,
+        logoApp
+      ];
 }
 
 class $AssetsFontsRobotoGen {
