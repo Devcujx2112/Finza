@@ -31,6 +31,7 @@ class _BottomBarState extends State<BottomBar> {
               borderRadius: BorderRadius.circular(30),
               boxShadow: [
                 BoxShadow(
+                  // ignore: deprecated_member_use
                   color: Colors.black.withOpacity(0.15),
                   blurRadius: 20,
                 )

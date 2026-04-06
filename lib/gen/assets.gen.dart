@@ -69,17 +69,17 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<dynamic> get values => [
-        icFabLogin,
-        icGoogleLogin,
-        icMenuBudget,
-        icMenuCalendar,
-        icMenuHome,
-        icMenuProfile,
-        icNotification,
-        imgOnboard,
-        imgOnboard2,
-        logoApp
-      ];
+    icFabLogin,
+    icGoogleLogin,
+    icMenuBudget,
+    icMenuCalendar,
+    icMenuHome,
+    icMenuProfile,
+    icNotification,
+    imgOnboard,
+    imgOnboard2,
+    logoApp,
+  ];
 }
 
 class $AssetsFontsRobotoGen {
@@ -145,25 +145,25 @@ class $AssetsFontsRobotoGen {
 
   /// List of all assets
   List<String> get values => [
-        robotoBlack,
-        robotoBlackItalic,
-        robotoBold,
-        robotoBoldItalic,
-        robotoExtraBold,
-        robotoExtraBoldItalic,
-        robotoExtraLight,
-        robotoExtraLightItalic,
-        robotoItalic,
-        robotoLight,
-        robotoLightItalic,
-        robotoMedium,
-        robotoMediumItalic,
-        robotoRegular,
-        robotoSemiBold,
-        robotoSemiBoldItalic,
-        robotoThin,
-        robotoThinItalic
-      ];
+    robotoBlack,
+    robotoBlackItalic,
+    robotoBold,
+    robotoBoldItalic,
+    robotoExtraBold,
+    robotoExtraBoldItalic,
+    robotoExtraLight,
+    robotoExtraLightItalic,
+    robotoItalic,
+    robotoLight,
+    robotoLightItalic,
+    robotoMedium,
+    robotoMediumItalic,
+    robotoRegular,
+    robotoSemiBold,
+    robotoSemiBoldItalic,
+    robotoThin,
+    robotoThinItalic,
+  ];
 }
 
 class $AssetsFontsRobotoCondensedGen {
@@ -243,25 +243,25 @@ class $AssetsFontsRobotoCondensedGen {
 
   /// List of all assets
   List<String> get values => [
-        robotoCondensedBlack,
-        robotoCondensedBlackItalic,
-        robotoCondensedBold,
-        robotoCondensedBoldItalic,
-        robotoCondensedExtraBold,
-        robotoCondensedExtraBoldItalic,
-        robotoCondensedExtraLight,
-        robotoCondensedExtraLightItalic,
-        robotoCondensedItalic,
-        robotoCondensedLight,
-        robotoCondensedLightItalic,
-        robotoCondensedMedium,
-        robotoCondensedMediumItalic,
-        robotoCondensedRegular,
-        robotoCondensedSemiBold,
-        robotoCondensedSemiBoldItalic,
-        robotoCondensedThin,
-        robotoCondensedThinItalic
-      ];
+    robotoCondensedBlack,
+    robotoCondensedBlackItalic,
+    robotoCondensedBold,
+    robotoCondensedBoldItalic,
+    robotoCondensedExtraBold,
+    robotoCondensedExtraBoldItalic,
+    robotoCondensedExtraLight,
+    robotoCondensedExtraLightItalic,
+    robotoCondensedItalic,
+    robotoCondensedLight,
+    robotoCondensedLightItalic,
+    robotoCondensedMedium,
+    robotoCondensedMediumItalic,
+    robotoCondensedRegular,
+    robotoCondensedSemiBold,
+    robotoCondensedSemiBoldItalic,
+    robotoCondensedThin,
+    robotoCondensedThinItalic,
+  ];
 }
 
 class Assets {
@@ -338,15 +338,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;
@@ -367,17 +360,11 @@ class AssetGenImageAnimation {
 }
 
 class SvgGenImage {
-  const SvgGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = false;
+  const SvgGenImage(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = false;
 
-  const SvgGenImage.vec(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = true;
+  const SvgGenImage.vec(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = true;
 
   final String _assetName;
   final Size? size;
@@ -433,7 +420,8 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      colorFilter: colorFilter ??
+      colorFilter:
+          colorFilter ??
           (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
