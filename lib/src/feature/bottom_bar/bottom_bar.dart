@@ -2,8 +2,8 @@ import 'package:app/gen/assets.gen.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/constant/status_constant.dart';
-import 'package:app/src/feature/bottom_bar/model/menubar_item.dart';
-import 'package:app/src/feature/bottom_bar/viewmodel/bottom_bar_controller.dart';
+import 'package:app/domain/entities/bottom_bar/menubar_item.dart';
+import 'package:app/src/feature/bottom_bar/bottom_bar_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -21,27 +21,29 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-        left: 20.w,
-        right: 20.w,
-        bottom: 20.h,
-        child: Container(
-            height: MediaQuery.of(context).size.height * 0.075,
-            decoration: BoxDecoration(
-              color: AppColors.backgroundMenu,
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                  // ignore: deprecated_member_use
-                  color: Colors.black.withOpacity(0.15),
-                  blurRadius: 20,
-                )
-              ],
+      left: 20.w,
+      right: 20.w,
+      bottom: 20.h,
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.075,
+        decoration: BoxDecoration(
+          color: AppColors.backgroundMenu,
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [
+            BoxShadow(
+              // ignore: deprecated_member_use
+              color: Colors.black.withOpacity(0.15),
+              blurRadius: 20,
             ),
-            child: Row(
-              children: _controller.menuUser
-                  .map((item) => Expanded(child: bottomBarItem(item)))
-                  .toList(),
-            )));
+          ],
+        ),
+        child: Row(
+          children: _controller.menuUser
+              .map((item) => Expanded(child: bottomBarItem(item)))
+              .toList(),
+        ),
+      ),
+    );
   }
 
   Widget bottomBarItem(MenubarItem item) {
@@ -63,6 +65,7 @@ class _BottomBarState extends State<BottomBar> {
           ),
           decoration: BoxDecoration(
             color: isSelected
+                // ignore: deprecated_member_use
                 ? AppColors.darkBackgroundColor.withOpacity(0.1)
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(30),
@@ -89,7 +92,7 @@ class _BottomBarState extends State<BottomBar> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -101,39 +104,44 @@ class _BottomBarState extends State<BottomBar> {
     switch (menuId) {
       case StatusConstant.homeId:
         return Assets.images.icMenuHome.svg(
-            width: 24.w,
-            height: 24.h,
-            color: _controller.currentIndex.value == menuId
-                ? AppColors.colorMenuBar
-                : Colors.grey[600]);
+          width: 24.w,
+          height: 24.h,
+          color: _controller.currentIndex.value == menuId
+              ? AppColors.colorMenuBar
+              : Colors.grey[600],
+        );
       case StatusConstant.scheduleId:
         return Assets.images.icMenuCalendar.svg(
-            width: 24.w,
-            height: 24.h,
-            color: _controller.currentIndex.value == menuId
-                ? AppColors.colorMenuBar
-                : Colors.grey[600]);
+          width: 24.w,
+          height: 24.h,
+          color: _controller.currentIndex.value == menuId
+              ? AppColors.colorMenuBar
+              : Colors.grey[600],
+        );
       case StatusConstant.budgetId:
         return Assets.images.icMenuBudget.svg(
-            width: 24.w,
-            height: 24.h,
-            color: _controller.currentIndex.value == menuId
-                ? AppColors.colorMenuBar
-                : Colors.grey[600]);
+          width: 24.w,
+          height: 24.h,
+          color: _controller.currentIndex.value == menuId
+              ? AppColors.colorMenuBar
+              : Colors.grey[600],
+        );
       case StatusConstant.profileId:
         return Assets.images.icMenuProfile.svg(
-            width: 24.w,
-            height: 24.h,
-            color: _controller.currentIndex.value == menuId
-                ? AppColors.colorMenuBar
-                : Colors.grey[600]);
+          width: 24.w,
+          height: 24.h,
+          color: _controller.currentIndex.value == menuId
+              ? AppColors.colorMenuBar
+              : Colors.grey[600],
+        );
       default:
         return Assets.images.icMenuHome.svg(
-            width: 24.w,
-            height: 24.h,
-            color: _controller.currentIndex.value == menuId
-                ? AppColors.colorMenuBar
-                : AppColors.lightGreyColor);
+          width: 24.w,
+          height: 24.h,
+          color: _controller.currentIndex.value == menuId
+              ? AppColors.colorMenuBar
+              : AppColors.lightGreyColor,
+        );
     }
   }
 

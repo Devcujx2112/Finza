@@ -1,4 +1,4 @@
-class MenuConstant {
+class RouterName {
   static const String login = '/login';
   static const String signUp = '/signup';
   static const String home = '/home';
@@ -7,4 +7,8 @@ class MenuConstant {
   static const String setting = '/setting';
   static const String splash = '/splash';
   static const String onboarding = '/onboarding';
+
+  static const String schedule = '/schedule';
+  static const String budget = '/budget';
+  static const String admin = '/admin';
 }

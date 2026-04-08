@@ -1,10 +1,8 @@
 import 'package:app/firebase_options.dart';
 import 'package:app/l10n/app_localizations.dart';
+import 'package:app/router/pages.dart';
 import 'package:app/src/core/color/app_theme.dart';
-import 'package:app/src/feature/home/view/homepage_view.dart';
-import 'package:app/src/feature/notification/view/notification_view.dart';
-import 'package:app/src/feature/onboarding/view/onboarding_view.dart';
-import 'package:app/src/feature/splash/view/splash_page.dart';
+import 'package:app/src/feature/splash/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,9 +14,7 @@ import 'package:get/route_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(const FinzaApp());
 }
@@ -119,12 +115,7 @@ class _FinzaAppState extends State<FinzaApp> {
       builder: (context, child) {
         return GetMaterialApp(
           initialRoute: "/",
-          getPages: [
-            GetPage(name: '/onboarding', page: () => const OnboardingView()),
-            GetPage(name: '/home', page: () => const HomepageView()),
-            GetPage(
-                name: '/notification', page: () => const NotificationView()),
-          ],
+          getPages: Pages.page,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,

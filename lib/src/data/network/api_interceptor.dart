@@ -15,13 +15,17 @@ class ApiInterceptor extends Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    log("|| ===5.RESPONSE: ${response.statusCode} === ${response.data}:  ");
+    log("|| ===1.STATUS CODE: ${response.statusCode}:  ");
+    log("|| ===2.RESPONSE: ${response.data}:  ");
     super.onResponse(response, handler);
   }
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    log("||===6.ERROR: ${err.response?.statusCode} === ${err.response?.data}:  ");
+    log("|| ===1.STATUS ERROR: ${err.response?.statusCode}:  ");
+    log(
+      "|| ===2.ERROR: ${err.response?.statusCode} === ${err.response?.data}:  ",
+    );
     super.onError(err, handler);
   }
 }

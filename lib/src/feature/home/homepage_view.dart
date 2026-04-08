@@ -1,7 +1,7 @@
 import 'package:app/gen/assets.gen.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
-import 'package:app/src/feature/bottom_bar/view/bottom_bar.dart';
+import 'package:app/src/feature/bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -42,28 +42,31 @@ class _HomepageViewState extends State<HomepageView> with AdaptivePage {
 
   Widget mobileScreen(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.backgroundHomepage,
-          actions: [notificationView()],
-        ),
-        body: Stack(
-          children: [
-            Column(
-              children: [
-                Expanded(
-                    flex: 3,
-                    child: Container(color: AppColors.backgroundHomepage)),
-                Expanded(
-                    flex: 8,
-                    child: Container(
-                      width: double.infinity,
-                      color: AppColors.primaryColor,
-                    )),
-              ],
-            ),
-            const BottomBar()
-          ],
-        ));
+      appBar: AppBar(
+        backgroundColor: AppColors.backgroundHomepage,
+        actions: [notificationView()],
+      ),
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Container(color: AppColors.backgroundHomepage),
+              ),
+              Expanded(
+                flex: 8,
+                child: Container(
+                  width: double.infinity,
+                  color: AppColors.primaryColor,
+                ),
+              ),
+            ],
+          ),
+          const BottomBar(),
+        ],
+      ),
+    );
   }
 
   Widget tabletScreen(BuildContext context) {
@@ -88,9 +91,10 @@ class _HomepageViewState extends State<HomepageView> with AdaptivePage {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
+                    // ignore: deprecated_member_use
                     color: Colors.black.withOpacity(0.1),
                     blurRadius: 8,
-                  )
+                  ),
                 ],
               ),
               child: Assets.images.icNotification.svg(
@@ -107,10 +111,7 @@ class _HomepageViewState extends State<HomepageView> with AdaptivePage {
                   color: Colors.red,
                   shape: BoxShape.circle,
                 ),
-                constraints: BoxConstraints(
-                  minWidth: 14.w,
-                  minHeight: 14.h,
-                ),
+                constraints: BoxConstraints(minWidth: 14.w, minHeight: 14.h),
                 child: Text(
                   "3",
                   textAlign: TextAlign.center,
@@ -121,7 +122,7 @@ class _HomepageViewState extends State<HomepageView> with AdaptivePage {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

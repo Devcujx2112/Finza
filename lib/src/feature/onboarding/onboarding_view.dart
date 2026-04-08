@@ -2,8 +2,8 @@ import 'package:app/gen/assets.gen.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
-import 'package:app/src/feature/onboarding/viewmodel/onboarding_controller.dart';
-import 'package:app/src/feature/splash/viewmodel/splash_page_controller.dart';
+import 'package:app/src/feature/onboarding/onboarding_controller.dart';
+import 'package:app/src/feature/splash/splash_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -64,20 +64,20 @@ class _OnboardingViewState extends State<OnboardingView> with AdaptivePage {
             flex: 1,
             child: Center(
               child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  child: Obx(
-                    () => Text(
-                      _controller.currentPage.value == 0
-                          ? app?.introduction ?? ""
-                          : app?.introductionSecond ?? "",
-                      textAlign: TextAlign.center,
-                      style:
-                          Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                color: AppColors.lightTextColor,
-                                fontWeight: FontWeight.bold,
-                              ),
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: Obx(
+                  () => Text(
+                    _controller.currentPage.value == 0
+                        ? app?.introduction ?? ""
+                        : app?.introductionSecond ?? "",
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      color: AppColors.lightTextColor,
+                      fontWeight: FontWeight.bold,
                     ),
-                  )),
+                  ),
+                ),
+              ),
             ),
           ),
           Expanded(
@@ -101,10 +101,7 @@ class _OnboardingViewState extends State<OnboardingView> with AdaptivePage {
                       onPageChanged: (index) {
                         _controller.currentPage.value = index;
                       },
-                      children: [
-                        firstCurrentPage(),
-                        secondCurrentPage(),
-                      ],
+                      children: [firstCurrentPage(), secondCurrentPage()],
                     ),
                   ),
                   Column(
@@ -152,31 +149,28 @@ class _OnboardingViewState extends State<OnboardingView> with AdaptivePage {
                       Obx(
                         () => Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: List.generate(
-                            2,
-                            (index) {
-                              bool isActive =
-                                  _controller.currentPage.value == index;
+                          children: List.generate(2, (index) {
+                            bool isActive =
+                                _controller.currentPage.value == index;
 
-                              return AnimatedContainer(
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut,
-                                width: isActive ? 22.w : 10.w,
-                                height: 10.h,
-                                margin: EdgeInsets.symmetric(horizontal: 5.w),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: isActive
-                                      ? AppColors.primarySecondaryColor
-                                      : AppColors.lightGreyColor,
-                                ),
-                              );
-                            },
-                          ),
+                            return AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                              width: isActive ? 22.w : 10.w,
+                              height: 10.h,
+                              margin: EdgeInsets.symmetric(horizontal: 5.w),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: isActive
+                                    ? AppColors.primarySecondaryColor
+                                    : AppColors.lightGreyColor,
+                              ),
+                            );
+                          }),
                         ),
-                      )
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -205,7 +199,7 @@ class _OnboardingViewState extends State<OnboardingView> with AdaptivePage {
             width: 260.w,
             height: 260.h,
             fit: BoxFit.contain,
-          )
+          ),
         ],
       ),
     );
@@ -230,7 +224,7 @@ class _OnboardingViewState extends State<OnboardingView> with AdaptivePage {
             width: 260.w,
             height: 260.h,
             fit: BoxFit.contain,
-          )
+          ),
         ],
       ),
     );

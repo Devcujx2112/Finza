@@ -1,4 +1,4 @@
-import 'package:app/src/feature/auth/entities/user.dart';
+import 'package:app/domain/entities/user/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';
