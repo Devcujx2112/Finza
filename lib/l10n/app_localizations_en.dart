@@ -40,4 +40,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profile => 'Profile';
+
+  @override
+  String get textSignature => 'Balance your time. Balance your life.';
+
+  @override
+  String get forgotPassword => 'Forgot password';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get signUp => 'Sign up';
+
+  @override
+  String get tryAccount => 'Try it for 3 days';
+
+  @override
+  String get wellCome => 'Welcome';
+
+  @override
+  String get phoneNumberOrEmail => 'Phone number or email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get eitherLogin => 'Or continue with';
+
+  @override
+  String get dontHaveAccount => 'Don\'t have an account?';
 }

@@ -160,6 +160,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile'**
   String get profile;
+
+  /// No description provided for @textSignature.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance your time. Balance your life.'**
+  String get textSignature;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password'**
+  String get forgotPassword;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @signUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up'**
+  String get signUp;
+
+  /// No description provided for @tryAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Try it for 3 days'**
+  String get tryAccount;
+
+  /// No description provided for @wellCome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome'**
+  String get wellCome;
+
+  /// No description provided for @phoneNumberOrEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number or email'**
+  String get phoneNumberOrEmail;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @eitherLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Or continue with'**
+  String get eitherLogin;
+
+  /// No description provided for @dontHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get dontHaveAccount;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

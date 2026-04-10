@@ -1,5 +1,6 @@
 import 'package:app/gen/assets.gen.dart';
 import 'package:app/l10n/app_localizations.dart';
+import 'package:app/router/router_name.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
 import 'package:app/src/feature/onboarding/onboarding_controller.dart';
@@ -108,40 +109,36 @@ class _OnboardingViewState extends State<OnboardingView> with AdaptivePage {
                     mainAxisAlignment: MainAxisAlignment.center,
                     spacing: 20.h,
                     children: [
-                      Obx(
-                        () => SizedBox(
-                          child: OutlinedButton(
-                            onPressed: () {
-                              if (_controller.currentPage.value == 1) {
-                                Get.offAllNamed('/home');
-                                _splashPageController.setOnboarding();
-                              } else {
-                                _controller.currentPage.value = 1;
-                                pageController.nextPage(
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.easeInOut,
-                                );
-                              }
-                            },
-                            style: OutlinedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              side: BorderSide(
-                                color: AppColors.primarySecondaryColor,
-                                width: 2,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
+                      SizedBox(
+                        child: OutlinedButton(
+                          onPressed: () {
+                            if (_controller.currentPage.value == 1) {
+                              Get.offAllNamed(RouterName.mainLogin);
+                              _splashPageController.setOnboarding();
+                            } else {
+                              _controller.currentPage.value = 1;
+                              pageController.nextPage(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
+                            }
+                          },
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            side: BorderSide(
+                              color: AppColors.primarySecondaryColor,
+                              width: 2,
                             ),
-                            child: Text(
-                              _controller.currentPage.value == 1
-                                  ? app?.goHomePage ?? ''
-                                  : app?.next ?? '',
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.primarySecondaryColor,
-                              ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          child: Text(
+                            app?.next ?? '',
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.primarySecondaryColor,
                             ),
                           ),
                         ),
@@ -163,7 +160,7 @@ class _OnboardingViewState extends State<OnboardingView> with AdaptivePage {
                                 borderRadius: BorderRadius.circular(20),
                                 color: isActive
                                     ? AppColors.primarySecondaryColor
-                                    : AppColors.lightGreyColor,
+                                    : AppColors.backgroundMenu,
                               ),
                             );
                           }),
@@ -192,7 +189,7 @@ class _OnboardingViewState extends State<OnboardingView> with AdaptivePage {
             height: 200.h,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: AppColors.lightGreyColor,
+              color: AppColors.backgroundMenu,
             ),
           ),
           Assets.images.imgOnboard.image(
@@ -217,7 +214,7 @@ class _OnboardingViewState extends State<OnboardingView> with AdaptivePage {
             height: 200.h,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: AppColors.lightGreyColor,
+              color: AppColors.backgroundMenu,
             ),
           ),
           Assets.images.imgOnboard2.image(

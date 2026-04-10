@@ -1,7 +1,7 @@
 import 'package:app/gen/assets.gen.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/src/core/color/app_colors.dart';
-import 'package:app/src/core/constant/status_constant.dart';
+import 'package:app/src/core/constant/constant.dart';
 import 'package:app/domain/entities/bottom_bar/menubar_item.dart';
 import 'package:app/src/feature/bottom_bar/bottom_bar_controller.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +66,7 @@ class _BottomBarState extends State<BottomBar> {
           decoration: BoxDecoration(
             color: isSelected
                 // ignore: deprecated_member_use
-                ? AppColors.darkBackgroundColor.withOpacity(0.1)
+                ? AppColors.darkPrimaryColor.withOpacity(0.1)
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(30),
           ),
@@ -86,7 +86,7 @@ class _BottomBarState extends State<BottomBar> {
                   buildLabelMenu(menuId: item.menuId ?? 0),
                   style: TextStyle(
                     color: isSelected
-                        ? AppColors.darkBackgroundColor
+                        ? AppColors.darkPrimaryColor
                         : Colors.grey[600],
                     fontSize: 11.sp,
                     fontWeight: FontWeight.w500,
@@ -140,7 +140,7 @@ class _BottomBarState extends State<BottomBar> {
           height: 24.h,
           color: _controller.currentIndex.value == menuId
               ? AppColors.colorMenuBar
-              : AppColors.lightGreyColor,
+              : AppColors.backgroundMenu,
         );
     }
   }

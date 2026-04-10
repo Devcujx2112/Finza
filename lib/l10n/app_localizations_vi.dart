@@ -40,4 +40,34 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get profile => 'Profile';
+
+  @override
+  String get textSignature => 'Cân bằng thời gian. Cân bằng cuộc sống của bạn';
+
+  @override
+  String get forgotPassword => 'Quên mật khẩu';
+
+  @override
+  String get login => 'Đăng nhập';
+
+  @override
+  String get signUp => 'Đăng ký';
+
+  @override
+  String get tryAccount => 'Dùng thử trong 3 ngày';
+
+  @override
+  String get wellCome => 'Chào mừng';
+
+  @override
+  String get phoneNumberOrEmail => 'Số điện thoại hoặc email';
+
+  @override
+  String get password => 'Mật khẩu';
+
+  @override
+  String get eitherLogin => 'Hoặc tiếp tục với';
+
+  @override
+  String get dontHaveAccount => 'Không có tài khoản?';
 }

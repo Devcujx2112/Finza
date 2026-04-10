@@ -22,11 +22,11 @@ class _SplashpageState extends State<Splashpage> {
   Future<void> _decideRoute() async {
     final seen = await _controller.checkOnboarding();
     if (!mounted) return;
-    Get.offAllNamed(seen ? RouterName.home : RouterName.onboarding);
+    Get.offAllNamed(seen ? RouterName.mainLogin : RouterName.onboarding);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Placeholder();
+    return Scaffold();
   }
 }

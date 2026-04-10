@@ -1,6 +1,7 @@
 class RouterName {
   static const String login = '/login';
   static const String signUp = '/signup';
+  static const String mainLogin = '/mainLogin';
   static const String home = '/home';
   static const String notification = '/notification';
   static const String profile = '/profile';
