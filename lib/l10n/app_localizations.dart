@@ -220,6 +220,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Don\'t have an account?'**
   String get dontHaveAccount;
+
+  /// No description provided for @exampleEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'example@example.com'**
+  String get exampleEmail;
+
+  /// No description provided for @validatorUserName.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your phone number or email'**
+  String get validatorUserName;
+
+  /// No description provided for @validatorPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your password'**
+  String get validatorPassword;
+
+  /// No description provided for @validatorSpecialCharacters.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot contain special characters'**
+  String get validatorSpecialCharacters;
+
+  /// No description provided for @validatorEmailOrPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid email or phone number'**
+  String get validatorEmailOrPhone;
+
+  /// No description provided for @validatorPasswordLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 6 characters long'**
+  String get validatorPasswordLength;
+
+  /// No description provided for @rememberPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Remember password'**
+  String get rememberPassword;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

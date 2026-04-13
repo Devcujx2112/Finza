@@ -20,5 +20,12 @@
   "phoneNumberOrEmail": "Số điện thoại hoặc email",
   "password": "Mật khẩu",
   "eitherLogin": "Hoặc tiếp tục với",
-  "dontHaveAccount": "Không có tài khoản?"
+  "dontHaveAccount": "Không có tài khoản?",
+  "exampleEmail":"example@example.com",
+  "validatorUserName":"Vui lòng nhập số điện thoại hoặc email",
+  "validatorPassword":"Vui lòng nhập mật khẩu",
+  "validatorSpecialCharacters":"Không được chứa ký tự đặc biệt",
+  "validatorEmailOrPhone":"Email hoặc số điện thoại không hợp lệ",
+  "validatorPasswordLength":"Mật khẩu phải từ 6 ký tự trở lên",
+  "rememberPassword":"Nhớ mật khẩu"
 }

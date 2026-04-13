@@ -20,5 +20,12 @@
   "phoneNumberOrEmail": "Phone number or email",
   "password": "Password",
   "eitherLogin": "Or continue with",
-  "dontHaveAccount": "Don't have an account?"
+  "dontHaveAccount": "Don't have an account?",
+  "exampleEmail":"example@example.com",
+  "validatorUserName":"Please enter your phone number or email",
+  "validatorPassword":"Please enter your password",
+  "validatorSpecialCharacters":"Cannot contain special characters",
+  "validatorEmailOrPhone":"Invalid email or phone number",
+  "validatorPasswordLength":"Password must be at least 6 characters long",
+  "rememberPassword":"Remember password"
 }

@@ -70,4 +70,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dontHaveAccount => 'Don\'t have an account?';
+
+  @override
+  String get exampleEmail => 'example@example.com';
+
+  @override
+  String get validatorUserName => 'Please enter your phone number or email';
+
+  @override
+  String get validatorPassword => 'Please enter your password';
+
+  @override
+  String get validatorSpecialCharacters => 'Cannot contain special characters';
+
+  @override
+  String get validatorEmailOrPhone => 'Invalid email or phone number';
+
+  @override
+  String get validatorPasswordLength => 'Password must be at least 6 characters long';
+
+  @override
+  String get rememberPassword => 'Remember password';
 }

@@ -70,4 +70,25 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get dontHaveAccount => 'Không có tài khoản?';
+
+  @override
+  String get exampleEmail => 'example@example.com';
+
+  @override
+  String get validatorUserName => 'Vui lòng nhập số điện thoại hoặc email';
+
+  @override
+  String get validatorPassword => 'Vui lòng nhập mật khẩu';
+
+  @override
+  String get validatorSpecialCharacters => 'Không được chứa ký tự đặc biệt';
+
+  @override
+  String get validatorEmailOrPhone => 'Email hoặc số điện thoại không hợp lệ';
+
+  @override
+  String get validatorPasswordLength => 'Mật khẩu phải từ 6 ký tự trở lên';
+
+  @override
+  String get rememberPassword => 'Nhớ mật khẩu';
 }
