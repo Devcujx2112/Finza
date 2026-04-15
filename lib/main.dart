@@ -1,9 +1,7 @@
-import 'package:app/firebase_options.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/router/pages.dart';
 import 'package:app/router/router_name.dart';
 import 'package:app/src/core/color/app_theme.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
@@ -14,7 +12,7 @@ import 'package:get/route_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const FinzaApp());
 }
 

@@ -45,13 +45,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get textSignature => 'Balance your time. Balance your life.';
 
   @override
-  String get forgotPassword => 'Forgot password';
+  String get forgotPassword => 'Forgot Password?';
 
   @override
-  String get login => 'Login';
+  String get login => 'Log In';
 
   @override
-  String get signUp => 'Sign up';
+  String get signUp => 'Sign Up';
 
   @override
   String get tryAccount => 'Try it for 3 days';
@@ -91,4 +91,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rememberPassword => 'Remember password';
+
+  @override
+  String get orContinueWith => 'Or continue with';
+
+  @override
+  String get createAccount => 'Create Account';
+
+  @override
+  String get fullName => 'Full Name';
+
+  @override
+  String get emailName => 'Email';
+
+  @override
+  String get phoneNumber => 'Phone Number';
+
+  @override
+  String get dateOfBirth => 'Date of Birth';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get exampleFullName => 'Vu Tung Duong';
+
+  @override
+  String get exampleDateOfBirth => 'DD/MM/YYYY';
+
+  @override
+  String get confirmAccount => 'By continuing, you agree to';
+
+  @override
+  String get and => 'and';
+
+  @override
+  String get termsOfUse => 'Terms of Use';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account?';
 }

@@ -32,13 +32,13 @@ class $AssetsImagesGen {
   SvgGenImage get icFabLogin =>
       const SvgGenImage('assets/images/ic_fab_login.svg');
 
+  /// File path: assets/images/ic_faceId.png
+  AssetGenImage get icFaceId =>
+      const AssetGenImage('assets/images/ic_faceId.png');
+
   /// File path: assets/images/ic_google_login.svg
   SvgGenImage get icGoogleLogin =>
       const SvgGenImage('assets/images/ic_google_login.svg');
-
-  /// File path: assets/images/ic_hidePasword.png
-  AssetGenImage get icHidePasword =>
-      const AssetGenImage('assets/images/ic_hidePasword.png');
 
   /// File path: assets/images/ic_menuBudget.svg
   SvgGenImage get icMenuBudget =>
@@ -60,10 +60,6 @@ class $AssetsImagesGen {
   SvgGenImage get icNotification =>
       const SvgGenImage('assets/images/ic_notification.svg');
 
-  /// File path: assets/images/ic_unHidePassword.png
-  AssetGenImage get icUnHidePassword =>
-      const AssetGenImage('assets/images/ic_unHidePassword.png');
-
   /// File path: assets/images/img_onboard.png
   AssetGenImage get imgOnboard =>
       const AssetGenImage('assets/images/img_onboard.png');
@@ -78,14 +74,13 @@ class $AssetsImagesGen {
   /// List of all assets
   List<dynamic> get values => [
     icFabLogin,
+    icFaceId,
     icGoogleLogin,
-    icHidePasword,
     icMenuBudget,
     icMenuCalendar,
     icMenuHome,
     icMenuProfile,
     icNotification,
-    icUnHidePassword,
     imgOnboard,
     imgOnboard2,
     logoApp,

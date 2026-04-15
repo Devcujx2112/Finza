@@ -45,7 +45,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get textSignature => 'Cân bằng thời gian. Cân bằng cuộc sống của bạn';
 
   @override
-  String get forgotPassword => 'Quên mật khẩu';
+  String get forgotPassword => 'Quên mật khẩu?';
 
   @override
   String get login => 'Đăng nhập';
@@ -91,4 +91,46 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get rememberPassword => 'Nhớ mật khẩu';
+
+  @override
+  String get orContinueWith => 'Hoặc tiếp tục với';
+
+  @override
+  String get createAccount => 'Tạo tài khoản';
+
+  @override
+  String get fullName => 'Họ và tên';
+
+  @override
+  String get emailName => 'Email';
+
+  @override
+  String get phoneNumber => 'Số điện thoại';
+
+  @override
+  String get dateOfBirth => 'Ngày sinh';
+
+  @override
+  String get confirmPassword => 'Xác nhận mật khẩu';
+
+  @override
+  String get exampleFullName => 'Vu Tung Duong';
+
+  @override
+  String get exampleDateOfBirth => 'DD/MM/YYYY';
+
+  @override
+  String get confirmAccount => 'Bằng cách tiếp tục, bạn đồng ý với';
+
+  @override
+  String get and => 'và';
+
+  @override
+  String get termsOfUse => 'Điều khoản sử dụng';
+
+  @override
+  String get privacyPolicy => 'Chính sách bảo mật';
+
+  @override
+  String get alreadyHaveAccount => 'Đã có tài khoản?';
 }

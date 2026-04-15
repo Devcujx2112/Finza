@@ -91,8 +91,8 @@ class _MainAuthState extends State<MainAuth> with AdaptivePage {
                   appLocalizations.login,
                   style: TextStyle(
                     fontFamily: FontFamily.roboto,
-                    color: AppColors.textColor,
-                    fontSize: 15.sp,
+                    color: AppColors.buttonRegister,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -116,7 +116,7 @@ class _MainAuthState extends State<MainAuth> with AdaptivePage {
                   style: TextStyle(
                     fontFamily: FontFamily.roboto,
                     color: AppColors.textColor,
-                    fontSize: 15.sp,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -133,6 +133,7 @@ class _MainAuthState extends State<MainAuth> with AdaptivePage {
                   fontSize: 11.sp,
                   fontWeight: FontWeight.w900,
                   decoration: TextDecoration.underline,
+                  decorationColor: AppColors.iconColor,
                 ),
               ),
             ),
