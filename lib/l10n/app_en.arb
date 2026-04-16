@@ -44,5 +44,14 @@
   "alreadyHaveAccount":"Already have an account?",
   "enterYourEmailOrPhoneToReset":"Enter your email address to reset your password",
   "resetPassword":"Reset Password",
-  "nextStep":"Next Step"
+  "nextStep":"Next Step",
+  "securityPin":"Security Pin",
+  "enterTheCode":"Enter Security PIN",
+  "enterTheCodeSentTo":"Enter the Security PIN sent to your Email or Phone Number",
+  "acceptPin":"Accept Pin",
+  "didNotReceivePin":"Didn't receive pin?",
+  "resendPin":"Resend Pin",
+  "newPassword":"New Password",
+  "confirmNewPassword":"Confirm New Password",
+  "changePassword":"Change Password"
 }

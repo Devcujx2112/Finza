@@ -364,6 +364,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Next Step'**
   String get nextStep;
+
+  /// No description provided for @securityPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Security Pin'**
+  String get securityPin;
+
+  /// No description provided for @enterTheCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Security PIN'**
+  String get enterTheCode;
+
+  /// No description provided for @enterTheCodeSentTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the Security PIN sent to your Email or Phone Number'**
+  String get enterTheCodeSentTo;
+
+  /// No description provided for @acceptPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept Pin'**
+  String get acceptPin;
+
+  /// No description provided for @didNotReceivePin.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn\'t receive pin?'**
+  String get didNotReceivePin;
+
+  /// No description provided for @resendPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend Pin'**
+  String get resendPin;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPassword;
+
+  /// No description provided for @confirmNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm New Password'**
+  String get confirmNewPassword;
+
+  /// No description provided for @changePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get changePassword;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

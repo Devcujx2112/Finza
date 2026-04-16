@@ -13,4 +13,5 @@ class RouterName {
   static const String budget = '/budget';
   static const String admin = '/admin';
   static const String verifyCode = '/verifyCode';
+  static const String newPassword = '/newPassword';
 }

@@ -142,4 +142,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get nextStep => 'Next Step';
+
+  @override
+  String get securityPin => 'Security Pin';
+
+  @override
+  String get enterTheCode => 'Enter Security PIN';
+
+  @override
+  String get enterTheCodeSentTo => 'Enter the Security PIN sent to your Email or Phone Number';
+
+  @override
+  String get acceptPin => 'Accept Pin';
+
+  @override
+  String get didNotReceivePin => 'Didn\'t receive pin?';
+
+  @override
+  String get resendPin => 'Resend Pin';
+
+  @override
+  String get newPassword => 'New Password';
+
+  @override
+  String get confirmNewPassword => 'Confirm New Password';
+
+  @override
+  String get changePassword => 'Change Password';
 }

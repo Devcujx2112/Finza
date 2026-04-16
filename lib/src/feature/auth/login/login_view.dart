@@ -127,7 +127,9 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.toNamed(RouterName.home);
+                    if (_controller.formKey.currentState!.validate()) {
+                      Get.toNamed(RouterName.home);
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
@@ -141,8 +143,8 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
                     appLocal.login,
                     style: TextStyle(
                       fontFamily: FontFamily.roboto,
-                      color: AppColors.textColor,
-                      fontSize: 15.sp,
+                      color: AppColors.backgroundMenu,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

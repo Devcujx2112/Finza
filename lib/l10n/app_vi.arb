@@ -44,5 +44,14 @@
   "alreadyHaveAccount":"Đã có tài khoản?",
   "enterYourEmailOrPhoneToReset":"Nhập địa chỉ email hoặc số điện thoại của bạn để đặt lại mật khẩu",
   "resetPassword":"Đặt lại mật khẩu",
-  "nextStep":"Bước tiếp theo"
+  "nextStep":"Bước tiếp theo",
+  "securityPin":"Mã PIN bảo mật",
+  "enterTheCode":"Nhập mã PIN",
+  "enterTheCodeSentTo":"Nhập mã PIN đã gửi đến Email hoặc Số điện thoại của bạn",
+  "acceptPin":"Xác nhận mã PIN",
+  "didNotReceivePin":"Không nhận được mã PIN?",
+  "resendPin":"Gửi lại mã PIN",
+  "newPassword":"Mật khẩu mới",
+  "confirmNewPassword":"Xác nhận mật khẩu mới",
+  "changePassword":"Thay đổi mật khẩu"
 }

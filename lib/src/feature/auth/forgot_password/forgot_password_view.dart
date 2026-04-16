@@ -60,35 +60,41 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView>
         ),
       ),
       backgroundColor: AppColors.primarySecondaryColor,
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            children: [
-              Expanded(
-                flex: 1,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: IntrinsicHeight(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: EdgeInsetsGeometry.only(bottom: 40.h),
-                      child: Text(
-                        appLocal.forgotPassword,
-                        style: TextStyle(
-                          fontSize: 30.sp,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.darkPrimaryColor,
-                        ),
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsGeometry.only(bottom: 40.h),
+                            child: Text(
+                              appLocal.forgotPassword,
+                              style: TextStyle(
+                                fontSize: 30.sp,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.darkPrimaryColor,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+                    Expanded(flex: 7, child: _buildFormForgotPassword(context)),
                   ],
                 ),
               ),
-              Expanded(flex: 7, child: _buildFormForgotPassword(context)),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

@@ -142,4 +142,31 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get nextStep => 'Bước tiếp theo';
+
+  @override
+  String get securityPin => 'Mã PIN bảo mật';
+
+  @override
+  String get enterTheCode => 'Nhập mã PIN';
+
+  @override
+  String get enterTheCodeSentTo => 'Nhập mã PIN đã gửi đến Email hoặc Số điện thoại của bạn';
+
+  @override
+  String get acceptPin => 'Xác nhận mã PIN';
+
+  @override
+  String get didNotReceivePin => 'Không nhận được mã PIN?';
+
+  @override
+  String get resendPin => 'Gửi lại mã PIN';
+
+  @override
+  String get newPassword => 'Mật khẩu mới';
+
+  @override
+  String get confirmNewPassword => 'Xác nhận mật khẩu mới';
+
+  @override
+  String get changePassword => 'Thay đổi mật khẩu';
 }

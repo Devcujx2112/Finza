@@ -23,10 +23,10 @@ class SignupController extends GetxController {
     hideConfirmPassword.value = !hideConfirmPassword.value;
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  // }
 
   @override
   void onClose() {
