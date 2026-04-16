@@ -4,11 +4,13 @@ import 'package:app/router/router_name.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
 import 'package:app/src/feature/auth/signup/signup_controller.dart';
+import 'package:app/src/feature/widget/custom_calender.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:intl/intl.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -48,30 +50,35 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
     final appLocal = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.primarySecondaryColor,
-      body: Column(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsetsGeometry.only(top: 40.h),
-                  child: Text(
-                    appLocal.createAccount,
-                    style: TextStyle(
-                      fontSize: 30.sp,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.darkPrimaryColor,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsGeometry.only(top: 40.h),
+                      child: Text(
+                        appLocal.createAccount,
+                        style: TextStyle(
+                          fontSize: 30.sp,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.darkPrimaryColor,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              Expanded(flex: 4, child: _buildFormSignUp(context)),
+            ],
           ),
-          Expanded(flex: 4, child: _buildFormSignUp(context)),
-        ],
+        ),
       ),
     );
   }
@@ -149,7 +156,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                 GestureDetector(
                   onTap: () => Get.toNamed(RouterName.login),
                   child: Text(
-                    appLocal.signUp,
+                    appLocal.login,
                     style: TextStyle(
                       fontFamily: FontFamily.roboto,
                       color: AppColors.buttonLogin,
@@ -183,6 +190,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
               ),
             ),
             SizedBox(
+              height: 40.h,
               width: 180.w,
               child: ElevatedButton(
                 onPressed: () {
@@ -263,13 +271,13 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                           FocusManager.instance.primaryFocus?.unfocus();
                         },
                         child: TextFormField(
-                          cursorColor: AppColors.textColor,
+                          keyboardType: TextInputType.number,
+                          cursorColor: AppColors.iconColor,
                           style: TextStyle(
                             color: AppColors.textColor,
-                            fontSize: 16.sp,
+                            fontSize: 14.sp,
                           ),
                           controller: _controller.phoneNumberController,
-                          keyboardType: TextInputType.phone,
                           decoration: InputDecoration(
                             hintText: "Nhập số điện thoại",
                             hintStyle: TextStyle(
@@ -395,17 +403,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                 icon: const Icon(Icons.calendar_month),
                 color: AppColors.textColor,
                 onPressed: () async {
-                  final pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime(2100),
-                  );
-
-                  if (pickedDate != null) {
-                    _controller.dateOfBirthController.text =
-                        "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
-                  }
+                  showCalendarDialog(context);
                 },
               ),
             ),
@@ -417,6 +415,65 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
             controller: controller,
           ),
       ],
+    );
+  }
+
+  void showCalendarDialog(BuildContext context) {
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: "Calendar",
+      barrierColor: Colors.black54,
+      transitionDuration: const Duration(milliseconds: 250),
+
+      pageBuilder: (context, anim1, anim2) {
+        return GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Center(
+            child: GestureDetector(
+              onTap: () {
+                Get.back();
+              },
+              child: Material(
+                color: Colors.transparent,
+                child: Dialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: CustomCalendar(
+                    initialDate: DateTime.now(),
+                    onChanged: (date) {
+                      Get.back();
+                      _controller.dateOfBirthController.text = DateFormat(
+                        'dd/MM/yyyy',
+                      ).format(date);
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+
+      transitionBuilder: (context, anim1, anim2, child) {
+        return FadeTransition(
+          opacity: anim1,
+          child: SlideTransition(
+            position:
+                Tween<Offset>(
+                  begin: const Offset(0, 0.08),
+                  end: Offset.zero,
+                ).animate(
+                  CurvedAnimation(parent: anim1, curve: Curves.easeOutCubic),
+                ),
+            child: child,
+          ),
+        );
+      },
     );
   }
 

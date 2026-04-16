@@ -49,27 +49,35 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
     final appLocal = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.primarySecondaryColor,
-      body: Column(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  appLocal.wellCome,
-                  style: TextStyle(
-                    fontSize: 30.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.darkPrimaryColor,
-                  ),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsGeometry.only(top: 30.h),
+                      child: Text(
+                        appLocal.wellCome,
+                        style: TextStyle(
+                          fontSize: 30.sp,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.darkPrimaryColor,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              Expanded(flex: 3, child: _buildFormLogin(context)),
+            ],
           ),
-          Expanded(flex: 3, child: _buildFormLogin(context)),
-        ],
+        ),
       ),
     );
   }
@@ -124,8 +132,9 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
                     backgroundColor: AppColors.buttonLogin,
+                    minimumSize: Size(double.infinity, 40.h),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                   child: Text(
@@ -212,15 +221,18 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
       children: [
         Padding(
           padding: EdgeInsets.only(left: 5.w),
-          child: Text(
-            appLocal.forgotPassword,
-            style: TextStyle(
-              color: AppColors.buttonLogin,
-              fontSize: 12.sp,
-              fontFamily: FontFamily.roboto,
-              fontWeight: FontWeight(700),
-              decoration: TextDecoration.underline,
-              decorationColor: AppColors.buttonLogin,
+          child: GestureDetector(
+            onTap: () => Get.toNamed(RouterName.forgotPassword),
+            child: Text(
+              appLocal.forgotPassword,
+              style: TextStyle(
+                color: AppColors.buttonLogin,
+                fontSize: 12.sp,
+                fontFamily: FontFamily.roboto,
+                fontWeight: FontWeight(700),
+                decoration: TextDecoration.underline,
+                decorationColor: AppColors.buttonLogin,
+              ),
             ),
           ),
         ),
@@ -292,14 +304,19 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
               ),
             ),
           ),
-          TextFormField(
-            validator: (value) {
-              return _controller.validatorUserName(value);
+          TapRegion(
+            onTapOutside: (event) {
+              FocusManager.instance.primaryFocus?.unfocus();
             },
-            cursorColor: AppColors.textColor,
-            style: TextStyle(color: AppColors.textColor, fontSize: 16.sp),
-            controller: controller,
-            decoration: _inputDecoration(hintText),
+            child: TextFormField(
+              validator: (value) {
+                return _controller.validatorUserName(value);
+              },
+              cursorColor: AppColors.textColor,
+              style: TextStyle(color: AppColors.textColor, fontSize: 16.sp),
+              controller: controller,
+              decoration: _inputDecoration(hintText),
+            ),
           ),
         ],
       );

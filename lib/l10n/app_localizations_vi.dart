@@ -133,4 +133,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get alreadyHaveAccount => 'Đã có tài khoản?';
+
+  @override
+  String get enterYourEmailOrPhoneToReset => 'Nhập địa chỉ email hoặc số điện thoại của bạn để đặt lại mật khẩu';
+
+  @override
+  String get resetPassword => 'Đặt lại mật khẩu';
+
+  @override
+  String get nextStep => 'Bước tiếp theo';
 }

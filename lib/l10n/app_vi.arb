@@ -41,5 +41,8 @@
   "and":"và",
   "termsOfUse":"Điều khoản sử dụng",
   "privacyPolicy":"Chính sách bảo mật",
-  "alreadyHaveAccount":"Đã có tài khoản?"
+  "alreadyHaveAccount":"Đã có tài khoản?",
+  "enterYourEmailOrPhoneToReset":"Nhập địa chỉ email hoặc số điện thoại của bạn để đặt lại mật khẩu",
+  "resetPassword":"Đặt lại mật khẩu",
+  "nextStep":"Bước tiếp theo"
 }

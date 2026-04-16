@@ -41,5 +41,8 @@
   "and":"and",
   "termsOfUse":"Terms of Use",
   "privacyPolicy":"Privacy Policy",
-  "alreadyHaveAccount":"Already have an account?"
+  "alreadyHaveAccount":"Already have an account?",
+  "enterYourEmailOrPhoneToReset":"Enter your email address to reset your password",
+  "resetPassword":"Reset Password",
+  "nextStep":"Next Step"
 }

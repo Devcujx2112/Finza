@@ -75,6 +75,7 @@ class _MainAuthState extends State<MainAuth> with AdaptivePage {
             ),
             SizedBox(height: 3.h),
             SizedBox(
+              height: 40.h,
               width: 180.w,
               child: ElevatedButton(
                 onPressed: () {
@@ -84,7 +85,7 @@ class _MainAuthState extends State<MainAuth> with AdaptivePage {
                   elevation: 0,
                   backgroundColor: AppColors.buttonLogin,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
                 child: Text(
@@ -98,7 +99,9 @@ class _MainAuthState extends State<MainAuth> with AdaptivePage {
                 ),
               ),
             ),
+            SizedBox(height: 5.h),
             SizedBox(
+              height: 40.h,
               width: 180.w,
               child: ElevatedButton(
                 onPressed: () {
@@ -108,7 +111,7 @@ class _MainAuthState extends State<MainAuth> with AdaptivePage {
                   elevation: 0,
                   backgroundColor: AppColors.backgroundMenu,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
                 child: Text(

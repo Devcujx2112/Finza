@@ -25,6 +25,7 @@ dependencies:
   flutter_local_notifications: ^21.0.0
   equatable: ^2.0.8
   json_annotation: ^4.11.0
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:

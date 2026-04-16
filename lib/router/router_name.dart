@@ -8,8 +8,9 @@ class RouterName {
   static const String setting = '/setting';
   static const String splash = '/splash';
   static const String onboarding = '/onboarding';
-
+  static const String forgotPassword = '/forgotPassword';
   static const String schedule = '/schedule';
   static const String budget = '/budget';
   static const String admin = '/admin';
+  static const String verifyCode = '/verifyCode';
 }

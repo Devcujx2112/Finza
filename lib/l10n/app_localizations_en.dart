@@ -133,4 +133,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get alreadyHaveAccount => 'Already have an account?';
+
+  @override
+  String get enterYourEmailOrPhoneToReset => 'Enter your email address to reset your password';
+
+  @override
+  String get resetPassword => 'Reset Password';
+
+  @override
+  String get nextStep => 'Next Step';
 }
