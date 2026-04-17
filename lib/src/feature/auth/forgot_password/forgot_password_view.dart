@@ -141,6 +141,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView>
           Expanded(
             flex: 2,
             child: Form(
+              key: _controller.formKey,
               child: Column(
                 spacing: 5.h,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -171,6 +172,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView>
                       ),
                       controller: _controller.userNameController,
                       decoration: InputDecoration(
+                        errorStyle: TextStyle(
+                          color: AppColors.errorColor,
+                          fontSize: 12.sp,
+                          fontFamily: FontFamily.roboto,
+                          fontWeight: FontWeight(500),
+                          fontStyle: FontStyle.italic,
+                        ),
                         hintText: appLocal?.exampleEmail,
                         hintStyle: TextStyle(
                           color: Colors.grey,
@@ -221,7 +229,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView>
                 width: 180.w,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.toNamed(RouterName.verifyCode);
+                    if (_controller.formKey.currentState!.validate()) {
+                      Get.toNamed(RouterName.verifyCode);
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     elevation: 0,

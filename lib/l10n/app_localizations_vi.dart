@@ -169,4 +169,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get changePassword => 'Thay đổi mật khẩu';
+
+  @override
+  String get confirm => 'Xác nhận';
+
+  @override
+  String get selectCountryCode => 'Chọn mã quốc gia';
 }

@@ -113,81 +113,86 @@ class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
           topRight: Radius.circular(45),
         ),
       ),
-      child: Column(
-        spacing: 10.h,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Column(
-            spacing: 5.h,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsetsGeometry.only(left: 5.w),
-                child: Text(
-                  appLocal.newPassword,
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontFamily: FontFamily.roboto,
-                    fontWeight: FontWeight(500),
-                    color: AppColors.darkPrimaryColor,
+      child: Form(
+        key: _controller.formKey,
+        child: Column(
+          spacing: 10.h,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              spacing: 5.h,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsetsGeometry.only(left: 5.w),
+                  child: Text(
+                    appLocal.newPassword,
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      fontFamily: FontFamily.roboto,
+                      fontWeight: FontWeight(500),
+                      color: AppColors.darkPrimaryColor,
+                    ),
                   ),
                 ),
-              ),
-              _buildTextField(
-                isPassword: true,
-                controller: _controller.passwordController,
-              ),
-            ],
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsetsGeometry.only(left: 5.w),
-                child: Text(
-                  appLocal.confirmPassword,
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontFamily: FontFamily.roboto,
-                    fontWeight: FontWeight(500),
-                    color: AppColors.darkPrimaryColor,
+                _buildTextField(
+                  isPassword: true,
+                  controller: _controller.passwordController,
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsetsGeometry.only(left: 5.w),
+                  child: Text(
+                    appLocal.confirmPassword,
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      fontFamily: FontFamily.roboto,
+                      fontWeight: FontWeight(500),
+                      color: AppColors.darkPrimaryColor,
+                    ),
                   ),
                 ),
-              ),
-              _buildTextField(
-                isPassword: false,
-                controller: _controller.confirmPasswordController,
-              ),
-            ],
-          ),
-          Spacer(),
-          SizedBox(
-            height: 40.h,
-            width: 180.w,
-            child: ElevatedButton(
-              onPressed: () {
-                Get.toNamed(RouterName.login);
-              },
-              style: ElevatedButton.styleFrom(
-                elevation: 0,
-                backgroundColor: AppColors.buttonLogin,
-                minimumSize: Size(double.infinity, 40.h),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
+                _buildTextField(
+                  isPassword: false,
+                  controller: _controller.confirmPasswordController,
                 ),
-              ),
-              child: Text(
-                appLocal.login,
-                style: TextStyle(
-                  fontFamily: FontFamily.roboto,
-                  color: AppColors.backgroundMenu,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
+              ],
+            ),
+            Spacer(),
+            SizedBox(
+              height: 40.h,
+              width: 180.w,
+              child: ElevatedButton(
+                onPressed: () {
+                  if (_controller.formKey.currentState!.validate()) {
+                    Get.toNamed(RouterName.login);
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  backgroundColor: AppColors.buttonLogin,
+                  minimumSize: Size(double.infinity, 40.h),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+                child: Text(
+                  appLocal.confirm,
+                  style: TextStyle(
+                    fontFamily: FontFamily.roboto,
+                    color: AppColors.backgroundMenu,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -202,11 +207,20 @@ class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
       },
       child: Obx(() {
         return TextFormField(
+          validator: (value) {
+            return _controller.validateInput(value, isPassword, context);
+          },
           controller: controller,
           obscureText: isPassword
               ? _controller.hidePassword.value
               : _controller.hideConfirmPassword.value,
           decoration: InputDecoration(
+            errorStyle: TextStyle(
+              fontSize: 12.sp,
+              fontFamily: FontFamily.roboto,
+              fontWeight: FontWeight(500),
+              color: AppColors.errorColor,
+            ),
             suffixIcon: IconButton(
               icon: Icon(
                 isPassword

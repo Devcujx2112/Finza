@@ -1,3 +1,4 @@
+import 'package:app/domain/entities/country_code/country_code.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,6 +16,10 @@ class SignupController extends GetxController {
   Rx<bool> hidePassword = true.obs;
   Rx<bool> hideConfirmPassword = true.obs;
 
+  final List<CountryCode> countries = CountryCode.countries;
+
+  RxString selectedDialCode = '+84'.obs;
+
   void unHidePassword() {
     hidePassword.value = !hidePassword.value;
   }
@@ -23,10 +28,10 @@ class SignupController extends GetxController {
     hideConfirmPassword.value = !hideConfirmPassword.value;
   }
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  // }
+  @override
+  void onInit() {
+    super.onInit();
+  }
 
   @override
   void onClose() {

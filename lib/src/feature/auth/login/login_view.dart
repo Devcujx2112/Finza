@@ -371,6 +371,13 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
   InputDecoration _inputDecoration(String? hintText, {Widget? suffixIcon}) {
     return InputDecoration(
       hintText: hintText,
+      errorStyle: TextStyle(
+        color: AppColors.errorColor,
+        fontSize: 12.sp,
+        fontFamily: FontFamily.roboto,
+        fontWeight: FontWeight(500),
+        fontStyle: FontStyle.italic,
+      ),
       hintStyle: TextStyle(
         color: Colors.grey,
         fontSize: 14.sp,

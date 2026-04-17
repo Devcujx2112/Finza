@@ -53,5 +53,7 @@
   "resendPin":"Resend Pin",
   "newPassword":"New Password",
   "confirmNewPassword":"Confirm New Password",
-  "changePassword":"Change Password"
+  "changePassword":"Change Password",
+  "confirm":"Confirm",
+  "selectCountryCode":"Select Country Code"
 }

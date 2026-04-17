@@ -53,5 +53,7 @@
   "resendPin":"Gửi lại mã PIN",
   "newPassword":"Mật khẩu mới",
   "confirmNewPassword":"Xác nhận mật khẩu mới",
-  "changePassword":"Thay đổi mật khẩu"
+  "changePassword":"Thay đổi mật khẩu",
+  "confirm":"Xác nhận",
+  "selectCountryCode":"Chọn mã quốc gia"
 }

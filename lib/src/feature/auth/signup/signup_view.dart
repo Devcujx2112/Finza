@@ -4,6 +4,7 @@ import 'package:app/router/router_name.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
 import 'package:app/src/feature/auth/signup/signup_controller.dart';
+import 'package:app/src/feature/widget/country_code_picker.dart';
 import 'package:app/src/feature/widget/custom_calender.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -96,6 +97,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
         ),
       ),
       child: Form(
+        key: _controller.formKey,
         child: Column(
           spacing: 10.h,
           children: [
@@ -115,7 +117,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
               isConfirmPassword: false,
               isDateOfBirth: false,
             ),
-            _buildTextFieldPhoneNumber(),
+            _buildTextFieldPhoneNumber(context),
             _buildFormItem(
               hintText: appLocal.exampleDateOfBirth,
               label: appLocal.dateOfBirth,
@@ -194,7 +196,9 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
               width: 180.w,
               child: ElevatedButton(
                 onPressed: () {
-                  Get.toNamed(RouterName.login);
+                  if (_controller.formKey.currentState!.validate()) {
+                    Get.toNamed(RouterName.login);
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
@@ -220,7 +224,8 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
     );
   }
 
-  Widget _buildTextFieldPhoneNumber() {
+  Widget _buildTextFieldPhoneNumber(BuildContext context) {
+    final appLocal = AppLocalizations.of(context);
     return Column(
       spacing: 5.h,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -229,7 +234,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
         Padding(
           padding: EdgeInsetsGeometry.only(left: 10.w),
           child: Text(
-            'Số điện thoại',
+            appLocal?.phoneNumber ?? '',
             style: TextStyle(
               fontSize: 13.sp,
               fontWeight: FontWeight.w600,
@@ -246,19 +251,27 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
           child: Row(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.w),
                 width: 55.w,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: AppColors.buttonLogin,
                   borderRadius: BorderRadius.circular(40),
                 ),
-                child: Text(
-                  "+84",
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.buttonRegister,
+                child: Container(
+                  width: 55.w,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: AppColors.buttonLogin,
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  child: Obx(
+                    () => CountryCodePicker(
+                      countries: _controller.countries,
+                      selectedCode: _controller.selectedDialCode.value,
+                      onSelected: (value) {
+                        _controller.selectedDialCode.value = value;
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -279,7 +292,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                           ),
                           controller: _controller.phoneNumberController,
                           decoration: InputDecoration(
-                            hintText: "Nhập số điện thoại",
+                            hintText: appLocal?.phoneNumber,
                             hintStyle: TextStyle(
                               color: Colors.grey,
                               fontSize: 14.sp,
@@ -526,6 +539,12 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
     return InputDecoration(
       prefix: prefix,
       hintText: hintText,
+      errorStyle: TextStyle(
+        fontSize: 12.sp,
+        fontFamily: FontFamily.roboto,
+        fontWeight: FontWeight(500),
+        color: AppColors.errorColor,
+      ),
       hintStyle: TextStyle(
         color: Colors.grey,
         fontSize: 14.sp,

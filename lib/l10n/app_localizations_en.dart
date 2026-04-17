@@ -169,4 +169,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get changePassword => 'Change Password';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get selectCountryCode => 'Select Country Code';
 }
