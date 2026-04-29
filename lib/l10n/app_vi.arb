@@ -55,5 +55,8 @@
   "confirmNewPassword":"Xác nhận mật khẩu mới",
   "changePassword":"Thay đổi mật khẩu",
   "confirm":"Xác nhận",
-  "selectCountryCode":"Chọn mã quốc gia"
+  "selectCountryCode":"Chọn mã quốc gia",
+  "validatorFullName":"Vui lòng nhập họ và tên",
+  "validatorDateOfBirth":"Vui lòng chọn ngày sinh",
+  "validatorPasswordConfirm":"Mật khẩu xác nhận không khớp"
 }

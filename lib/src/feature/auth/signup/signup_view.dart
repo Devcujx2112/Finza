@@ -9,8 +9,10 @@ import 'package:app/src/feature/widget/custom_calender.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get_utils/src/get_utils/get_utils.dart';
 import 'package:intl/intl.dart';
 
 class SignUpView extends StatefulWidget {
@@ -21,7 +23,7 @@ class SignUpView extends StatefulWidget {
 }
 
 class _SignUpViewState extends State<SignUpView> with AdaptivePage {
-  final SignupController _controller = SignupController();
+  final SignupController controller = Get.find<SignupController>();
   @override
   Widget build(BuildContext context) {
     return adaptiveBody(context);
@@ -97,7 +99,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
         ),
       ),
       child: Form(
-        key: _controller.formKey,
+        key: controller.formKey,
         child: Column(
           spacing: 10.h,
           children: [
@@ -105,42 +107,81 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
               hintText: appLocal.exampleFullName,
               label: appLocal.fullName,
               isPassword: false,
-              controller: _controller.fullNameController,
+              controllerText: controller.fullNameController,
               isConfirmPassword: false,
               isDateOfBirth: false,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return appLocal.validatorFullName;
+                }
+                return null;
+              },
             ),
             _buildFormItem(
               hintText: appLocal.exampleEmail,
               label: appLocal.emailName,
               isPassword: false,
-              controller: _controller.emailController,
+              controllerText: controller.emailController,
               isConfirmPassword: false,
               isDateOfBirth: false,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return appLocal.validatorUserName;
+                }
+                if (!GetUtils.isEmail(value)) {
+                  return appLocal.validatorEmailOrPhone;
+                }
+                return null;
+              },
             ),
             _buildTextFieldPhoneNumber(context),
             _buildFormItem(
               hintText: appLocal.exampleDateOfBirth,
               label: appLocal.dateOfBirth,
               isPassword: false,
-              controller: _controller.dateOfBirthController,
+              controllerText: controller.dateOfBirthController,
               isConfirmPassword: false,
               isDateOfBirth: true,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return appLocal.validatorDateOfBirth;
+                }
+                return null;
+              },
             ),
             _buildFormItem(
               hintText: '********',
               label: appLocal.password,
               isPassword: true,
-              controller: _controller.passwordController,
+              controllerText: controller.passwordController,
               isConfirmPassword: false,
               isDateOfBirth: false,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return appLocal.validatorPassword;
+                }
+                if (value.length < 6) {
+                  return appLocal.validatorPasswordLength;
+                }
+                return null;
+              },
             ),
             _buildFormItem(
               hintText: '********',
               label: appLocal.confirmPassword,
               isPassword: false,
-              controller: _controller.confirmPasswordController,
+              controllerText: controller.confirmPasswordController,
               isConfirmPassword: true,
               isDateOfBirth: false,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return appLocal.validatorPassword;
+                }
+                if (value != controller.passwordController.text) {
+                  return appLocal.validatorPasswordConfirm;
+                }
+                return null;
+              },
             ),
             Row(
               spacing: 5.w,
@@ -196,8 +237,8 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
               width: 180.w,
               child: ElevatedButton(
                 onPressed: () {
-                  if (_controller.formKey.currentState!.validate()) {
-                    Get.toNamed(RouterName.login);
+                  if (controller.formKey.currentState?.validate() ?? false) {
+                    controller.register();
                   }
                 },
                 style: ElevatedButton.styleFrom(
@@ -266,10 +307,10 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                   ),
                   child: Obx(
                     () => CountryCodePicker(
-                      countries: _controller.countries,
-                      selectedCode: _controller.selectedDialCode.value,
+                      countries: controller.countries,
+                      selectedCode: controller.selectedDialCode.value,
                       onSelected: (value) {
-                        _controller.selectedDialCode.value = value;
+                        controller.selectedDialCode.value = value;
                       },
                     ),
                   ),
@@ -290,7 +331,13 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                             color: AppColors.textColor,
                             fontSize: 14.sp,
                           ),
-                          controller: _controller.phoneNumberController,
+                          controller: controller.phoneNumberController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return appLocal?.validatorUserName;
+                            }
+                            return null;
+                          },
                           decoration: InputDecoration(
                             hintText: appLocal?.phoneNumber,
                             hintStyle: TextStyle(
@@ -343,9 +390,10 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
     String? hintText,
     required String label,
     required bool isPassword,
-    required TextEditingController controller,
+    required TextEditingController controllerText,
     required bool isConfirmPassword,
     required bool isDateOfBirth,
+    String? Function(String?)? validator,
   }) {
     return Column(
       spacing: 5.h,
@@ -371,18 +419,19 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
               },
               child: Obx(() {
                 return TextFormField(
-                  controller: controller,
-                  obscureText: _controller.hidePassword.value,
+                  controller: controllerText,
+                  obscureText: controller.hidePassword.value,
+                  validator: validator,
                   decoration: _inputDecoration(
                     hintText,
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _controller.hidePassword.value
+                        controller.hidePassword.value
                             ? Icons.visibility_off_outlined
                             : Icons.visibility_outlined,
                         color: AppColors.textColor,
                       ),
-                      onPressed: _controller.unHidePassword,
+                      onPressed: controller.unHidePassword,
                     ),
                   ),
                   cursorColor: AppColors.textColor,
@@ -395,15 +444,16 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
               isCalendar: false,
               hintText: hintText ?? '',
               isConfirmPassword: isConfirmPassword,
-              controller: controller,
+              controllerText: controllerText,
+              validator: validator,
               suffixIcon: IconButton(
                 icon: Icon(
-                  _controller.hideConfirmPassword.value
+                  controller.hideConfirmPassword.value
                       ? Icons.visibility_off_outlined
                       : Icons.visibility_outlined,
                   color: AppColors.textColor,
                 ),
-                onPressed: _controller.unHideConfirmPassword,
+                onPressed: controller.unHideConfirmPassword,
               ),
             ),
           if (isDateOfBirth)
@@ -411,7 +461,8 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
               isCalendar: true,
               hintText: hintText ?? '',
               isConfirmPassword: isConfirmPassword,
-              controller: controller,
+              controllerText: controllerText,
+              validator: validator,
               suffixIcon: IconButton(
                 icon: const Icon(Icons.calendar_month),
                 color: AppColors.textColor,
@@ -425,7 +476,8 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
             isCalendar: false,
             hintText: hintText ?? '',
             isConfirmPassword: isConfirmPassword,
-            controller: controller,
+            controllerText: controllerText,
+            validator: validator,
           ),
       ],
     );
@@ -460,7 +512,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                     initialDate: DateTime.now(),
                     onChanged: (date) {
                       Get.back();
-                      _controller.dateOfBirthController.text = DateFormat(
+                      controller.dateOfBirthController.text = DateFormat(
                         'dd/MM/yyyy',
                       ).format(date);
                     },
@@ -493,8 +545,9 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
   Widget _buildTextField({
     required String hintText,
     required bool isConfirmPassword,
-    required TextEditingController controller,
+    required TextEditingController controllerText,
     required bool isCalendar,
+    String? Function(String?)? validator,
     Widget? suffixIcon,
     Widget? prefix,
   }) {
@@ -505,8 +558,9 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
       child: isConfirmPassword
           ? Obx(() {
               return TextFormField(
-                controller: controller,
-                obscureText: _controller.hideConfirmPassword.value,
+                controller: controllerText,
+                obscureText: controller.hideConfirmPassword.value,
+                validator: validator,
                 decoration: _inputDecoration(
                   hintText,
                   suffixIcon: suffixIcon,
@@ -519,7 +573,8 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
           : TextFormField(
               readOnly: isCalendar ? true : false,
               onTap: () {},
-              controller: controller,
+              controller: controllerText,
+              validator: validator,
               decoration: _inputDecoration(
                 hintText,
                 suffixIcon: suffixIcon,

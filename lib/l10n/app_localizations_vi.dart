@@ -175,4 +175,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get selectCountryCode => 'Chọn mã quốc gia';
+
+  @override
+  String get validatorFullName => 'Vui lòng nhập họ và tên';
+
+  @override
+  String get validatorDateOfBirth => 'Vui lòng chọn ngày sinh';
+
+  @override
+  String get validatorPasswordConfirm => 'Mật khẩu xác nhận không khớp';
 }

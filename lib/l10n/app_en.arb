@@ -55,5 +55,8 @@
   "confirmNewPassword":"Confirm New Password",
   "changePassword":"Change Password",
   "confirm":"Confirm",
-  "selectCountryCode":"Select Country Code"
+  "selectCountryCode":"Select Country Code",
+  "validatorFullName":"Please enter your full name",
+  "validatorDateOfBirth":"Please select your date of birth",
+  "validatorPasswordConfirm":"Passwords do not match"
 }

@@ -26,6 +26,7 @@ dependencies:
   equatable: ^2.0.8
   json_annotation: ^4.11.0
   intl: ^0.20.2
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -94,6 +95,7 @@ flutter:
     - assets/fonts/
     - assets/fonts/Roboto/
     - assets/fonts/Roboto_Condensed/
+    - .env
 
 flutter_gen:
   output: lib/gen
