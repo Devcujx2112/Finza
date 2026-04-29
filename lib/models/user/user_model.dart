@@ -6,21 +6,23 @@ part 'user_model.g.dart';
 @JsonSerializable()
 class UserModel {
   String? userId;
-  String? email;
+  String? userName;
   String? password;
-  int? phoneNumber;
+  String? phoneNumber;
   String? fullName;
-  int? role;
+  String? dateOfBirth;
+  String? role;
   String? avatar;
   String? token;
   String? refreshToken;
 
   UserModel({
     this.userId,
-    this.email,
+    this.userName,
     this.password,
     this.phoneNumber,
     this.fullName,
+    this.dateOfBirth,
     this.role,
     this.avatar,
     this.token,
@@ -34,11 +36,12 @@ class UserModel {
   User toEntity() {
     return User(
       userId: userId ?? "",
-      email: email ?? "",
+      userName: userName ?? "",
       password: password ?? "",
-      phoneNumber: phoneNumber ?? 0,
+      phoneNumber: phoneNumber ?? '',
       fullName: fullName ?? "",
-      role: role ?? 0,
+      role: role ?? '',
+      dateOfBirth: dateOfBirth ?? "",
       avatar: avatar ?? "",
       token: token ?? "",
       refreshToken: refreshToken ?? "",

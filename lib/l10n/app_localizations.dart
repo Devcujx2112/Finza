@@ -430,6 +430,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select Country Code'**
   String get selectCountryCode;
+
+  /// No description provided for @validatorFullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your full name'**
+  String get validatorFullName;
+
+  /// No description provided for @validatorDateOfBirth.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select your date of birth'**
+  String get validatorDateOfBirth;
+
+  /// No description provided for @validatorPasswordConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get validatorPasswordConfirm;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -175,4 +175,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectCountryCode => 'Select Country Code';
+
+  @override
+  String get validatorFullName => 'Please enter your full name';
+
+  @override
+  String get validatorDateOfBirth => 'Please select your date of birth';
+
+  @override
+  String get validatorPasswordConfirm => 'Passwords do not match';
 }
