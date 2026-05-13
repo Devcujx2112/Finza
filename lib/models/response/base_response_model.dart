@@ -1,4 +1,4 @@
-import 'package:app/src/data/base_response/base_response.dart';
+import 'package:app/src/data/base_response/base_response_data.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'base_response_model.g.dart';
@@ -26,8 +26,8 @@ class BaseResponseModel<T> {
   Map<String, dynamic> toJson(T Function(T value) toJsonT) =>
       _$BaseResponseModelToJson(this, toJsonT);
 
-  BaseResponse<E> toEntity<E>(E Function(T? model) mapper) {
-    return BaseResponse(
+  BaseResponseData<E> toEntity<E>(E Function(T? model) mapper) {
+    return BaseResponseData(
       message: message,
       statusCode: statusCode,
       data: mapper(data),

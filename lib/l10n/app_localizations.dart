@@ -448,6 +448,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Passwords do not match'**
   String get validatorPasswordConfirm;
+
+  /// No description provided for @createAccountIntroduction.
+  ///
+  /// In en, this message translates to:
+  /// **'Join Finza today and start managing your finances better.'**
+  String get createAccountIntroduction;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

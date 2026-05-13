@@ -58,5 +58,6 @@
   "selectCountryCode":"Chọn mã quốc gia",
   "validatorFullName":"Vui lòng nhập họ và tên",
   "validatorDateOfBirth":"Vui lòng chọn ngày sinh",
-  "validatorPasswordConfirm":"Mật khẩu xác nhận không khớp"
+  "validatorPasswordConfirm":"Mật khẩu xác nhận không khớp",
+  "createAccountIntroduction":"Tham gia Finza ngay hôm nay và bắt đầu quản lý tài chính hiệu quả hơn."
 }
