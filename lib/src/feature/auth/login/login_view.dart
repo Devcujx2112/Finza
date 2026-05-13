@@ -118,7 +118,13 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
               ],
             ),
           ),
-          _buildSavePassword(context),
+          Padding(
+            padding: EdgeInsetsGeometry.only(right: 2.w, left: 5.w),
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: _buildSavePassword(context),
+            ),
+          ),
           SizedBox(height: 20.h),
           Row(
             spacing: 10.w,
@@ -221,23 +227,6 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
       spacing: 5.w,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Padding(
-          padding: EdgeInsets.only(left: 5.w),
-          child: GestureDetector(
-            onTap: () => Get.toNamed(RouterName.forgotPassword),
-            child: Text(
-              appLocal.forgotPassword,
-              style: TextStyle(
-                color: AppColors.buttonLogin,
-                fontSize: 12.sp,
-                fontFamily: FontFamily.roboto,
-                fontWeight: FontWeight(700),
-                decoration: TextDecoration.underline,
-                decorationColor: AppColors.buttonLogin,
-              ),
-            ),
-          ),
-        ),
         Row(
           spacing: 5.w,
           children: [
@@ -276,6 +265,23 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
               ),
             ),
           ],
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 5.w),
+          child: GestureDetector(
+            onTap: () => Get.toNamed(RouterName.forgotPassword),
+            child: Text(
+              appLocal.forgotPassword,
+              style: TextStyle(
+                color: AppColors.buttonLogin,
+                fontSize: 12.sp,
+                fontFamily: FontFamily.roboto,
+                fontWeight: FontWeight(700),
+                decoration: TextDecoration.underline,
+                decorationColor: AppColors.buttonLogin,
+              ),
+            ),
+          ),
         ),
       ],
     );

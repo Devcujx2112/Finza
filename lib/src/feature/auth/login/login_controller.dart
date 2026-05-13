@@ -21,8 +21,8 @@ class LoginController extends GetxController {
   }
 
   void init() {
-    userName.text = "";
-    password.text = "";
+    userName.text = Get.parameters['email'] ?? "";
+    password.text = Get.parameters['password'] ?? "";
   }
 
   void setHintPassword() {

@@ -81,9 +81,7 @@ class ApiInterceptor extends Interceptor {
     debugPrint('flutter: ║  ${err.message}');
     if (err.response != null) {
       debugPrint('flutter: ║  Response Code: ${err.response?.statusCode}');
-      debugPrint(
-        'flutter: ║  Response message: ${err.response?.statusMessage}',
-      );
+      debugPrint('flutter: ║  Response Data: ${err.response}');
     }
     debugPrint('flutter: ╚═══════════════════════════════════════╝');
 
@@ -151,7 +149,7 @@ class ApiInterceptor extends Interceptor {
 
     final response = await _refreshDio.post(
       '/auth/refresh',
-      data: {'refresh_token': refreshToken},
+      data: {'refreshToken': refreshToken},
     );
 
     return response.data['access_token'] as String;

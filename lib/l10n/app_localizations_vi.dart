@@ -187,4 +187,46 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get createAccountIntroduction => 'Tham gia Finza ngay hôm nay và bắt đầu quản lý tài chính hiệu quả hơn.';
+
+  @override
+  String get signupSuccess => 'Đăng ký thành công';
+
+  @override
+  String get signupError => 'Đăng ký thất bại';
+
+  @override
+  String get errorOccurredPleaseTryAgain => 'Đã có lỗi xảy ra, vui lòng thử lại';
+
+  @override
+  String get connectionTimeoutPleaseTryAgain => 'Kết nối quá chậm, vui lòng thử lại';
+
+  @override
+  String get noNetworkConnection => 'Không có kết nối mạng, vui lòng kiểm tra kết nối mạng và thử lại';
+
+  @override
+  String get requestCancelled => 'Yêu cầu đã bị huỷ';
+
+  @override
+  String get invalidData => 'Dữ liệu không hợp lệ';
+
+  @override
+  String get sessionExpired => 'Phiên đăng nhập hết hạn';
+
+  @override
+  String get unauthorizedAction => 'Bạn không có quyền thực hiện thao tác này';
+
+  @override
+  String get dataNotFound => 'Không tìm thấy dữ liệu';
+
+  @override
+  String get dataAlreadyExists => 'Dữ liệu đã tồn tại';
+
+  @override
+  String get invalidDataFormat => 'Dữ liệu không đúng định dạng';
+
+  @override
+  String get serverErrorPleaseTryAgainLater => 'Lỗi máy chủ, vui lòng thử lại sau';
+
+  @override
+  String get anErrorOccurred => 'Đã có lỗi xảy ra';
 }

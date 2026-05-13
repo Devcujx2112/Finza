@@ -59,5 +59,19 @@
   "validatorFullName":"Vui lòng nhập họ và tên",
   "validatorDateOfBirth":"Vui lòng chọn ngày sinh",
   "validatorPasswordConfirm":"Mật khẩu xác nhận không khớp",
-  "createAccountIntroduction":"Tham gia Finza ngay hôm nay và bắt đầu quản lý tài chính hiệu quả hơn."
+  "createAccountIntroduction":"Tham gia Finza ngay hôm nay và bắt đầu quản lý tài chính hiệu quả hơn.",
+  "signupSuccess":"Đăng ký thành công",
+  "signupError":"Đăng ký thất bại",
+  "errorOccurredPleaseTryAgain":"Đã có lỗi xảy ra, vui lòng thử lại",
+  "connectionTimeoutPleaseTryAgain":"Kết nối quá chậm, vui lòng thử lại",
+  "noNetworkConnection":"Không có kết nối mạng, vui lòng kiểm tra kết nối mạng và thử lại",
+  "requestCancelled":"Yêu cầu đã bị huỷ",
+  "invalidData":"Dữ liệu không hợp lệ",
+  "sessionExpired":"Phiên đăng nhập hết hạn",
+  "unauthorizedAction":"Bạn không có quyền thực hiện thao tác này",
+  "dataNotFound":"Không tìm thấy dữ liệu",
+  "dataAlreadyExists":"Dữ liệu đã tồn tại",
+  "invalidDataFormat":"Dữ liệu không đúng định dạng",
+  "serverErrorPleaseTryAgainLater":"Lỗi máy chủ, vui lòng thử lại sau",
+  "anErrorOccurred":"Đã có lỗi xảy ra"
 }

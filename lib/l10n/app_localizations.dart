@@ -454,6 +454,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Join Finza today and start managing your finances better.'**
   String get createAccountIntroduction;
+
+  /// No description provided for @signupSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up successfully'**
+  String get signupSuccess;
+
+  /// No description provided for @signupError.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up failed'**
+  String get signupError;
+
+  /// No description provided for @errorOccurredPleaseTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred, please try again'**
+  String get errorOccurredPleaseTryAgain;
+
+  /// No description provided for @connectionTimeoutPleaseTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection timeout, please try again'**
+  String get connectionTimeoutPleaseTryAgain;
+
+  /// No description provided for @noNetworkConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'No internet connection. Please try again.'**
+  String get noNetworkConnection;
+
+  /// No description provided for @requestCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Request cancelled'**
+  String get requestCancelled;
+
+  /// No description provided for @invalidData.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid data'**
+  String get invalidData;
+
+  /// No description provided for @sessionExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Session expired'**
+  String get sessionExpired;
+
+  /// No description provided for @unauthorizedAction.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to perform this action'**
+  String get unauthorizedAction;
+
+  /// No description provided for @dataNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Data not found'**
+  String get dataNotFound;
+
+  /// No description provided for @dataAlreadyExists.
+  ///
+  /// In en, this message translates to:
+  /// **'Data already exists'**
+  String get dataAlreadyExists;
+
+  /// No description provided for @invalidDataFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid data format'**
+  String get invalidDataFormat;
+
+  /// No description provided for @serverErrorPleaseTryAgainLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Server error, please try again later'**
+  String get serverErrorPleaseTryAgainLater;
+
+  /// No description provided for @anErrorOccurred.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred'**
+  String get anErrorOccurred;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

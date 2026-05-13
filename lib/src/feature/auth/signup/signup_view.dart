@@ -1,10 +1,12 @@
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/router/router_name.dart';
 import 'package:app/src/core/color/app_colors.dart';
+import 'package:app/src/core/constant/utils.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
 import 'package:app/src/feature/auth/signup/signup_controller.dart';
 import 'package:app/src/feature/widget/country_code_picker.dart';
 import 'package:app/src/feature/widget/custom_calender.dart';
+import 'package:app/src/feature/widget/form_notification_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -19,6 +21,7 @@ class SignUpView extends StatefulWidget {
 
 class _SignUpViewState extends State<SignUpView> with AdaptivePage {
   final SignupController controller = Get.find<SignupController>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +106,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
       ),
       padding: EdgeInsets.fromLTRB(30.w, 40.h, 30.w, 40.h),
       decoration: const BoxDecoration(
-        color: AppColors.whiteColor,
+        color: AppColors.primaryColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(40),
           topRight: Radius.circular(40),
@@ -119,11 +122,14 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
       child: TapRegion(
         onTapOutside: (event) => FocusScope.of(context).unfocus(),
         child: Form(
-          key: controller.formKey,
+          key: _formKey,
+          autovalidateMode: AutovalidateMode.disabled,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _buildFormItem(
+                fieldName: 'fullName',
+                focusNode: controller.fullNameFocus,
                 hintText: appLocal.exampleFullName,
                 label: appLocal.fullName,
                 icon: Icons.person_outline_rounded,
@@ -134,13 +140,15 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
               ),
               SizedBox(height: 16.h),
               _buildFormItem(
+                fieldName: 'email',
+                focusNode: controller.emailFocus,
                 hintText: appLocal.exampleEmail,
                 label: appLocal.emailName,
                 icon: Icons.email_outlined,
                 controllerText: controller.emailController,
                 validator: (value) {
                   if (value?.isEmpty ?? true) return appLocal.validatorUserName;
-                  if (!GetUtils.isEmail(value!)) {
+                  if (!Utils.isValidEmail(value!)) {
                     return appLocal.validatorEmailOrPhone;
                   }
                   return null;
@@ -150,11 +158,16 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
               _buildPhoneField(context),
               SizedBox(height: 16.h),
               _buildFormItem(
+                fieldName: 'dateOfBirth',
+                focusNode: controller.dateOfBirthFocus,
                 hintText: appLocal.exampleDateOfBirth,
                 label: appLocal.dateOfBirth,
                 icon: Icons.cake_outlined,
                 readOnly: true,
-                onTap: () => showCalendarDialog(context),
+                onTap: () {
+                  controller.isPickingDate.value = true;
+                  showCalendarDialog(context);
+                },
                 controllerText: controller.dateOfBirthController,
                 validator: (value) => (value?.isEmpty ?? true)
                     ? appLocal.validatorDateOfBirth
@@ -162,6 +175,8 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
               ),
               SizedBox(height: 16.h),
               _buildFormItem(
+                fieldName: 'password',
+                focusNode: controller.passwordFocus,
                 hintText: '••••••••',
                 label: appLocal.password,
                 icon: Icons.lock_outline_rounded,
@@ -177,6 +192,8 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
               ),
               SizedBox(height: 16.h),
               _buildFormItem(
+                fieldName: 'confirmPassword',
+                focusNode: controller.confirmPasswordFocus,
                 hintText: '••••••••',
                 label: appLocal.confirmPassword,
                 icon: Icons.lock_reset_rounded,
@@ -208,6 +225,8 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
     required String hintText,
     required IconData icon,
     required TextEditingController controllerText,
+    required String fieldName,
+    required FocusNode focusNode,
     bool isPassword = false,
     bool isConfirmPassword = false,
     bool readOnly = false,
@@ -243,6 +262,8 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
               icon: icon,
               isPassword: isPassword,
               isConfirmPassword: isConfirmPassword,
+              fieldName: fieldName,
+              focusNode: focusNode,
             );
           })
         else
@@ -256,6 +277,8 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
             icon: icon,
             isPassword: isPassword,
             isConfirmPassword: isConfirmPassword,
+            fieldName: fieldName,
+            focusNode: focusNode,
           ),
       ],
     );
@@ -271,6 +294,8 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
     required IconData icon,
     required bool isPassword,
     required bool isConfirmPassword,
+    required String fieldName,
+    required FocusNode focusNode,
   }) {
     return Container(
       decoration: BoxDecoration(
@@ -285,10 +310,25 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
       ),
       child: TextFormField(
         controller: controllerText,
+        focusNode: focusNode,
+        onFieldSubmitted: (_) {
+          FocusScope.of(Get.context!).unfocus();
+        },
         obscureText: hide,
         readOnly: readOnly,
-        onTap: onTap,
-        validator: validator,
+        onTap: () {
+          controller.onFieldTouched(fieldName);
+          onTap?.call();
+        },
+        validator: (value) {
+          if (!controller.isSubmitted.value) return null;
+          return validator?.call(value);
+        },
+        onChanged: (value) {
+          if (controller.isSubmitted.value) {
+            _formKey.currentState?.validate();
+          }
+        },
         cursorColor: AppColors.buttonLogin,
         style: TextStyle(
           fontSize: 15.sp,
@@ -401,9 +441,21 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                   child: TextFormField(
                     controller: controller.phoneNumberController,
                     keyboardType: TextInputType.number,
-                    validator: (value) => (value?.isEmpty ?? true)
-                        ? appLocal.validatorUserName
-                        : null,
+                    validator: (value) {
+                      if (!controller.isSubmitted.value) return null;
+                      if (value?.isEmpty ?? true) {
+                        return appLocal.validatorUserName;
+                      }
+                      if (!Utils.isValidPhoneNumber(value!)) {
+                        return appLocal.validatorEmailOrPhone;
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      if (controller.isSubmitted.value) {
+                        _formKey.currentState?.validate();
+                      }
+                    },
                     cursorColor: AppColors.buttonLogin,
                     style: TextStyle(
                       fontSize: 15.sp,
@@ -430,9 +482,29 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
 
   Widget _buildSubmitButton(AppLocalizations appLocal) {
     return ElevatedButton(
-      onPressed: () {
-        if (controller.formKey.currentState?.validate() ?? false) {
-          controller.register();
+      onPressed: () async {
+        FocusScope.of(context).unfocus();
+        await Future.delayed(const Duration(milliseconds: 50));
+
+        controller.isSubmitted.value = true;
+        if (_formKey.currentState?.validate() ?? false) {
+          controller.register(
+            formKey: _formKey,
+            showSuccess: () {
+              showFormMessageDialog(
+                context,
+                type: FormMessageType.success,
+                title: appLocal.signupSuccess,
+              );
+            },
+            showError: (errors) {
+              showFormMessageDialog(
+                context,
+                type: FormMessageType.error,
+                title: errors,
+              );
+            },
+          );
         }
       },
       style: ElevatedButton.styleFrom(
@@ -526,9 +598,13 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                   initialDate: DateTime.now(),
                   onChanged: (date) {
                     Get.back();
+                    controller.isPickingDate.value = false;
                     controller.dateOfBirthController.text = DateFormat(
                       'dd/MM/yyyy',
                     ).format(date);
+                    if (controller.isSubmitted.value) {
+                      _formKey.currentState?.validate();
+                    }
                   },
                 ),
               ),
@@ -536,7 +612,9 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
           ),
         );
       },
-    );
+    ).then((_) {
+      controller.isPickingDate.value = false;
+    });
   }
 
   Widget tabletScreen() => const Scaffold();

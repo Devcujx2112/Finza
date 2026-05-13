@@ -19,7 +19,15 @@ class SignupController extends GetxController {
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController dateOfBirthController = TextEditingController();
 
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final fullNameFocus = FocusNode();
+  final emailFocus = FocusNode();
+  final phoneFocus = FocusNode();
+  final dateOfBirthFocus = FocusNode();
+  final passwordFocus = FocusNode();
+  final confirmPasswordFocus = FocusNode();
+  final isPickingDate = false.obs;
+
+  final touchedFields = <String>{}.obs;
 
   final List<CountryCode> countries = CountryCode.countries;
 
@@ -28,6 +36,11 @@ class SignupController extends GetxController {
   Rx<bool> hidePassword = true.obs;
   Rx<bool> hideConfirmPassword = true.obs;
   Rx<bool> isLoading = false.obs;
+  final RxBool isSubmitted = false.obs;
+
+  void onFieldTouched(String fieldName) {
+    touchedFields.add(fieldName);
+  }
 
   void unHidePassword() {
     hidePassword.value = !hidePassword.value;
@@ -37,17 +50,23 @@ class SignupController extends GetxController {
     hideConfirmPassword.value = !hideConfirmPassword.value;
   }
 
-  Future<void> register() async {
+  Future<void> register({
+    required Function showSuccess,
+    required Function(String errors) showError,
+    required GlobalKey<FormState> formKey,
+  }) async {
+    isSubmitted.value = true;
+    if (!formKey.currentState!.validate()) return;
+
     isLoading.value = true;
     try {
-      if (!formKey.currentState!.validate()) return;
       final user = User(
         role: '',
         userId: '',
         avatar: '',
         refreshToken: '',
         token: '',
-        userName: emailController.text,
+        email: emailController.text,
         password: passwordController.text,
         fullName: fullNameController.text,
         phoneNumber: selectedDialCode.value + phoneNumberController.text,
@@ -55,10 +74,16 @@ class SignupController extends GetxController {
       );
       final result = await _signupUsecase.register(user);
       if (result != null) {
-        Get.offAllNamed(RouterName.home);
+        showSuccess();
+        Future.delayed(const Duration(seconds: 1), () {
+          Get.offAllNamed(
+            RouterName.login,
+            parameters: {'email': user.email, 'password': user.password},
+          );
+        });
       }
     } on AppException catch (e) {
-      Get.snackbar('Error', e.message);
+      showError(e.message);
     } finally {
       isLoading.value = false;
     }
@@ -77,6 +102,13 @@ class SignupController extends GetxController {
     emailController.dispose();
     phoneNumberController.dispose();
     dateOfBirthController.dispose();
+
+    fullNameFocus.dispose();
+    emailFocus.dispose();
+    phoneFocus.dispose();
+    dateOfBirthFocus.dispose();
+    passwordFocus.dispose();
+    confirmPasswordFocus.dispose();
     super.onClose();
   }
 }
