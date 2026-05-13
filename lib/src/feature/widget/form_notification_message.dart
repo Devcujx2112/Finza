@@ -41,7 +41,7 @@ class _FormNotificationMessageState extends State<FormNotificationMessage>
 
     // Tự động đóng sau 1.5s
     Future.delayed(const Duration(milliseconds: 1500), () {
-      if (mounted) {
+      if (mounted && Navigator.of(context).canPop()) {
         Navigator.of(context).pop();
       }
     });

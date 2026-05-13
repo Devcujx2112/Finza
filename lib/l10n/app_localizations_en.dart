@@ -219,7 +219,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dataNotFound => 'Data not found';
 
   @override
-  String get dataAlreadyExists => 'Data already exists';
+  String get emailAlreadyExists => 'Email already exists, please try another email';
 
   @override
   String get invalidDataFormat => 'Invalid data format';
@@ -229,4 +229,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get anErrorOccurred => 'An error occurred';
+
+  @override
+  String get validatorFormSignUp => 'Please fill in all the information';
 }

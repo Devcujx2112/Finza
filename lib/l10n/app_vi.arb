@@ -70,8 +70,9 @@
   "sessionExpired":"Phiên đăng nhập hết hạn",
   "unauthorizedAction":"Bạn không có quyền thực hiện thao tác này",
   "dataNotFound":"Không tìm thấy dữ liệu",
-  "dataAlreadyExists":"Dữ liệu đã tồn tại",
+  "emailAlreadyExists":"Email đã tồn tại, vui lòng thử lại email khác",
   "invalidDataFormat":"Dữ liệu không đúng định dạng",
   "serverErrorPleaseTryAgainLater":"Lỗi máy chủ, vui lòng thử lại sau",
-  "anErrorOccurred":"Đã có lỗi xảy ra"
+  "anErrorOccurred":"Đã có lỗi xảy ra",
+  "validatorFormSignUp":"Vui lòng điền đầy đủ thông tin"
 }

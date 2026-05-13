@@ -5,9 +5,12 @@ import 'package:app/router/router_name.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
 import 'package:app/src/feature/auth/login/login_controller.dart';
+import 'package:app/src/feature/widget/form_notification_message.dart';
+import 'package:app/src/feature/widget/loading_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
@@ -19,7 +22,9 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> with AdaptivePage {
-  final LoginController _controller = LoginController();
+  final LoginController _controller = Get.find<LoginController>();
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return adaptiveBody(context);
@@ -47,35 +52,38 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
 
   Widget mobileScreen(BuildContext context) {
     final appLocal = AppLocalizations.of(context)!;
-    return Scaffold(
-      backgroundColor: AppColors.primarySecondaryColor,
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsGeometry.only(top: 30.h),
-                      child: Text(
-                        appLocal.wellCome,
-                        style: TextStyle(
-                          fontSize: 30.sp,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.darkPrimaryColor,
+    return LoadingOverlay(
+      isLoading: _controller.isLoading.value,
+      child: Scaffold(
+        backgroundColor: AppColors.primarySecondaryColor,
+        body: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsGeometry.only(top: 30.h),
+                        child: Text(
+                          appLocal.wellCome,
+                          style: TextStyle(
+                            fontSize: 30.sp,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.darkPrimaryColor,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Expanded(flex: 3, child: _buildFormLogin(context)),
-            ],
+                Expanded(flex: 3, child: _buildFormLogin(context)),
+              ],
+            ),
           ),
         ),
       ),
@@ -98,7 +106,7 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
         spacing: 30.h,
         children: [
           Form(
-            key: _controller.formKey,
+            key: formKey,
             child: Column(
               spacing: 10.h,
               children: [
@@ -133,8 +141,21 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
-                    if (_controller.formKey.currentState!.validate()) {
-                      Get.toNamed(RouterName.home);
+                    if (formKey.currentState!.validate()) {
+                      _controller.login(
+                        showError: (message) => showFormMessageDialog(
+                          context,
+                          type: FormMessageType.error,
+                          title: message,
+                        ),
+                        formKey: formKey,
+                      );
+                    } else {
+                      showFormMessageDialog(
+                        context,
+                        type: FormMessageType.warning,
+                        title: appLocal.validatorFormSignUp,
+                      );
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -145,15 +166,23 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: Text(
-                    appLocal.login,
-                    style: TextStyle(
-                      fontFamily: FontFamily.roboto,
-                      color: AppColors.backgroundMenu,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: Obx(() {
+                    if (_controller.isLoading.value) {
+                      return CircularProgressIndicator(
+                        color: AppColors.whiteColor,
+                      );
+                    } else {
+                      return Text(
+                        appLocal.login,
+                        style: TextStyle(
+                          fontFamily: FontFamily.roboto,
+                          color: AppColors.whiteColor,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      );
+                    }
+                  }),
                 ),
               ),
               Assets.images.icFaceId.image(

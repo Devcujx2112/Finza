@@ -515,11 +515,11 @@ abstract class AppLocalizations {
   /// **'Data not found'**
   String get dataNotFound;
 
-  /// No description provided for @dataAlreadyExists.
+  /// No description provided for @emailAlreadyExists.
   ///
   /// In en, this message translates to:
-  /// **'Data already exists'**
-  String get dataAlreadyExists;
+  /// **'Email already exists, please try another email'**
+  String get emailAlreadyExists;
 
   /// No description provided for @invalidDataFormat.
   ///
@@ -538,6 +538,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'An error occurred'**
   String get anErrorOccurred;
+
+  /// No description provided for @validatorFormSignUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill in all the information'**
+  String get validatorFormSignUp;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

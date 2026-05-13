@@ -7,6 +7,7 @@ import 'package:app/src/feature/auth/signup/signup_controller.dart';
 import 'package:app/src/feature/widget/country_code_picker.dart';
 import 'package:app/src/feature/widget/custom_calender.dart';
 import 'package:app/src/feature/widget/form_notification_message.dart';
+import 'package:app/src/feature/widget/loading_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -44,53 +45,56 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
 
   Widget mobileScreen(BuildContext context) {
     final appLocal = AppLocalizations.of(context);
-    return Scaffold(
-      backgroundColor: AppColors.primarySecondaryColor,
-      body: Container(
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [AppColors.primarySecondaryColor, AppColors.buttonLogin],
+    return LoadingOverlay(
+      isLoading: controller.isLoading.value,
+      child: Scaffold(
+        backgroundColor: AppColors.primarySecondaryColor,
+        body: Container(
+          height: double.infinity,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [AppColors.primarySecondaryColor, AppColors.buttonLogin],
+            ),
           ),
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 180.h,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.w),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 40.h),
-                      Text(
-                        appLocal?.createAccount ?? "",
-                        style: TextStyle(
-                          fontSize: 32.sp,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white,
-                          letterSpacing: -0.5,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 180.h,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.w),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 40.h),
+                        Text(
+                          appLocal?.createAccount ?? "",
+                          style: TextStyle(
+                            fontSize: 32.sp,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white,
+                            letterSpacing: -0.5,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 8.h),
-                      Text(
-                        appLocal?.createAccountIntroduction ?? "",
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: Colors.white.withOpacity(0.9),
-                          fontWeight: FontWeight.w400,
+                        SizedBox(height: 8.h),
+                        Text(
+                          appLocal?.createAccountIntroduction ?? "",
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            color: Colors.white.withOpacity(0.9),
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              _buildFormSignUp(context),
-            ],
+                _buildFormSignUp(context),
+              ],
+            ),
           ),
         ),
       ),
@@ -359,18 +363,18 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                       )
                     : null),
           filled: true,
-          fillColor: Colors.grey.shade50,
+          fillColor: AppColors.backgroundMenu,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16.w,
             vertical: 16.h,
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16.r),
-            borderSide: BorderSide(color: Colors.grey.shade200),
+            borderSide: BorderSide(color: AppColors.transparentColor),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16.r),
-            borderSide: BorderSide(color: Colors.grey.shade200),
+            borderSide: BorderSide(color: AppColors.transparentColor),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16.r),
@@ -404,9 +408,6 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
         ),
         Container(
           decoration: BoxDecoration(
-            color: Colors.grey.shade50,
-            borderRadius: BorderRadius.circular(14.r),
-            border: Border.all(color: Colors.grey.shade200),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.03),
@@ -416,63 +417,94 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
             ],
           ),
           child: IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade100,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(14.r),
-                      bottomLeft: Radius.circular(14.r),
-                    ),
-                  ),
-                  child: Obx(
-                    () => CountryCodePicker(
-                      countries: controller.countries,
-                      selectedCode: controller.selectedDialCode.value,
-                      onSelected: (value) =>
-                          controller.selectedDialCode.value = value,
-                    ),
-                  ),
-                ),
-                Container(width: 1, color: Colors.grey.shade200),
-                Expanded(
-                  child: TextFormField(
-                    controller: controller.phoneNumberController,
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (!controller.isSubmitted.value) return null;
-                      if (value?.isEmpty ?? true) {
-                        return appLocal.validatorUserName;
-                      }
-                      if (!Utils.isValidPhoneNumber(value!)) {
-                        return appLocal.validatorEmailOrPhone;
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      if (controller.isSubmitted.value) {
-                        _formKey.currentState?.validate();
-                      }
-                    },
-                    cursorColor: AppColors.buttonLogin,
-                    style: TextStyle(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    decoration: InputDecoration(
-                      hintText: "888 888 888",
-                      hintStyle: TextStyle(
-                        color: Colors.grey.shade400,
-                        fontSize: 14.sp,
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColors.primaryColor,
+                borderRadius: BorderRadius.circular(14.r),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.buttonLogin,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(14.r),
+                        bottomLeft: Radius.circular(14.r),
                       ),
-                      border: InputBorder.none,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+                    ),
+                    child: Obx(
+                      () => CountryCodePicker(
+                        countries: controller.countries,
+                        selectedCode: controller.selectedDialCode.value,
+                        onSelected: (value) =>
+                            controller.selectedDialCode.value = value,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  Container(width: 1, color: Colors.grey.shade200),
+                  Expanded(
+                    child: TextFormField(
+                      controller: controller.phoneNumberController,
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (!controller.isSubmitted.value) return null;
+                        if (value?.isEmpty ?? true) {
+                          return appLocal.validatorUserName;
+                        }
+                        if (!Utils.isValidPhoneNumber(value!)) {
+                          return appLocal.validatorEmailOrPhone;
+                        }
+                        return null;
+                      },
+                      onChanged: (value) {
+                        if (controller.isSubmitted.value) {
+                          _formKey.currentState?.validate();
+                        }
+                      },
+                      cursorColor: AppColors.buttonLogin,
+                      style: TextStyle(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      decoration: InputDecoration(
+                        errorStyle: TextStyle(
+                          fontSize: 12.sp,
+                          color: AppColors.errorColor,
+                        ),
+
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.r),
+                          borderSide: BorderSide(
+                            color: AppColors.transparentColor,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.r),
+                          borderSide: BorderSide(
+                            color: AppColors.transparentColor,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.r),
+                          borderSide: const BorderSide(
+                            color: AppColors.buttonLogin,
+                            width: 1.5,
+                          ),
+                        ),
+                        filled: true,
+                        fillColor: AppColors.backgroundMenu,
+                        hintText: "888 888 888",
+                        hintStyle: TextStyle(
+                          color: Colors.grey.shade400,
+                          fontSize: 14.sp,
+                        ),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -505,6 +537,12 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
               );
             },
           );
+        } else {
+          showFormMessageDialog(
+            context,
+            type: FormMessageType.warning,
+            title: appLocal.validatorFormSignUp,
+          );
         }
       },
       style: ElevatedButton.styleFrom(
@@ -517,10 +555,15 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
         elevation: 4,
         shadowColor: AppColors.buttonLogin.withOpacity(0.4),
       ),
-      child: Text(
-        appLocal.signUp,
-        style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
-      ),
+      child: Obx(() {
+        if (controller.isLoading.value) {
+          return const CircularProgressIndicator(color: Colors.white);
+        }
+        return Text(
+          appLocal.signUp,
+          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+        );
+      }),
     );
   }
 

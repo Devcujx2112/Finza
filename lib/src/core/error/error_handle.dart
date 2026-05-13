@@ -67,7 +67,7 @@ class ErrorHandler {
       case 409:
         return AppException(
           statusCode: 409,
-          message: appLocal?.dataAlreadyExists ?? '',
+          message: appLocal?.emailAlreadyExists ?? '',
         );
       case 422:
         return AppException(

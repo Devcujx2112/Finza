@@ -75,12 +75,10 @@ class SignupController extends GetxController {
       final result = await _signupUsecase.register(user);
       if (result != null) {
         showSuccess();
-        Future.delayed(const Duration(seconds: 1), () {
-          Get.offAllNamed(
-            RouterName.login,
-            parameters: {'email': user.email, 'password': user.password},
-          );
-        });
+        Get.offAllNamed(
+          RouterName.login,
+          parameters: {'email': user.email, 'password': user.password},
+        );
       }
     } on AppException catch (e) {
       showError(e.message);

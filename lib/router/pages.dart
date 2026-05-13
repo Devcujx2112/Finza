@@ -1,5 +1,6 @@
 import 'package:app/router/router_name.dart';
 import 'package:app/src/feature/auth/forgot_password/forgot_password_view.dart';
+import 'package:app/src/feature/auth/login/login_binding.dart';
 import 'package:app/src/feature/auth/new_password/new_password_view.dart';
 import 'package:app/src/feature/auth/signup/signup_binding.dart';
 import 'package:app/src/feature/auth/verify_code/verify_code_view.dart';
@@ -16,7 +17,11 @@ class Pages {
   static List<GetPage> page = [
     GetPage(name: RouterName.splash, page: () => Splashpage()),
     GetPage(name: RouterName.home, page: () => HomepageView()),
-    GetPage(name: RouterName.login, page: () => LoginView()),
+    GetPage(
+      name: RouterName.login,
+      page: () => LoginView(),
+      binding: LoginBinding(),
+    ),
     GetPage(
       name: RouterName.signUp,
       page: () => SignUpView(),

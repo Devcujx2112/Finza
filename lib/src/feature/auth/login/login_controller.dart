@@ -1,18 +1,25 @@
+import 'package:app/domain/usecases/login_usecase.dart';
 import 'package:app/l10n/app_localizations.dart';
+import 'package:app/router/router_name.dart';
+import 'package:app/src/core/error/app_exception.dart';
+import 'package:app/src/data/local/token_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-  final formKey = GlobalKey<FormState>();
+  LoginController(this.loginUsecase);
+
+  final LoginUsecase loginUsecase;
   TextEditingController userName = TextEditingController();
   TextEditingController password = TextEditingController();
 
+  final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+  final phoneRegex = RegExp(r'^(0|\+84)[0-9]{9}$');
+  final safeRegex = RegExp(r'^[a-zA-Z0-9@._+-]+$');
+
   Rx<bool> hintPassword = true.obs;
   Rx<bool> rememberPassword = false.obs;
-
-  RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-  RegExp phoneRegex = RegExp(r'^(0|\+84)[0-9]{9}$');
-  RegExp safeRegex = RegExp(r'^[a-zA-Z0-9@._+-]+$');
+  Rx<bool> isLoading = false.obs;
 
   @override
   void onInit() {
@@ -38,10 +45,6 @@ class LoginController extends GetxController {
 
     final input = value.trim();
 
-    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    final phoneRegex = RegExp(r'^(0|\+84)[0-9]{9}$');
-    final safeRegex = RegExp(r'^[a-zA-Z0-9@._+-]+$');
-
     if (!safeRegex.hasMatch(input)) {
       return appLocal.validatorSpecialCharacters;
     }
@@ -62,8 +65,6 @@ class LoginController extends GetxController {
 
     final input = value.trim();
 
-    final safeRegex = RegExp(r'^[a-zA-Z0-9@._+-]+$');
-
     if (!safeRegex.hasMatch(input)) {
       return appLocal.validatorSpecialCharacters;
     }
@@ -73,5 +74,29 @@ class LoginController extends GetxController {
     }
 
     return null;
+  }
+
+  Future<void> login({
+    required Function(String) showError,
+    required GlobalKey<FormState> formKey,
+  }) async {
+    try {
+      if (!formKey.currentState!.validate()) return;
+
+      isLoading.value = true;
+      final user = await loginUsecase.login(
+        userName.text.trim(),
+        password.text.trim(),
+      );
+      if (user != null) {
+        await SecureTokenStorage.instance.saveAccessToken(user.token);
+        await SecureTokenStorage.instance.saveRefreshToken(user.refreshToken);
+        Get.offAllNamed(RouterName.home);
+      }
+    } on AppException catch (e) {
+      showError(e.message);
+    } finally {
+      isLoading.value = false;
+    }
   }
 }

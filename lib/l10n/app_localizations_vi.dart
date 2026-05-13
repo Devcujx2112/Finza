@@ -219,7 +219,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get dataNotFound => 'Không tìm thấy dữ liệu';
 
   @override
-  String get dataAlreadyExists => 'Dữ liệu đã tồn tại';
+  String get emailAlreadyExists => 'Email đã tồn tại, vui lòng thử lại email khác';
 
   @override
   String get invalidDataFormat => 'Dữ liệu không đúng định dạng';
@@ -229,4 +229,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get anErrorOccurred => 'Đã có lỗi xảy ra';
+
+  @override
+  String get validatorFormSignUp => 'Vui lòng điền đầy đủ thông tin';
 }
