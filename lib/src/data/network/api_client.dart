@@ -1,3 +1,5 @@
+import 'package:app/src/data/base_response/base_response_data.dart';
+import 'package:app/src/data/local/token_storage.dart';
 import 'package:app/src/data/network/api_interceptor.dart';
 import 'package:dio/dio.dart';
 
@@ -19,25 +21,45 @@ class ApiClient {
         },
       ),
     );
-    _dio.interceptors.add(ApiInterceptor());
+    _dio.interceptors.add(
+      ApiInterceptor(tokenStorage: SecureTokenStorage.instance),
+    );
   }
 
-  Future<Response> get({
+  // api_client.dart
+  Future<BaseResponseData<T>> get<T>({
     required String path,
     Map<String, dynamic>? queryParameters,
+    T Function(dynamic)? fromJsonT,
   }) async {
-    return await _dio.get(path, queryParameters: queryParameters);
+    Response response = await _dio.get(path, queryParameters: queryParameters);
+    return BaseResponseData.fromJson(response.data, fromJsonT);
   }
 
-  Future<Response> post({required String path, dynamic body}) async {
-    return await _dio.post(path, data: body);
+  Future<BaseResponseData<T>> post<T>({
+    required String path,
+    dynamic body,
+    T Function(dynamic)? fromJsonT,
+  }) async {
+    Response response = await _dio.post(path, data: body);
+    return BaseResponseData.fromJson(response.data, fromJsonT);
   }
 
-  Future<Response> put({required String path, dynamic body}) async {
-    return await _dio.put(path, data: body);
+  Future<BaseResponseData<T>> put<T>({
+    required String path,
+    dynamic body,
+    T Function(dynamic)? fromJsonT,
+  }) async {
+    Response response = await _dio.put(path, data: body);
+    return BaseResponseData.fromJson(response.data, fromJsonT);
   }
 
-  Future<Response> delete({required String path, dynamic body}) async {
-    return await _dio.delete(path, data: body);
+  Future<BaseResponseData<T>> delete<T>({
+    required String path,
+    dynamic body,
+    T Function(dynamic)? fromJsonT,
+  }) async {
+    Response response = await _dio.delete(path, data: body);
+    return BaseResponseData.fromJson(response.data, fromJsonT);
   }
 }

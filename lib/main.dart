@@ -10,12 +10,14 @@ import 'package:get/route_manager.dart';
 //   print("Handling a background message: ${message.messageId}");
 // }
 
+import 'package:app/src/data/network/api_client.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  Get.put(ApiClient());
   runApp(const FinzaApp());
 }
 

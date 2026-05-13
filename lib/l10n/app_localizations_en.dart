@@ -184,4 +184,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get validatorPasswordConfirm => 'Passwords do not match';
+
+  @override
+  String get createAccountIntroduction => 'Join Finza today and start managing your finances better.';
 }

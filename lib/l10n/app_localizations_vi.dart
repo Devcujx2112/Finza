@@ -184,4 +184,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get validatorPasswordConfirm => 'Mật khẩu xác nhận không khớp';
+
+  @override
+  String get createAccountIntroduction => 'Tham gia Finza ngay hôm nay và bắt đầu quản lý tài chính hiệu quả hơn.';
 }
