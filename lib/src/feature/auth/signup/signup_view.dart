@@ -1,18 +1,15 @@
-import 'package:app/gen/fonts.gen.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/router/router_name.dart';
 import 'package:app/src/core/color/app_colors.dart';
+import 'package:app/src/core/constant/utils.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
 import 'package:app/src/feature/auth/signup/signup_controller.dart';
 import 'package:app/src/feature/widget/country_code_picker.dart';
 import 'package:app/src/feature/widget/custom_calender.dart';
+import 'package:app/src/feature/widget/form_notification_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/get_utils/src/get_utils/get_utils.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class SignUpView extends StatefulWidget {
@@ -24,61 +21,75 @@ class SignUpView extends StatefulWidget {
 
 class _SignUpViewState extends State<SignUpView> with AdaptivePage {
   final SignupController controller = Get.find<SignupController>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return adaptiveBody(context);
   }
 
   @override
-  Widget mobileLandscapeBody(BuildContext context, Size size) {
-    return mobileScreen(context);
-  }
+  Widget mobileLandscapeBody(BuildContext context, Size size) =>
+      mobileScreen(context);
 
   @override
-  Widget mobilePortraitBody(BuildContext context, Size size) {
-    return mobileScreen(context);
-  }
+  Widget mobilePortraitBody(BuildContext context, Size size) =>
+      mobileScreen(context);
 
   @override
-  Widget tabletLandscapeBody(BuildContext context, Size size) {
-    return tabletScreen();
-  }
+  Widget tabletLandscapeBody(BuildContext context, Size size) => tabletScreen();
 
   @override
-  Widget tabletPortraitBody(BuildContext context, Size size) {
-    return tabletScreen();
-  }
+  Widget tabletPortraitBody(BuildContext context, Size size) => tabletScreen();
 
   Widget mobileScreen(BuildContext context) {
-    final appLocal = AppLocalizations.of(context)!;
+    final appLocal = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: AppColors.primarySecondaryColor,
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
+      body: Container(
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [AppColors.primarySecondaryColor, AppColors.buttonLogin],
+          ),
+        ),
+        child: SingleChildScrollView(
           child: Column(
             children: [
-              Expanded(
-                flex: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsGeometry.only(top: 40.h),
-                      child: Text(
-                        appLocal.createAccount,
+              SizedBox(
+                height: 180.h,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30.w),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 40.h),
+                      Text(
+                        appLocal?.createAccount ?? "",
                         style: TextStyle(
-                          fontSize: 30.sp,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.darkPrimaryColor,
+                          fontSize: 32.sp,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                          letterSpacing: -0.5,
                         ),
                       ),
-                    ),
-                  ],
+                      SizedBox(height: 8.h),
+                      Text(
+                        appLocal?.createAccountIntroduction ?? "",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: Colors.white.withOpacity(0.9),
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              Expanded(flex: 4, child: _buildFormSignUp(context)),
+              _buildFormSignUp(context),
             ],
           ),
         ),
@@ -90,396 +101,481 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
     final appLocal = AppLocalizations.of(context)!;
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 30.h),
+      constraints: BoxConstraints(
+        minHeight: MediaQuery.of(context).size.height - 180.h,
+      ),
+      padding: EdgeInsets.fromLTRB(30.w, 40.h, 30.w, 40.h),
       decoration: const BoxDecoration(
         color: AppColors.primaryColor,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(45),
-          topRight: Radius.circular(45),
+          topLeft: Radius.circular(40),
+          topRight: Radius.circular(40),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 20,
+            offset: Offset(0, -5),
+          ),
+        ],
       ),
-      child: Form(
-        key: controller.formKey,
-        child: Column(
-          spacing: 10.h,
-          children: [
-            _buildFormItem(
-              hintText: appLocal.exampleFullName,
-              label: appLocal.fullName,
-              isPassword: false,
-              controllerText: controller.fullNameController,
-              isConfirmPassword: false,
-              isDateOfBirth: false,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return appLocal.validatorFullName;
-                }
-                return null;
-              },
-            ),
-            _buildFormItem(
-              hintText: appLocal.exampleEmail,
-              label: appLocal.emailName,
-              isPassword: false,
-              controllerText: controller.emailController,
-              isConfirmPassword: false,
-              isDateOfBirth: false,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return appLocal.validatorUserName;
-                }
-                if (!GetUtils.isEmail(value)) {
-                  return appLocal.validatorEmailOrPhone;
-                }
-                return null;
-              },
-            ),
-            _buildTextFieldPhoneNumber(context),
-            _buildFormItem(
-              hintText: appLocal.exampleDateOfBirth,
-              label: appLocal.dateOfBirth,
-              isPassword: false,
-              controllerText: controller.dateOfBirthController,
-              isConfirmPassword: false,
-              isDateOfBirth: true,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return appLocal.validatorDateOfBirth;
-                }
-                return null;
-              },
-            ),
-            _buildFormItem(
-              hintText: '********',
-              label: appLocal.password,
-              isPassword: true,
-              controllerText: controller.passwordController,
-              isConfirmPassword: false,
-              isDateOfBirth: false,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return appLocal.validatorPassword;
-                }
-                if (value.length < 6) {
-                  return appLocal.validatorPasswordLength;
-                }
-                return null;
-              },
-            ),
-            _buildFormItem(
-              hintText: '********',
-              label: appLocal.confirmPassword,
-              isPassword: false,
-              controllerText: controller.confirmPasswordController,
-              isConfirmPassword: true,
-              isDateOfBirth: false,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return appLocal.validatorPassword;
-                }
-                if (value != controller.passwordController.text) {
-                  return appLocal.validatorPasswordConfirm;
-                }
-                return null;
-              },
-            ),
-            Row(
-              spacing: 5.w,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  appLocal.alreadyHaveAccount,
-                  style: TextStyle(
-                    fontFamily: FontFamily.roboto,
-                    color: AppColors.textColor,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight(500),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () => Get.toNamed(RouterName.login),
-                  child: Text(
-                    appLocal.login,
-                    style: TextStyle(
-                      fontFamily: FontFamily.roboto,
-                      color: AppColors.buttonLogin,
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight(500),
-                      decoration: TextDecoration.underline,
-                      decorationColor: AppColors.buttonLogin,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Spacer(),
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                style: TextStyle(fontSize: 8.sp, color: Colors.black),
-                children: [
-                  TextSpan(text: "${appLocal.confirmAccount}\n"),
-                  TextSpan(
-                    text: appLocal.termsOfUse,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: " ${appLocal.and} "),
-                  TextSpan(
-                    text: appLocal.privacyPolicy,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: "."),
-                ],
+      child: TapRegion(
+        onTapOutside: (event) => FocusScope.of(context).unfocus(),
+        child: Form(
+          key: _formKey,
+          autovalidateMode: AutovalidateMode.disabled,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _buildFormItem(
+                fieldName: 'fullName',
+                focusNode: controller.fullNameFocus,
+                hintText: appLocal.exampleFullName,
+                label: appLocal.fullName,
+                icon: Icons.person_outline_rounded,
+                controllerText: controller.fullNameController,
+                validator: (value) => (value?.isEmpty ?? true)
+                    ? appLocal.validatorFullName
+                    : null,
               ),
-            ),
-            SizedBox(
-              height: 40.h,
-              width: 180.w,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (controller.formKey.currentState?.validate() ?? false) {
-                    controller.register();
+              SizedBox(height: 16.h),
+              _buildFormItem(
+                fieldName: 'email',
+                focusNode: controller.emailFocus,
+                hintText: appLocal.exampleEmail,
+                label: appLocal.emailName,
+                icon: Icons.email_outlined,
+                controllerText: controller.emailController,
+                validator: (value) {
+                  if (value?.isEmpty ?? true) return appLocal.validatorUserName;
+                  if (!Utils.isValidEmail(value!)) {
+                    return appLocal.validatorEmailOrPhone;
                   }
+                  return null;
                 },
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  backgroundColor: AppColors.buttonLogin,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                child: Text(
-                  appLocal.signUp,
-                  style: TextStyle(
-                    fontFamily: FontFamily.roboto,
-                    color: AppColors.buttonRegister,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
               ),
-            ),
-          ],
+              SizedBox(height: 16.h),
+              _buildPhoneField(context),
+              SizedBox(height: 16.h),
+              _buildFormItem(
+                fieldName: 'dateOfBirth',
+                focusNode: controller.dateOfBirthFocus,
+                hintText: appLocal.exampleDateOfBirth,
+                label: appLocal.dateOfBirth,
+                icon: Icons.cake_outlined,
+                readOnly: true,
+                onTap: () {
+                  controller.isPickingDate.value = true;
+                  showCalendarDialog(context);
+                },
+                controllerText: controller.dateOfBirthController,
+                validator: (value) => (value?.isEmpty ?? true)
+                    ? appLocal.validatorDateOfBirth
+                    : null,
+              ),
+              SizedBox(height: 16.h),
+              _buildFormItem(
+                fieldName: 'password',
+                focusNode: controller.passwordFocus,
+                hintText: '••••••••',
+                label: appLocal.password,
+                icon: Icons.lock_outline_rounded,
+                isPassword: true,
+                controllerText: controller.passwordController,
+                validator: (value) {
+                  if (value?.isEmpty ?? true) return appLocal.validatorPassword;
+                  if (value!.length < 6) {
+                    return appLocal.validatorPasswordLength;
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16.h),
+              _buildFormItem(
+                fieldName: 'confirmPassword',
+                focusNode: controller.confirmPasswordFocus,
+                hintText: '••••••••',
+                label: appLocal.confirmPassword,
+                icon: Icons.lock_reset_rounded,
+                isConfirmPassword: true,
+                controllerText: controller.confirmPasswordController,
+                validator: (value) {
+                  if (value?.isEmpty ?? true) return appLocal.validatorPassword;
+                  if (value != controller.passwordController.text) {
+                    return appLocal.validatorPasswordConfirm;
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 24.h),
+              _buildSubmitButton(appLocal),
+              SizedBox(height: 20.h),
+              _buildLoginRedirect(appLocal),
+              SizedBox(height: 30.h),
+              _buildTermsAndPrivacy(appLocal),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildTextFieldPhoneNumber(BuildContext context) {
-    final appLocal = AppLocalizations.of(context);
+  Widget _buildFormItem({
+    required String label,
+    required String hintText,
+    required IconData icon,
+    required TextEditingController controllerText,
+    required String fieldName,
+    required FocusNode focusNode,
+    bool isPassword = false,
+    bool isConfirmPassword = false,
+    bool readOnly = false,
+    VoidCallback? onTap,
+    String? Function(String?)? validator,
+  }) {
     return Column(
-      spacing: 5.h,
-      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsetsGeometry.only(left: 10.w),
+          padding: EdgeInsets.only(left: 4.w, bottom: 8.h),
           child: Text(
-            appLocal?.phoneNumber ?? '',
+            label,
             style: TextStyle(
-              fontSize: 13.sp,
-              fontWeight: FontWeight.w600,
-              color: AppColors.darkPrimaryColor,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w700,
+              color: AppColors.darkPrimaryColor.withOpacity(0.8),
+            ),
+          ),
+        ),
+        if (isPassword || isConfirmPassword)
+          Obx(() {
+            bool hide = isPassword
+                ? controller.hidePassword.value
+                : controller.hideConfirmPassword.value;
+            return _buildTextField(
+              controllerText: controllerText,
+              hide: hide,
+              readOnly: readOnly,
+              onTap: onTap,
+              validator: validator,
+              hintText: hintText,
+              icon: icon,
+              isPassword: isPassword,
+              isConfirmPassword: isConfirmPassword,
+              fieldName: fieldName,
+              focusNode: focusNode,
+            );
+          })
+        else
+          _buildTextField(
+            controllerText: controllerText,
+            hide: false,
+            readOnly: readOnly,
+            onTap: onTap,
+            validator: validator,
+            hintText: hintText,
+            icon: icon,
+            isPassword: isPassword,
+            isConfirmPassword: isConfirmPassword,
+            fieldName: fieldName,
+            focusNode: focusNode,
+          ),
+      ],
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controllerText,
+    required bool hide,
+    required bool readOnly,
+    required VoidCallback? onTap,
+    required String? Function(String?)? validator,
+    required String hintText,
+    required IconData icon,
+    required bool isPassword,
+    required bool isConfirmPassword,
+    required String fieldName,
+    required FocusNode focusNode,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: TextFormField(
+        controller: controllerText,
+        focusNode: focusNode,
+        onFieldSubmitted: (_) {
+          FocusScope.of(Get.context!).unfocus();
+        },
+        obscureText: hide,
+        readOnly: readOnly,
+        onTap: () {
+          controller.onFieldTouched(fieldName);
+          onTap?.call();
+        },
+        validator: (value) {
+          if (!controller.isSubmitted.value) return null;
+          return validator?.call(value);
+        },
+        onChanged: (value) {
+          if (controller.isSubmitted.value) {
+            _formKey.currentState?.validate();
+          }
+        },
+        cursorColor: AppColors.buttonLogin,
+        style: TextStyle(
+          fontSize: 15.sp,
+          fontWeight: FontWeight.w500,
+          color: AppColors.darkPrimaryColor,
+        ),
+        decoration: InputDecoration(
+          hintText: hintText,
+          prefixIcon: Icon(icon, color: AppColors.buttonLogin, size: 22.sp),
+          suffixIcon: (isPassword || isConfirmPassword)
+              ? IconButton(
+                  icon: Icon(
+                    hide
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined,
+                    color: AppColors.iconColor,
+                    size: 20.sp,
+                  ),
+                  onPressed: isPassword
+                      ? controller.unHidePassword
+                      : controller.unHideConfirmPassword,
+                )
+              : (readOnly
+                    ? Icon(
+                        Icons.calendar_month_outlined,
+                        color: AppColors.buttonLogin,
+                        size: 20.sp,
+                      )
+                    : null),
+          filled: true,
+          fillColor: Colors.grey.shade50,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 16.w,
+            vertical: 16.h,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16.r),
+            borderSide: BorderSide(color: Colors.grey.shade200),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16.r),
+            borderSide: BorderSide(color: Colors.grey.shade200),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16.r),
+            borderSide: const BorderSide(
+              color: AppColors.buttonLogin,
+              width: 1.5,
+            ),
+          ),
+          errorStyle: TextStyle(fontSize: 12.sp, color: AppColors.errorColor),
+          hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14.sp),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPhoneField(BuildContext context) {
+    final appLocal = AppLocalizations.of(context)!;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 4.w, bottom: 8.h),
+          child: Text(
+            appLocal.phoneNumber,
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w700,
+              color: AppColors.darkPrimaryColor.withOpacity(0.8),
             ),
           ),
         ),
         Container(
-          padding: EdgeInsets.zero,
           decoration: BoxDecoration(
-            color: AppColors.buttonLogin,
-            borderRadius: BorderRadius.circular(40),
+            color: Colors.grey.shade50,
+            borderRadius: BorderRadius.circular(14.r),
+            border: Border.all(color: Colors.grey.shade200),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.03),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
-          child: Row(
-            children: [
-              Container(
-                width: 55.w,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: AppColors.buttonLogin,
-                  borderRadius: BorderRadius.circular(40),
-                ),
-                child: Container(
-                  width: 55.w,
-                  alignment: Alignment.center,
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
                   decoration: BoxDecoration(
-                    color: AppColors.buttonLogin,
-                    borderRadius: BorderRadius.circular(40),
+                    color: Colors.grey.shade100,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(14.r),
+                      bottomLeft: Radius.circular(14.r),
+                    ),
                   ),
                   child: Obx(
                     () => CountryCodePicker(
                       countries: controller.countries,
                       selectedCode: controller.selectedDialCode.value,
-                      onSelected: (value) {
-                        controller.selectedDialCode.value = value;
-                      },
+                      onSelected: (value) =>
+                          controller.selectedDialCode.value = value,
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TapRegion(
-                        onTapOutside: (event) {
-                          FocusManager.instance.primaryFocus?.unfocus();
-                        },
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          cursorColor: AppColors.iconColor,
-                          style: TextStyle(
-                            color: AppColors.textColor,
-                            fontSize: 14.sp,
-                          ),
-                          controller: controller.phoneNumberController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return appLocal?.validatorUserName;
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            hintText: appLocal?.phoneNumber,
-                            hintStyle: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 14.sp,
-                              fontFamily: FontFamily.roboto,
-                              fontWeight: FontWeight(500),
-                            ),
-                            filled: true,
-                            fillColor: AppColors.backgroundMenu,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                              borderSide: BorderSide(
-                                color: AppColors.transparentColor,
-                                width: 1,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                              borderSide: BorderSide(
-                                color: AppColors.transparentColor,
-                                width: 1,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                              borderSide: BorderSide(
-                                color: AppColors.transparentColor,
-                                width: 1,
-                              ),
-                            ),
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 12.w,
-                            ),
-                          ),
-                        ),
-                      ),
+                Container(width: 1, color: Colors.grey.shade200),
+                Expanded(
+                  child: TextFormField(
+                    controller: controller.phoneNumberController,
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (!controller.isSubmitted.value) return null;
+                      if (value?.isEmpty ?? true) {
+                        return appLocal.validatorUserName;
+                      }
+                      if (!Utils.isValidPhoneNumber(value!)) {
+                        return appLocal.validatorEmailOrPhone;
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      if (controller.isSubmitted.value) {
+                        _formKey.currentState?.validate();
+                      }
+                    },
+                    cursorColor: AppColors.buttonLogin,
+                    style: TextStyle(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w500,
                     ),
-                  ],
+                    decoration: InputDecoration(
+                      hintText: "888 888 888",
+                      hintStyle: TextStyle(
+                        color: Colors.grey.shade400,
+                        fontSize: 14.sp,
+                      ),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildFormItem({
-    String? hintText,
-    required String label,
-    required bool isPassword,
-    required TextEditingController controllerText,
-    required bool isConfirmPassword,
-    required bool isDateOfBirth,
-    String? Function(String?)? validator,
-  }) {
-    return Column(
-      spacing: 5.h,
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildSubmitButton(AppLocalizations appLocal) {
+    return ElevatedButton(
+      onPressed: () async {
+        FocusScope.of(context).unfocus();
+        await Future.delayed(const Duration(milliseconds: 50));
+
+        controller.isSubmitted.value = true;
+        if (_formKey.currentState?.validate() ?? false) {
+          controller.register(
+            formKey: _formKey,
+            showSuccess: () {
+              showFormMessageDialog(
+                context,
+                type: FormMessageType.success,
+                title: appLocal.signupSuccess,
+              );
+            },
+            showError: (errors) {
+              showFormMessageDialog(
+                context,
+                type: FormMessageType.error,
+                title: errors,
+              );
+            },
+          );
+        }
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.buttonLogin,
+        foregroundColor: Colors.white,
+        padding: EdgeInsets.symmetric(vertical: 16.h),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        elevation: 4,
+        shadowColor: AppColors.buttonLogin.withOpacity(0.4),
+      ),
+      child: Text(
+        appLocal.signUp,
+        style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  Widget _buildLoginRedirect(AppLocalizations appLocal) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Padding(
-          padding: EdgeInsets.only(left: 10.w),
+        Text(
+          appLocal.alreadyHaveAccount,
+          style: TextStyle(fontSize: 14.sp, color: Colors.grey.shade600),
+        ),
+        TextButton(
+          onPressed: () => Get.toNamed(RouterName.login),
           child: Text(
-            label,
+            appLocal.login,
             style: TextStyle(
-              fontSize: 13.sp,
-              fontWeight: FontWeight.w600,
-              color: AppColors.darkPrimaryColor,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+              color: AppColors.buttonLogin,
             ),
           ),
         ),
-        if (isPassword || isConfirmPassword || isDateOfBirth) ...[
-          if (isPassword)
-            TapRegion(
-              onTapOutside: (event) {
-                FocusManager.instance.primaryFocus?.unfocus();
-              },
-              child: Obx(() {
-                return TextFormField(
-                  controller: controllerText,
-                  obscureText: controller.hidePassword.value,
-                  validator: validator,
-                  decoration: _inputDecoration(
-                    hintText,
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        controller.hidePassword.value
-                            ? Icons.visibility_off_outlined
-                            : Icons.visibility_outlined,
-                        color: AppColors.textColor,
-                      ),
-                      onPressed: controller.unHidePassword,
-                    ),
-                  ),
-                  cursorColor: AppColors.textColor,
-                  style: TextStyle(color: AppColors.textColor, fontSize: 14.sp),
-                );
-              }),
-            ),
-          if (isConfirmPassword)
-            _buildTextField(
-              isCalendar: false,
-              hintText: hintText ?? '',
-              isConfirmPassword: isConfirmPassword,
-              controllerText: controllerText,
-              validator: validator,
-              suffixIcon: IconButton(
-                icon: Icon(
-                  controller.hideConfirmPassword.value
-                      ? Icons.visibility_off_outlined
-                      : Icons.visibility_outlined,
-                  color: AppColors.textColor,
-                ),
-                onPressed: controller.unHideConfirmPassword,
-              ),
-            ),
-          if (isDateOfBirth)
-            _buildTextField(
-              isCalendar: true,
-              hintText: hintText ?? '',
-              isConfirmPassword: isConfirmPassword,
-              controllerText: controllerText,
-              validator: validator,
-              suffixIcon: IconButton(
-                icon: const Icon(Icons.calendar_month),
-                color: AppColors.textColor,
-                onPressed: () async {
-                  showCalendarDialog(context);
-                },
-              ),
-            ),
-        ] else
-          _buildTextField(
-            isCalendar: false,
-            hintText: hintText ?? '',
-            isConfirmPassword: isConfirmPassword,
-            controllerText: controllerText,
-            validator: validator,
-          ),
       ],
+    );
+  }
+
+  Widget _buildTermsAndPrivacy(AppLocalizations appLocal) {
+    return RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        style: TextStyle(
+          fontSize: 11.sp,
+          color: Colors.grey.shade600,
+          height: 1.5,
+        ),
+        children: [
+          TextSpan(text: "${appLocal.confirmAccount} "),
+          TextSpan(
+            text: appLocal.termsOfUse,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: AppColors.darkPrimaryColor,
+            ),
+          ),
+          TextSpan(text: " ${appLocal.and} "),
+          TextSpan(
+            text: appLocal.privacyPolicy,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: AppColors.darkPrimaryColor,
+            ),
+          ),
+          TextSpan(text: "."),
+        ],
+      ),
     );
   }
 
@@ -489,144 +585,37 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
       barrierDismissible: true,
       barrierLabel: "Calendar",
       barrierColor: Colors.black54,
-      transitionDuration: const Duration(milliseconds: 250),
-
+      transitionDuration: const Duration(milliseconds: 300),
       pageBuilder: (context, anim1, anim2) {
-        return GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-          child: Center(
-            child: GestureDetector(
-              onTap: () {
-                Get.back();
-              },
-              child: Material(
-                color: Colors.transparent,
-                child: Dialog(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: CustomCalendar(
-                    initialDate: DateTime.now(),
-                    onChanged: (date) {
-                      Get.back();
-                      controller.dateOfBirthController.text = DateFormat(
-                        'dd/MM/yyyy',
-                      ).format(date);
-                    },
-                  ),
+        return Center(
+          child: Material(
+            color: Colors.transparent,
+            child: ScaleTransition(
+              scale: anim1,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 20.w),
+                child: CustomCalendar(
+                  initialDate: DateTime.now(),
+                  onChanged: (date) {
+                    Get.back();
+                    controller.isPickingDate.value = false;
+                    controller.dateOfBirthController.text = DateFormat(
+                      'dd/MM/yyyy',
+                    ).format(date);
+                    if (controller.isSubmitted.value) {
+                      _formKey.currentState?.validate();
+                    }
+                  },
                 ),
               ),
             ),
           ),
         );
       },
-
-      transitionBuilder: (context, anim1, anim2, child) {
-        return FadeTransition(
-          opacity: anim1,
-          child: SlideTransition(
-            position:
-                Tween<Offset>(
-                  begin: const Offset(0, 0.08),
-                  end: Offset.zero,
-                ).animate(
-                  CurvedAnimation(parent: anim1, curve: Curves.easeOutCubic),
-                ),
-            child: child,
-          ),
-        );
-      },
-    );
+    ).then((_) {
+      controller.isPickingDate.value = false;
+    });
   }
 
-  Widget _buildTextField({
-    required String hintText,
-    required bool isConfirmPassword,
-    required TextEditingController controllerText,
-    required bool isCalendar,
-    String? Function(String?)? validator,
-    Widget? suffixIcon,
-    Widget? prefix,
-  }) {
-    return TapRegion(
-      onTapOutside: (event) {
-        FocusManager.instance.primaryFocus?.unfocus();
-      },
-      child: isConfirmPassword
-          ? Obx(() {
-              return TextFormField(
-                controller: controllerText,
-                obscureText: controller.hideConfirmPassword.value,
-                validator: validator,
-                decoration: _inputDecoration(
-                  hintText,
-                  suffixIcon: suffixIcon,
-                  prefix: prefix,
-                ),
-                cursorColor: AppColors.textColor,
-                style: TextStyle(color: AppColors.textColor, fontSize: 14.sp),
-              );
-            })
-          : TextFormField(
-              readOnly: isCalendar ? true : false,
-              onTap: () {},
-              controller: controllerText,
-              validator: validator,
-              decoration: _inputDecoration(
-                hintText,
-                suffixIcon: suffixIcon,
-                prefix: prefix,
-              ),
-              cursorColor: AppColors.textColor,
-              style: TextStyle(color: AppColors.textColor, fontSize: 14.sp),
-            ),
-    );
-  }
-
-  InputDecoration _inputDecoration(
-    String? hintText, {
-    Widget? suffixIcon,
-    Widget? prefix,
-  }) {
-    return InputDecoration(
-      prefix: prefix,
-      hintText: hintText,
-      errorStyle: TextStyle(
-        fontSize: 12.sp,
-        fontFamily: FontFamily.roboto,
-        fontWeight: FontWeight(500),
-        color: AppColors.errorColor,
-      ),
-      hintStyle: TextStyle(
-        color: Colors.grey,
-        fontSize: 14.sp,
-        fontFamily: FontFamily.roboto,
-        fontWeight: FontWeight(500),
-      ),
-      suffixIcon: suffixIcon,
-      filled: true,
-      fillColor: AppColors.backgroundMenu,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(40),
-        borderSide: BorderSide(color: AppColors.transparentColor, width: 1),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(40),
-        borderSide: BorderSide(color: AppColors.transparentColor, width: 1),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(40),
-        borderSide: BorderSide(color: AppColors.transparentColor, width: 1),
-      ),
-
-      contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
-    );
-  }
-
-  Widget tabletScreen() {
-    return Scaffold();
-  }
+  Widget tabletScreen() => const Scaffold();
 }

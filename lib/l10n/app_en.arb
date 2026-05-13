@@ -58,5 +58,20 @@
   "selectCountryCode":"Select Country Code",
   "validatorFullName":"Please enter your full name",
   "validatorDateOfBirth":"Please select your date of birth",
-  "validatorPasswordConfirm":"Passwords do not match"
+  "validatorPasswordConfirm":"Passwords do not match",
+  "createAccountIntroduction":"Join Finza today and start managing your finances better.",
+  "signupSuccess":"Sign up successfully",
+  "signupError":"Sign up failed",
+  "errorOccurredPleaseTryAgain":"An error occurred, please try again",
+  "connectionTimeoutPleaseTryAgain":"Connection timeout, please try again",
+  "noNetworkConnection":"No internet connection. Please try again.",
+  "requestCancelled":"Request cancelled",
+  "invalidData":"Invalid data",
+  "sessionExpired":"Session expired",
+  "unauthorizedAction":"You do not have permission to perform this action",
+  "dataNotFound":"Data not found",
+  "dataAlreadyExists":"Data already exists",
+  "invalidDataFormat":"Invalid data format",
+  "serverErrorPleaseTryAgainLater":"Server error, please try again later",
+  "anErrorOccurred":"An error occurred"
 }

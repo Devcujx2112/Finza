@@ -184,4 +184,49 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get validatorPasswordConfirm => 'Passwords do not match';
+
+  @override
+  String get createAccountIntroduction => 'Join Finza today and start managing your finances better.';
+
+  @override
+  String get signupSuccess => 'Sign up successfully';
+
+  @override
+  String get signupError => 'Sign up failed';
+
+  @override
+  String get errorOccurredPleaseTryAgain => 'An error occurred, please try again';
+
+  @override
+  String get connectionTimeoutPleaseTryAgain => 'Connection timeout, please try again';
+
+  @override
+  String get noNetworkConnection => 'No internet connection. Please try again.';
+
+  @override
+  String get requestCancelled => 'Request cancelled';
+
+  @override
+  String get invalidData => 'Invalid data';
+
+  @override
+  String get sessionExpired => 'Session expired';
+
+  @override
+  String get unauthorizedAction => 'You do not have permission to perform this action';
+
+  @override
+  String get dataNotFound => 'Data not found';
+
+  @override
+  String get dataAlreadyExists => 'Data already exists';
+
+  @override
+  String get invalidDataFormat => 'Invalid data format';
+
+  @override
+  String get serverErrorPleaseTryAgainLater => 'Server error, please try again later';
+
+  @override
+  String get anErrorOccurred => 'An error occurred';
 }
