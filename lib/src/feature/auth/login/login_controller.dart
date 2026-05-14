@@ -16,15 +16,28 @@ class LoginController extends GetxController {
   final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
   final phoneRegex = RegExp(r'^(0|\+84)[0-9]{9}$');
   final safeRegex = RegExp(r'^[a-zA-Z0-9@._+-]+$');
+  final isSubmitted = false.obs;
 
   Rx<bool> hintPassword = true.obs;
   Rx<bool> rememberPassword = false.obs;
   Rx<bool> isLoading = false.obs;
 
+  final userNameFocus = FocusNode();
+  final passwordFocus = FocusNode();
+
   @override
   void onInit() {
     super.onInit();
     init();
+  }
+
+  @override
+  void onClose() {
+    userNameFocus.dispose();
+    passwordFocus.dispose();
+    userName.dispose();
+    password.dispose();
+    super.onClose();
   }
 
   void init() {
@@ -37,42 +50,28 @@ class LoginController extends GetxController {
   }
 
   String? validatorUserName(String? value) {
+    if (!isSubmitted.value) return null;
     final appLocal = AppLocalizations.of(Get.context!)!;
-
     if (value == null || value.trim().isEmpty) {
       return appLocal.validatorUserName;
     }
-
     final input = value.trim();
-
-    if (!safeRegex.hasMatch(input)) {
-      return appLocal.validatorSpecialCharacters;
-    }
-
+    if (!safeRegex.hasMatch(input)) return appLocal.validatorSpecialCharacters;
     if (!emailRegex.hasMatch(input) && !phoneRegex.hasMatch(input)) {
       return appLocal.validatorEmailOrPhone;
     }
-
     return null;
   }
 
   String? validatorPassword(String? value) {
+    if (!isSubmitted.value) return null;
     final appLocal = AppLocalizations.of(Get.context!)!;
-
     if (value == null || value.trim().isEmpty) {
       return appLocal.validatorPassword;
     }
-
     final input = value.trim();
-
-    if (!safeRegex.hasMatch(input)) {
-      return appLocal.validatorSpecialCharacters;
-    }
-
-    if (input.length < 6) {
-      return appLocal.validatorPasswordLength;
-    }
-
+    if (!safeRegex.hasMatch(input)) return appLocal.validatorSpecialCharacters;
+    if (input.length < 6) return appLocal.validatorPasswordLength;
     return null;
   }
 

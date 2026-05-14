@@ -28,13 +28,17 @@ class $AssetsFontsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/ic_fab_login.svg
-  SvgGenImage get icFabLogin =>
-      const SvgGenImage('assets/images/ic_fab_login.svg');
+  /// File path: assets/images/ic_apple_login.svg
+  SvgGenImage get icAppleLogin =>
+      const SvgGenImage('assets/images/ic_apple_login.svg');
 
   /// File path: assets/images/ic_faceId.png
   AssetGenImage get icFaceId =>
       const AssetGenImage('assets/images/ic_faceId.png');
+
+  /// File path: assets/images/ic_facebook_login.svg
+  SvgGenImage get icFacebookLogin =>
+      const SvgGenImage('assets/images/ic_facebook_login.svg');
 
   /// File path: assets/images/ic_google_login.svg
   SvgGenImage get icGoogleLogin =>
@@ -73,8 +77,9 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<dynamic> get values => [
-    icFabLogin,
+    icAppleLogin,
     icFaceId,
+    icFacebookLogin,
     icGoogleLogin,
     icMenuBudget,
     icMenuCalendar,
