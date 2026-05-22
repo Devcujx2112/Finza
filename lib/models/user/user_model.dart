@@ -13,7 +13,7 @@ class UserModel {
   String? dateOfBirth;
   String? role;
   String? avatar;
-  String? token;
+  String? accessToken;
   String? refreshToken;
 
   UserModel({
@@ -25,7 +25,7 @@ class UserModel {
     this.dateOfBirth,
     this.role,
     this.avatar,
-    this.token,
+    this.accessToken,
     this.refreshToken,
   });
 
@@ -43,7 +43,7 @@ class UserModel {
       role: role ?? '',
       dateOfBirth: dateOfBirth ?? "",
       avatar: avatar ?? "",
-      token: token ?? "",
+      accessToken: accessToken ?? "",
       refreshToken: refreshToken ?? "",
     );
   }

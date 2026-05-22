@@ -359,9 +359,7 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
               return Padding(
                 padding: EdgeInsets.only(left: 5.w),
                 child: GestureDetector(
-                  onTap: () {
-                    _controller.rememberPassword.value = !isChecked;
-                  },
+                  onTap: _controller.setRememberPassword,
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
                     curve: Curves.easeInOut,

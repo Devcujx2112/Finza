@@ -28,7 +28,9 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    init();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      init();
+    });
   }
 
   @override
@@ -40,13 +42,21 @@ class LoginController extends GetxController {
     super.onClose();
   }
 
-  void init() {
-    userName.text = Get.parameters['email'] ?? "";
-    password.text = Get.parameters['password'] ?? "";
+  void init() async {
+    rememberPassword.value =
+        await SecureTokenStorage.instance.getRememberPassword() ?? false;
+    if (rememberPassword.value) {
+      userName.text = await SecureTokenStorage.instance.getEmail() ?? "";
+      password.text = await SecureTokenStorage.instance.getPassword() ?? "";
+    }
   }
 
   void setHintPassword() {
     hintPassword.value = !hintPassword.value;
+  }
+
+  void setRememberPassword() {
+    rememberPassword.value = !rememberPassword.value;
   }
 
   String? validatorUserName(String? value) {
@@ -88,8 +98,12 @@ class LoginController extends GetxController {
         password.text.trim(),
       );
       if (user != null) {
-        await SecureTokenStorage.instance.saveAccessToken(user.token);
-        await SecureTokenStorage.instance.saveRefreshToken(user.refreshToken);
+        if (rememberPassword.value) {
+          await SecureTokenStorage.instance.saveEmail(userName.text.trim());
+          await SecureTokenStorage.instance.savePassword(password.text.trim());
+
+          await SecureTokenStorage.instance.saveRememberPassword(true);
+        }
         Get.offAllNamed(RouterName.home);
       }
     } on AppException catch (e) {

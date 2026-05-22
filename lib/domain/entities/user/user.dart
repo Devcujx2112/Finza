@@ -9,7 +9,7 @@ class User extends Equatable {
   final String fullName;
   final String role;
   final String avatar;
-  final String token;
+  final String accessToken;
   final String refreshToken;
 
   const User({
@@ -21,7 +21,7 @@ class User extends Equatable {
     required this.fullName,
     required this.role,
     required this.avatar,
-    required this.token,
+    required this.accessToken,
     required this.refreshToken,
   });
 
@@ -34,7 +34,7 @@ class User extends Equatable {
     fullName,
     role,
     avatar,
-    token,
+    accessToken,
     refreshToken,
   ];
 }

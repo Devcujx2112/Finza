@@ -3,6 +3,7 @@ import 'package:app/domain/repositories/login_repository.dart';
 import 'package:app/models/user/user_model.dart';
 import 'package:app/src/core/error/app_exception.dart';
 import 'package:app/src/core/error/error_handle.dart';
+import 'package:app/src/data/local/token_storage.dart';
 import 'package:app/src/data/network/api_client.dart';
 import 'package:app/src/data/network/api_path.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,19 @@ class LoginRepositoryImpl extends LoginRepository {
       );
 
       if (response.isSuccess) {
+        await SecureTokenStorage.instance.saveAccessToken(
+          response.data?.accessToken ?? "",
+        );
+        await SecureTokenStorage.instance.saveRefreshToken(
+          response.data?.refreshToken ?? "",
+        );
+        // final accessToken = await SecureTokenStorage.instance.getAccessToken();
+        // final refreshToken = await SecureTokenStorage.instance
+        //     .getRefreshToken();
+        // debugPrint('flutter: ╔ Token Storage ║');
+        // debugPrint('flutter: ╟ accessToken: $accessToken');
+        // debugPrint('flutter: ╟ refreshToken: $refreshToken');
+        // debugPrint('flutter: ╚═══════════════════════════════════════╝');
         return response.data?.toEntity();
       }
 
