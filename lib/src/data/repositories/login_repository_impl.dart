@@ -47,4 +47,109 @@ class LoginRepositoryImpl extends LoginRepository {
       throw ErrorHandler.handle(e);
     }
   }
+
+  @override
+  Future<User?> loginWithGoogle({
+    required String provider,
+    required String idToken,
+  }) async {
+    try {
+      final request = {'provider': provider, 'idToken': idToken};
+
+      final response = await Get.find<ApiClient>().post<UserModel>(
+        path: ApiPath.loginWithGoogle,
+        body: request,
+        fromJsonT: (data) => UserModel.fromJson(data),
+      );
+
+      if (response.isSuccess) {
+        await SecureTokenStorage.instance.saveAccessToken(
+          response.data?.accessToken ?? "",
+        );
+        await SecureTokenStorage.instance.saveRefreshToken(
+          response.data?.refreshToken ?? "",
+        );
+        return response.data?.toEntity();
+      }
+
+      throw AppException(
+        statusCode: response.statusCode,
+        message: response.message,
+      );
+    } on AppException {
+      rethrow;
+    } catch (e) {
+      throw ErrorHandler.handle(e);
+    }
+  }
+
+  @override
+  Future<User?> loginWithFacebook({
+    required String provider,
+    required String accessToken,
+  }) async {
+    try {
+      final request = {'provider': provider, 'accessToken': accessToken};
+
+      final response = await Get.find<ApiClient>().post<UserModel>(
+        path: ApiPath.loginWithFacebook,
+        body: request,
+        fromJsonT: (data) => UserModel.fromJson(data),
+      );
+
+      if (response.isSuccess) {
+        await SecureTokenStorage.instance.saveAccessToken(
+          response.data?.accessToken ?? "",
+        );
+        await SecureTokenStorage.instance.saveRefreshToken(
+          response.data?.refreshToken ?? "",
+        );
+        return response.data?.toEntity();
+      }
+
+      throw AppException(
+        statusCode: response.statusCode,
+        message: response.message,
+      );
+    } on AppException {
+      rethrow;
+    } catch (e) {
+      throw ErrorHandler.handle(e);
+    }
+  }
+
+  @override
+  Future<User?> loginWithApple({
+    required String provider,
+    required String idToken,
+  }) async {
+    try {
+      final request = {'provider': provider, 'idToken': idToken};
+
+      final response = await Get.find<ApiClient>().post<UserModel>(
+        path: ApiPath.loginWithApple,
+        body: request,
+        fromJsonT: (data) => UserModel.fromJson(data),
+      );
+
+      if (response.isSuccess) {
+        await SecureTokenStorage.instance.saveAccessToken(
+          response.data?.accessToken ?? "",
+        );
+        await SecureTokenStorage.instance.saveRefreshToken(
+          response.data?.refreshToken ?? "",
+        );
+        return response.data?.toEntity();
+      }
+
+      throw AppException(
+        statusCode: response.statusCode,
+        message: response.message,
+      );
+    } on AppException {
+      rethrow;
+    } catch (e) {
+      throw ErrorHandler.handle(e);
+    }
+  }
 }

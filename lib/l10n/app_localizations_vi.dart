@@ -232,4 +232,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get validatorFormSignUp => 'Vui lòng điền đầy đủ thông tin';
+
+  @override
+  String get errorLoginGoogle => 'Lỗi khi đăng nhập bằng Goolge, vui lòng thử lại';
+
+  @override
+  String get errrorLoginFacebook => 'Error logging in with Facebook, please try again';
 }

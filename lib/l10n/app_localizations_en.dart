@@ -232,4 +232,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get validatorFormSignUp => 'Please fill in all the information';
+
+  @override
+  String get errorLoginGoogle => 'Error logging in with Google, please try again';
+
+  @override
+  String get errrorLoginFacebook => 'Error logging in with Facebook, please try again';
 }

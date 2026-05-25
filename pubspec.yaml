@@ -28,6 +28,9 @@ dependencies:
   intl: ^0.20.2
   flutter_dotenv: ^5.2.1
   flutter_secure_storage: ^10.2.0
+  google_sign_in: ^7.2.0
+  flutter_facebook_auth: ^7.1.6
+  sign_in_with_apple: ^8.0.0
 
 dev_dependencies:
   flutter_test:

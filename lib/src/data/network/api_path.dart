@@ -2,6 +2,9 @@ class ApiPath {
   //Account
   static const String register = "/accounts/register";
   static const String login = "/accounts/login";
+  static const String loginWithGoogle = "/accounts/login-with-google";
+  static const String loginWithApple = "/accounts/login-with-apple";
+  static const String loginWithFacebook = "/accounts/login-with-facebook";
   static const String refreshToken = "/accounts/refresh-token";
   static const String trial = "/accounts/trial";
   static const String forgotPassword = "/accounts/forgot-password";

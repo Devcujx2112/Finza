@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class Utils {
   static bool isValidEmail(String email) {
     final RegExp emailRegex = RegExp(
@@ -9,5 +11,11 @@ class Utils {
   static bool isValidPhoneNumber(String phone) {
     final RegExp phoneRegex = RegExp(r'^\d{8,15}$');
     return phoneRegex.hasMatch(phone);
+  }
+
+  static bool get deviceType {
+    if (Platform.isAndroid) return true;
+    if (Platform.isIOS) return false;
+    return false;
   }
 }

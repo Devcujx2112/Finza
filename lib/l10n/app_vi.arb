@@ -74,5 +74,7 @@
   "invalidDataFormat":"Dữ liệu không đúng định dạng",
   "serverErrorPleaseTryAgainLater":"Lỗi máy chủ, vui lòng thử lại sau",
   "anErrorOccurred":"Đã có lỗi xảy ra",
-  "validatorFormSignUp":"Vui lòng điền đầy đủ thông tin"
+  "validatorFormSignUp":"Vui lòng điền đầy đủ thông tin",
+  "errorLoginGoogle":"Lỗi khi đăng nhập bằng Goolge, vui lòng thử lại",
+  "errorLoginFacebook":"Lỗi khi đăng nhập bằng Facebook, vui lòng thử lại"
 }

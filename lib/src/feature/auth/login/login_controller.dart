@@ -4,7 +4,10 @@ import 'package:app/router/router_name.dart';
 import 'package:app/src/core/error/app_exception.dart';
 import 'package:app/src/data/local/token_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class LoginController extends GetxController {
   LoginController(this.loginUsecase);
@@ -108,6 +111,107 @@ class LoginController extends GetxController {
       }
     } on AppException catch (e) {
       showError(e.message);
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> loginWithGoogle({required Function(String) showError}) async {
+    try {
+      isLoading.value = true;
+
+      final GoogleSignIn googleSignIn = GoogleSignIn.instance;
+
+      await googleSignIn.initialize();
+
+      final account = await googleSignIn.authenticate();
+
+      final auth = account.authentication;
+
+      final idToken = auth.idToken;
+
+      if (idToken == null) {
+        showError(AppLocalizations.of(Get.context!)!.errorLoginGoogle);
+        return;
+      }
+
+      await loginUsecase.loginWithGoogle(provider: 'google', idToken: idToken);
+
+      Get.offAllNamed(RouterName.home);
+    } catch (e) {
+      showError(e.toString());
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> loginWithFacebook({required Function(String) showError}) async {
+    try {
+      isLoading.value = true;
+
+      final LoginResult result = await FacebookAuth.instance.login();
+
+      if (result.status == LoginStatus.success) {
+        final accessToken = result.accessToken;
+
+        if (accessToken == null) {
+          showError(AppLocalizations.of(Get.context!)!.errrorLoginFacebook);
+          return;
+        }
+
+        await loginUsecase.loginWithFacebook(
+          provider: 'facebook',
+          accessToken: accessToken.tokenString,
+        );
+
+        Get.offAllNamed(RouterName.home);
+      } else if (result.status == LoginStatus.cancelled) {
+        return;
+      } else {
+        showError(
+          result.message ??
+              AppLocalizations.of(Get.context!)!.errrorLoginFacebook,
+        );
+      }
+    } catch (e) {
+      showError(e.toString());
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> loginWithApple({required Function(String) showError}) async {
+    try {
+      isLoading.value = true;
+
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      final identityToken = credential.identityToken;
+
+      if (identityToken == null || identityToken.isEmpty) {
+        showError('Cannot get Apple identity token');
+        return;
+      }
+
+      await loginUsecase.loginWithApple(
+        provider: 'apple',
+        idToken: identityToken,
+      );
+
+      Get.offAllNamed(RouterName.home);
+    } on SignInWithAppleAuthorizationException catch (e) {
+      if (e.code == AuthorizationErrorCode.canceled) {
+        showError('User cancelled Apple Sign In');
+      } else {
+        showError(e.message);
+      }
+    } catch (e) {
+      showError(e.toString());
     } finally {
       isLoading.value = false;
     }

@@ -2,6 +2,7 @@ import 'package:app/gen/assets.gen.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/router/router_name.dart';
 import 'package:app/src/core/color/app_colors.dart';
+import 'package:app/src/core/constant/utils.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
 import 'package:app/src/feature/auth/login/login_controller.dart';
 import 'package:app/src/feature/widget/form_notification_message.dart';
@@ -490,19 +491,48 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
           children: [
             _buildSocialButton(
               icon: Assets.images.icGoogleLogin.svg(width: 24.w, height: 24.h),
-              onTap: () {},
+              onTap: () {
+                _controller.loginWithGoogle(
+                  showError: (message) => showFormMessageDialog(
+                    context,
+                    type: FormMessageType.error,
+                    title: message,
+                  ),
+                );
+              },
             ),
             _buildSocialButton(
               icon: Assets.images.icFacebookLogin.svg(
                 width: 24.w,
                 height: 24.h,
               ),
-              onTap: () {},
+              onTap: () {
+                _controller.loginWithFacebook(
+                  showError: (message) => showFormMessageDialog(
+                    context,
+                    type: FormMessageType.error,
+                    title: message,
+                  ),
+                );
+              },
             ),
-            _buildSocialButton(
-              icon: Assets.images.icAppleLogin.svg(width: 24.w, height: 24.h),
-              onTap: () {},
-            ),
+            Utils.deviceType
+                ? _buildSocialButton(
+                    icon: Assets.images.icAppleLogin.svg(
+                      width: 24.w,
+                      height: 24.h,
+                    ),
+                    onTap: () {
+                      _controller.loginWithApple(
+                        showError: (message) => showFormMessageDialog(
+                          context,
+                          type: FormMessageType.error,
+                          title: message,
+                        ),
+                      );
+                    },
+                  )
+                : const SizedBox(),
           ],
         ),
       ],
