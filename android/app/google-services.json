@@ -1,45 +1,51 @@
 {
   "project_info": {
-    "project_number": "364463243989",
-    "project_id": "push-notification-fbe43",
-    "storage_bucket": "push-notification-fbe43.firebasestorage.app"
+    "project_number": "726909693389",
+    "project_id": "finza-9253c",
+    "storage_bucket": "finza-9253c.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:364463243989:android:e61884c3d4f3543fbdd85c",
+        "mobilesdk_app_id": "1:726909693389:android:4a20cdae020eef05ed6884",
         "android_client_info": {
-          "package_name": "com.example.app"
+          "package_name": "com.duongvu.finza"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "726909693389-d270sm412qdskfkv2vtq795ort48k6up.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.duongvu.finza",
+            "certificate_hash": "28e3890e003d90e5016d8d3f59ab3239dee9d892"
+          }
+        },
+        {
+          "client_id": "726909693389-ptb21juse5ro2g2ado2t2ctirf11nrv7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBldmPB__9Q1NSl0eMR3HAam2y20-1PYOw"
+          "current_key": "AIzaSyBRNeRUPxGgUaFImSCmLgzTG9DabS1rnAM"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:364463243989:android:d7bc57a7f33bd87fbdd85c",
-        "android_client_info": {
-          "package_name": "com.example.app.staging"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBldmPB__9Q1NSl0eMR3HAam2y20-1PYOw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "726909693389-ptb21juse5ro2g2ado2t2ctirf11nrv7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "726909693389-1jstgh6gg32t0sh3vt2jvm5bfmv53pi1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.duongvu.finza"
+              }
+            }
+          ]
         }
       }
     }

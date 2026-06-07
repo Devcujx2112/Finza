@@ -139,6 +139,7 @@ class LoginController extends GetxController {
 
       Get.offAllNamed(RouterName.home);
     } catch (e) {
+      debugPrint("Bug loginWithGoogle:  $e");
       showError(e.toString());
     } finally {
       isLoading.value = false;

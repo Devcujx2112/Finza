@@ -14,8 +14,8 @@ class Utils {
   }
 
   static bool get deviceType {
-    if (Platform.isAndroid) return true;
-    if (Platform.isIOS) return false;
+    if (Platform.isAndroid) return false;
+    if (Platform.isIOS) return true;
     return false;
   }
 }
