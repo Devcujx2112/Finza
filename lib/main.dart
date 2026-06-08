@@ -14,7 +14,7 @@ void main() async {
   await dotenv.load(fileName: ".env");
 
   await Firebase.initializeApp();
-  debugPrint("🔥 Firebase initialized successfully");
+  debugPrint("Firebase initialized successfully");
 
   Get.put(ApiClient());
   runApp(const FinzaApp());
