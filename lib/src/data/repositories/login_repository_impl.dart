@@ -57,7 +57,7 @@ class LoginRepositoryImpl extends LoginRepository {
       final request = {'provider': provider, 'idToken': idToken};
 
       final response = await Get.find<ApiClient>().post<UserModel>(
-        path: ApiPath.loginWithGoogle,
+        path: ApiPath.loginSocialMedia,
         body: request,
         fromJsonT: (data) => UserModel.fromJson(data),
       );
@@ -92,7 +92,7 @@ class LoginRepositoryImpl extends LoginRepository {
       final request = {'provider': provider, 'accessToken': accessToken};
 
       final response = await Get.find<ApiClient>().post<UserModel>(
-        path: ApiPath.loginWithFacebook,
+        path: ApiPath.loginSocialMedia,
         body: request,
         fromJsonT: (data) => UserModel.fromJson(data),
       );
@@ -127,7 +127,7 @@ class LoginRepositoryImpl extends LoginRepository {
       final request = {'provider': provider, 'idToken': idToken};
 
       final response = await Get.find<ApiClient>().post<UserModel>(
-        path: ApiPath.loginWithApple,
+        path: ApiPath.loginSocialMedia,
         body: request,
         fromJsonT: (data) => UserModel.fromJson(data),
       );

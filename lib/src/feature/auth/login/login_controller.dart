@@ -135,7 +135,10 @@ class LoginController extends GetxController {
         return;
       }
 
-      await loginUsecase.loginWithGoogle(provider: 'google', idToken: idToken);
+      await loginUsecase.loginWithGoogle(
+        provider: 'google'.toUpperCase(),
+        idToken: idToken,
+      );
 
       Get.offAllNamed(RouterName.home);
     } catch (e) {
@@ -161,7 +164,7 @@ class LoginController extends GetxController {
         }
 
         await loginUsecase.loginWithFacebook(
-          provider: 'facebook',
+          provider: 'facebook'.toUpperCase(),
           accessToken: accessToken.tokenString,
         );
 
@@ -200,7 +203,7 @@ class LoginController extends GetxController {
       }
 
       await loginUsecase.loginWithApple(
-        provider: 'apple',
+        provider: 'apple'.toUpperCase(),
         idToken: identityToken,
       );
 

@@ -1,4 +1,5 @@
 import 'package:app/gen/assets.gen.dart';
+import 'package:app/gen/fonts.gen.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/router/router_name.dart';
 import 'package:app/src/core/color/app_colors.dart';
@@ -341,7 +342,11 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
               width: 1.5,
             ),
           ),
-          errorStyle: TextStyle(fontSize: 12.sp, color: AppColors.errorColor),
+          errorStyle: TextStyle(
+            fontSize: 12.sp,
+            color: AppColors.errorColor,
+            fontFamily: FontFamily.roboto,
+          ),
           hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14.sp),
         ),
       ),
