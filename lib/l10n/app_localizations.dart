@@ -544,6 +544,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please fill in all the information'**
   String get validatorFormSignUp;
+
+  /// No description provided for @errorLoginGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Error logging in with Google, please try again'**
+  String get errorLoginGoogle;
+
+  /// No description provided for @errrorLoginFacebook.
+  ///
+  /// In en, this message translates to:
+  /// **'Error logging in with Facebook, please try again'**
+  String get errrorLoginFacebook;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

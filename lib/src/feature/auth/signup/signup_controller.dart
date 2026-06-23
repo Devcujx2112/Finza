@@ -3,6 +3,7 @@ import 'package:app/domain/entities/user/user.dart';
 import 'package:app/domain/usecases/signup_usecase.dart';
 import 'package:app/router/router_name.dart';
 import 'package:app/src/core/error/app_exception.dart';
+import 'package:app/src/data/local/token_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -65,7 +66,7 @@ class SignupController extends GetxController {
         userId: '',
         avatar: '',
         refreshToken: '',
-        token: '',
+        accessToken: '',
         email: emailController.text,
         password: passwordController.text,
         fullName: fullNameController.text,
@@ -75,6 +76,9 @@ class SignupController extends GetxController {
       final result = await _signupUsecase.register(user);
       if (result != null) {
         showSuccess();
+        await SecureTokenStorage.instance.saveRememberPassword(true);
+        await SecureTokenStorage.instance.saveEmail(user.email);
+        await SecureTokenStorage.instance.savePassword(user.password);
         Get.offAllNamed(
           RouterName.login,
           parameters: {'email': user.email, 'password': user.password},

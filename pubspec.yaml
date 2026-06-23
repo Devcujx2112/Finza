@@ -28,6 +28,12 @@ dependencies:
   intl: ^0.20.2
   flutter_dotenv: ^5.2.1
   flutter_secure_storage: ^10.2.0
+  google_sign_in: ^7.2.0
+  flutter_facebook_auth: ^7.1.6
+  sign_in_with_apple: ^8.0.0
+  firebase_core: ^4.9.0
+  firebase_auth: ^6.5.1
+  cloud_firestore: ^6.4.1
 
 dev_dependencies:
   flutter_test:
@@ -37,6 +43,12 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   build_runner: ^2.4.15
   json_serializable: ^6.13.1
+  flutter_launcher_icons: ^0.14.4
+
+flutter_launcher_icons:
+  ios: true
+  android: true
+  image_path: "assets/images/logo_app_store.png"
 
 flutter:
   generate: true

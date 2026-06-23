@@ -16,7 +16,7 @@ class SignupRepositoryImpl extends SignupRepository {
         userId: user.userId,
         avatar: user.avatar,
         refreshToken: user.refreshToken,
-        token: user.token,
+        accessToken: user.accessToken,
         email: user.email,
         password: user.password,
         phoneNumber: user.phoneNumber,

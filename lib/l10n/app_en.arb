@@ -74,5 +74,7 @@
   "invalidDataFormat":"Invalid data format",
   "serverErrorPleaseTryAgainLater":"Server error, please try again later",
   "anErrorOccurred":"An error occurred",
-  "validatorFormSignUp":"Please fill in all the information"
+  "validatorFormSignUp":"Please fill in all the information",
+  "errorLoginGoogle":"Error logging in with Google, please try again",
+  "errrorLoginFacebook":"Error logging in with Facebook, please try again"
 }

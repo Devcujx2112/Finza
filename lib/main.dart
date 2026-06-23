@@ -4,19 +4,18 @@ import 'package:app/router/router_name.dart';
 import 'package:app/src/core/color/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/route_manager.dart';
-
-// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   print("Handling a background message: ${message.messageId}");
-// }
-
 import 'package:app/src/data/network/api_client.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
+
+  await Firebase.initializeApp();
+  debugPrint("Firebase initialized successfully");
+
   Get.put(ApiClient());
   runApp(const FinzaApp());
 }
