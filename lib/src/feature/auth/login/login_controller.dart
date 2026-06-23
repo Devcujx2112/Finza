@@ -213,9 +213,11 @@ class LoginController extends GetxController {
         showError('User cancelled Apple Sign In');
       } else {
         showError(e.message);
+        debugPrint("Bug loginWithApple:  ${e.message}");
       }
     } catch (e) {
       showError(e.toString());
+      debugPrint("Bug loginWithApple:  $e");
     } finally {
       isLoading.value = false;
     }
