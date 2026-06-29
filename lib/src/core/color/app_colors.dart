@@ -21,4 +21,10 @@ class AppColors {
   static const Color iconColor = Color(0xFF9E9E9E);
 
   static const Color errorColor = Color(0xFFE53935);
+
+  // Auth screen premium colors
+  static const Color accentGreen = Color(0xFF2ABF5E);
+  static const Color accentGreenDark = Color(0xFF1A9E47);
+  static const Color subtitleGrey = Color(0xFF8E8E93);
+  static const Color softGreenBg = Color(0xFFE8F9ED);
 }

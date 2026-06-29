@@ -76,5 +76,6 @@
   "anErrorOccurred":"Đã có lỗi xảy ra",
   "validatorFormSignUp":"Vui lòng điền đầy đủ thông tin",
   "errorLoginGoogle":"Lỗi khi đăng nhập bằng Goolge, vui lòng thử lại",
-  "errorLoginFacebook":"Lỗi khi đăng nhập bằng Facebook, vui lòng thử lại"
+  "errorLoginFacebook":"Lỗi khi đăng nhập bằng Facebook, vui lòng thử lại",
+  "phoneNotNull":"Số điện thoại không được để trống"
 }

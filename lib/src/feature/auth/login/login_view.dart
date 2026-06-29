@@ -300,11 +300,12 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
             formKey.currentState?.validate();
           }
         },
+
         cursorColor: AppColors.buttonLogin,
         style: TextStyle(
-          fontSize: 15.sp,
+          fontSize: 14.sp,
           fontWeight: FontWeight.w500,
-          color: AppColors.darkPrimaryColor,
+          color: AppColors.textColor,
         ),
         decoration: InputDecoration(
           hintText: hintText,
@@ -342,10 +343,25 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
               width: 1.5,
             ),
           ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16.r),
+            borderSide: const BorderSide(
+              color: AppColors.errorColor,
+              width: 2.0,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16.r),
+            borderSide: const BorderSide(
+              color: AppColors.errorColor,
+              width: 2.0,
+            ),
+          ),
           errorStyle: TextStyle(
             fontSize: 12.sp,
+            fontWeight: FontWeight.w600,
             color: AppColors.errorColor,
-            fontFamily: FontFamily.roboto,
+            height: 1.2,
           ),
           hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14.sp),
         ),
@@ -422,7 +438,7 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
             ? null
             : () {
                 FocusScope.of(context).unfocus();
-                _controller.isSubmitted.value = true; // ← thêm
+                _controller.isSubmitted.value = true;
                 if (formKey.currentState!.validate()) {
                   _controller.login(
                     showError: (message) => showFormMessageDialog(

@@ -238,4 +238,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get errrorLoginFacebook => 'Error logging in with Facebook, please try again';
+
+  @override
+  String get phoneNotNull => 'Số điện thoại không được để trống';
 }

@@ -110,7 +110,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
       ),
       padding: EdgeInsets.fromLTRB(30.w, 40.h, 30.w, 40.h),
       decoration: const BoxDecoration(
-        color: AppColors.primaryColor,
+        color: AppColors.whiteColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(40),
           topRight: Radius.circular(40),
@@ -383,7 +383,26 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
               width: 1.5,
             ),
           ),
-          errorStyle: TextStyle(fontSize: 12.sp, color: AppColors.errorColor),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16.r),
+            borderSide: const BorderSide(
+              color: AppColors.errorColor,
+              width: 2.0,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16.r),
+            borderSide: const BorderSide(
+              color: AppColors.errorColor,
+              width: 2.0,
+            ),
+          ),
+          errorStyle: TextStyle(
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w500,
+            color: AppColors.errorColor,
+            height: 1.2,
+          ),
           hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14.sp),
         ),
       ),
@@ -450,10 +469,10 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                       validator: (value) {
                         if (!controller.isSubmitted.value) return null;
                         if (value?.isEmpty ?? true) {
-                          return appLocal.validatorUserName;
+                          return appLocal.phoneNotNull;
                         }
                         if (!Utils.isValidPhoneNumber(value!)) {
-                          return appLocal.validatorEmailOrPhone;
+                          return appLocal.phoneNotNull;
                         }
                         return null;
                       },
@@ -470,9 +489,10 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                       decoration: InputDecoration(
                         errorStyle: TextStyle(
                           fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
                           color: AppColors.errorColor,
+                          height: 1.2,
                         ),
-
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.r),
                           borderSide: BorderSide(
@@ -490,6 +510,20 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                           borderSide: const BorderSide(
                             color: AppColors.buttonLogin,
                             width: 1.5,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.r),
+                          borderSide: const BorderSide(
+                            color: AppColors.errorColor,
+                            width: 2.0,
+                          ),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.r),
+                          borderSide: const BorderSide(
+                            color: AppColors.errorColor,
+                            width: 2.0,
                           ),
                         ),
                         filled: true,

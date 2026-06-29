@@ -556,6 +556,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error logging in with Facebook, please try again'**
   String get errrorLoginFacebook;
+
+  /// No description provided for @phoneNotNull.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number cannot be empty'**
+  String get phoneNotNull;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

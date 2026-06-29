@@ -238,4 +238,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errrorLoginFacebook => 'Error logging in with Facebook, please try again';
+
+  @override
+  String get phoneNotNull => 'Phone number cannot be empty';
 }

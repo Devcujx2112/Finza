@@ -177,11 +177,11 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView>
                           fontSize: 12.sp,
                           fontFamily: FontFamily.roboto,
                           fontWeight: FontWeight(500),
-                          fontStyle: FontStyle.italic,
                         ),
                         hintText: appLocal?.exampleEmail,
                         hintStyle: TextStyle(
-                          color: Colors.grey,
+                          // ignore: deprecated_member_use
+                          color: AppColors.textColor.withOpacity(0.5),
                           fontSize: 14.sp,
                           fontFamily: FontFamily.roboto,
                           fontWeight: FontWeight(500),

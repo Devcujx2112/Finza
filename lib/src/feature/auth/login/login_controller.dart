@@ -153,11 +153,16 @@ class LoginController extends GetxController {
     try {
       isLoading.value = true;
 
-      final LoginResult result = await FacebookAuth.instance.login();
+      final LoginResult result = await FacebookAuth.instance.login(
+        permissions: ['email', 'public_profile'],
+        loginTracking: LoginTracking.enabled,
+      );
 
       if (result.status == LoginStatus.success) {
         final accessToken = result.accessToken;
-
+        debugPrint(result.accessToken.toString());
+        debugPrint(result.accessToken.runtimeType.toString());
+        debugPrint(result.accessToken?.tokenString.substring(0, 20));
         if (accessToken == null) {
           showError(AppLocalizations.of(Get.context!)!.errrorLoginFacebook);
           return;
