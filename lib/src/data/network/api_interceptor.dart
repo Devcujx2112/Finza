@@ -28,6 +28,14 @@ class ApiInterceptor extends Interceptor {
         ),
       );
 
+  /// Log full content without truncation.
+  /// Uses print() instead of debugPrint to avoid char limits and line breaks.
+  void _logFull(String message) {
+    if (kDebugMode) {
+      print(message);
+    }
+  }
+
   @override
   void onRequest(
     RequestOptions options,
@@ -35,24 +43,24 @@ class ApiInterceptor extends Interceptor {
   ) async {
     final token = await _tokenStorage.getAccessToken();
 
-    debugPrint('flutter: ╔╣ Request ║ ${options.method}');
-    debugPrint('flutter: ║  ${options.uri}');
-    debugPrint('flutter: ╚═══════════════════════════════════════╝');
-    debugPrint('flutter: ╔ Headers ║');
+    _logFull('flutter: ╔╣ Request ║ ${options.method}');
+    _logFull('flutter: ║  ${options.uri}');
+    _logFull('flutter: ╚═══════════════════════════════════════╝');
+    _logFull('flutter: ╔ Headers ║');
     options.headers.forEach((key, value) {
-      debugPrint('flutter: ╟ $key: $value');
+      _logFull('flutter: ╟ $key: $value');
     });
-    debugPrint('flutter: ╚═══════════════════════════════════════╝');
+    _logFull('flutter: ╚═══════════════════════════════════════╝');
     if (options.data != null) {
-      debugPrint('flutter: ╔ Body ║');
+      _logFull('flutter: ╔ Body ║');
       if (options.data is Map) {
         options.data.forEach((key, value) {
-          debugPrint('flutter: ╟ $key: $value');
+          _logFull('flutter: ╟ $key: $value');
         });
       } else {
-        debugPrint('flutter: ║ ${options.data}');
+        _logFull('flutter: ║ ${options.data}');
       }
-      debugPrint('flutter: ╚═══════════════════════════════════════╝');
+      _logFull('flutter: ╚═══════════════════════════════════════╝');
     }
 
     if (token != null) {
@@ -64,11 +72,11 @@ class ApiInterceptor extends Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    debugPrint(
+    _logFull(
       'flutter: ╔╣ Response ║ ${response.statusCode} ║ ${response.requestOptions.path}',
     );
-    debugPrint('flutter: ║  Data: ${response.data}');
-    debugPrint('flutter: ╚═══════════════════════════════════════╝');
+    _logFull('flutter: ║  Data: ${response.data}');
+    _logFull('flutter: ╚═══════════════════════════════════════╝');
 
     handler.next(response);
   }
@@ -77,13 +85,13 @@ class ApiInterceptor extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     final statusCode = err.response?.statusCode;
 
-    debugPrint('flutter: ╔╣ DioError ║ ${err.type}');
-    debugPrint('flutter: ║  ${err.message}');
+    _logFull('flutter: ╔╣ DioError ║ ${err.type}');
+    _logFull('flutter: ║  ${err.message}');
     if (err.response != null) {
-      debugPrint('flutter: ║  Response Code: ${err.response?.statusCode}');
-      debugPrint('flutter: ║  Response Data: ${err.response}');
+      _logFull('flutter: ║  Response Code: ${err.response?.statusCode}');
+      _logFull('flutter: ║  Response Data: ${err.response}');
     }
-    debugPrint('flutter: ╚═══════════════════════════════════════╝');
+    _logFull('flutter: ╚═══════════════════════════════════════╝');
 
     if (statusCode != 401) {
       return handler.next(err);
