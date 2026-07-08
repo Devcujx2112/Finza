@@ -1,8 +1,9 @@
 import 'dart:async';
 
+import 'package:app/src/core/constant/constant.dart';
 import 'package:app/src/data/local/token_storage.dart';
+import 'package:app/src/data/network/app_logger.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -28,14 +29,6 @@ class ApiInterceptor extends Interceptor {
         ),
       );
 
-  /// Log full content without truncation.
-  /// Uses print() instead of debugPrint to avoid char limits and line breaks.
-  void _logFull(String message) {
-    if (kDebugMode) {
-      print(message);
-    }
-  }
-
   @override
   void onRequest(
     RequestOptions options,
@@ -43,27 +36,15 @@ class ApiInterceptor extends Interceptor {
   ) async {
     final token = await _tokenStorage.getAccessToken();
 
-    _logFull('flutter: ╔╣ Request ║ ${options.method}');
-    _logFull('flutter: ║  ${options.uri}');
-    _logFull('flutter: ╚═══════════════════════════════════════╝');
-    _logFull('flutter: ╔ Headers ║');
-    options.headers.forEach((key, value) {
-      _logFull('flutter: ╟ $key: $value');
-    });
-    _logFull('flutter: ╚═══════════════════════════════════════╝');
-    if (options.data != null) {
-      _logFull('flutter: ╔ Body ║');
-      if (options.data is Map) {
-        options.data.forEach((key, value) {
-          _logFull('flutter: ╟ $key: $value');
-        });
-      } else {
-        _logFull('flutter: ║ ${options.data}');
-      }
-      _logFull('flutter: ╚═══════════════════════════════════════╝');
-    }
+    AppLogger.request(
+      options.method,
+      options.uri,
+      options.headers,
+      options.data,
+    );
 
-    if (token != null) {
+    if (token != null &&
+        !Constants.apiPublicPaths.any((path) => options.path.contains(path))) {
       options.headers['Authorization'] = 'Bearer $token';
     }
 
@@ -72,12 +53,11 @@ class ApiInterceptor extends Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    _logFull(
-      'flutter: ╔╣ Response ║ ${response.statusCode} ║ ${response.requestOptions.path}',
+    AppLogger.response(
+      response.statusCode,
+      response.requestOptions.path,
+      response,
     );
-    _logFull('flutter: ║  Data: ${response.data}');
-    _logFull('flutter: ╚═══════════════════════════════════════╝');
-
     handler.next(response);
   }
 
@@ -85,14 +65,7 @@ class ApiInterceptor extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     final statusCode = err.response?.statusCode;
 
-    _logFull('flutter: ╔╣ DioError ║ ${err.type}');
-    _logFull('flutter: ║  ${err.message}');
-    if (err.response != null) {
-      _logFull('flutter: ║  Response Code: ${err.response?.statusCode}');
-      _logFull('flutter: ║  Response Data: ${err.response}');
-    }
-    _logFull('flutter: ╚═══════════════════════════════════════╝');
-
+    AppLogger.error(err.type.toString(), err.message, err.response?.data);
     if (statusCode != 401) {
       return handler.next(err);
     }

@@ -1,11 +1,12 @@
 import 'package:app/router/router_name.dart';
 import 'package:app/src/feature/auth/forgot_password/forgot_password_view.dart';
 import 'package:app/src/feature/auth/login/login_binding.dart';
+import 'package:app/src/feature/auth/main_auth/main_auth_binding.dart';
 import 'package:app/src/feature/auth/new_password/new_password_view.dart';
 import 'package:app/src/feature/auth/signup/signup_binding.dart';
 import 'package:app/src/feature/auth/verify_code/verify_code_view.dart';
 import 'package:app/src/feature/auth/login/login_view.dart';
-import 'package:app/src/feature/auth/main_auth.dart';
+import 'package:app/src/feature/auth/main_auth/main_auth_view.dart';
 import 'package:app/src/feature/auth/signup/signup_view.dart';
 import 'package:app/src/feature/home/homepage_view.dart';
 import 'package:app/src/feature/notification/notification_view.dart';
@@ -33,7 +34,11 @@ class Pages {
     // GetPage(name: RouterName.profile, page: () => ProfileView()),
     // GetPage(name: RouterName.setting, page: () => SettingView()),
     GetPage(name: RouterName.onboarding, page: () => OnboardingView()),
-    GetPage(name: RouterName.mainLogin, page: () => MainAuth()),
+    GetPage(
+      name: RouterName.mainLogin,
+      page: () => MainAuth(),
+      binding: MainAuthBinding(),
+    ),
     GetPage(name: RouterName.verifyCode, page: () => VerifyCodeView()),
   ];
 }

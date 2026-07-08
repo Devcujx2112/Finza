@@ -39,4 +39,8 @@ class LoginUsecase {
       idToken: idToken,
     );
   }
+
+  Future<User?> trialAccount() async {
+    return await _loginRepository.trialAccount();
+  }
 }

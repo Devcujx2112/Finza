@@ -1,3 +1,5 @@
+import 'package:app/src/data/network/api_path.dart';
+
 class StatusConstant {
   static const int homeId = 0;
   static const int scheduleId = 1;
@@ -5,7 +7,7 @@ class StatusConstant {
   static const int profileId = 3;
 }
 
-class Constants {
+class ConstantsScreenSize {
   /// Tablet landscape
   static const double kTabletDesignWidthLandscape = 1366;
   static const double kTabletDesignHeightLandscape = 1024;
@@ -23,4 +25,14 @@ class Constants {
   static const double kPhoneDesignHeightPoitrait = 844;
 
   static const int kPageSize = 20;
+}
+
+class Constants {
+  static const List<String> apiPublicPaths = [
+    ApiPath.login,
+    ApiPath.register,
+    ApiPath.refreshToken,
+    ApiPath.loginSocialMedia,
+    ApiPath.trialAccount,
+  ];
 }
