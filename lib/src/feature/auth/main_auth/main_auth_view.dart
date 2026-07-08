@@ -4,9 +4,12 @@ import 'package:app/l10n/app_localizations.dart';
 import 'package:app/router/router_name.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
+import 'package:app/src/feature/auth/main_auth/main_auth_controller.dart';
+import 'package:app/src/feature/widget/form_notification_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
 class MainAuth extends StatefulWidget {
@@ -17,6 +20,7 @@ class MainAuth extends StatefulWidget {
 }
 
 class _MainAuthState extends State<MainAuth> with AdaptivePage {
+  final MainAuthController _controller = Get.find<MainAuthController>();
   @override
   Widget build(BuildContext context) {
     return adaptiveBody(context);
@@ -212,7 +216,16 @@ class _MainAuthState extends State<MainAuth> with AdaptivePage {
 
               GestureDetector(
                 onTap: () {
-                  
+                  _controller.trialAccount(
+                    onSuccess: () {
+                      Get.toNamed(RouterName.home);
+                    },
+                    showError: (message) => showFormMessageDialog(
+                      context,
+                      type: FormMessageType.error,
+                      title: message,
+                    ),
+                  );
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

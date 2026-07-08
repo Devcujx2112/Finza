@@ -152,4 +152,27 @@ class LoginRepositoryImpl extends LoginRepository {
       throw ErrorHandler.handle(e);
     }
   }
+
+  @override
+  Future<User?> trialAccount() async {
+    final response = await Get.find<ApiClient>().post<UserModel>(
+      path: ApiPath.trialAccount,
+      fromJsonT: (data) => UserModel.fromJson(data),
+    );
+
+    if (response.isSuccess) {
+      await SecureTokenStorage.instance.saveAccessToken(
+        response.data?.accessToken ?? "",
+      );
+      await SecureTokenStorage.instance.saveRefreshToken(
+        response.data?.refreshToken ?? "",
+      );
+      return response.data?.toEntity();
+    }
+
+    throw AppException(
+      statusCode: response.statusCode,
+      message: response.message,
+    );
+  }
 }

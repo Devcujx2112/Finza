@@ -17,4 +17,6 @@ abstract class LoginRepository {
     required String provider,
     required String idToken,
   });
+
+  Future<User?> trialAccount();
 }

@@ -75,6 +75,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo_app.svg
   SvgGenImage get logoApp => const SvgGenImage('assets/images/logo_app.svg');
 
+  /// File path: assets/images/logo_app_store.png
+  AssetGenImage get logoAppStore =>
+      const AssetGenImage('assets/images/logo_app_store.png');
+
   /// List of all assets
   List<dynamic> get values => [
     icAppleLogin,
@@ -89,6 +93,7 @@ class $AssetsImagesGen {
     imgOnboard,
     imgOnboard2,
     logoApp,
+    logoAppStore,
   ];
 }
 

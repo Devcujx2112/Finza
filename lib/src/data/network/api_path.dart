@@ -10,6 +10,7 @@ class ApiPath {
   static const String logout = "accounts/logout";
   static const String deleteAccount = "accounts/deleteAccount";
   static const String integration = "accounts/integration";
+  static const String trialAccount = "/accounts/trial";
 
   //Profile
   static const String getProfile = "/accounts/getProfile";
