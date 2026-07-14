@@ -44,4 +44,29 @@ class SignupRepositoryImpl extends SignupRepository {
       throw ErrorHandler.handle(e);
     }
   }
+
+  @override
+  Future<bool?> forgotPassword(String? email) async {
+    try {
+      final request = {"email": email};
+
+      final response = await Get.find<ApiClient>().post<String>(
+        path: ApiPath.sendOtp,
+        body: request,
+        fromJsonT: (data) => data,
+      );
+
+      if (response.isSuccess) {
+        return true;
+      }
+      throw AppException(
+        statusCode: response.statusCode,
+        message: response.message,
+      );
+    } on AppException {
+      rethrow;
+    } catch (e) {
+      return false;
+    }
+  }
 }

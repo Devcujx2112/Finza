@@ -9,6 +9,7 @@ class NewPasswordController extends GetxController {
   RxBool hidePassword = true.obs;
   RxBool hideConfirmPassword = true.obs;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final isSubmitted = false.obs;
 
   void togglePasswordVisibility() {
     hidePassword.value = !hidePassword.value;

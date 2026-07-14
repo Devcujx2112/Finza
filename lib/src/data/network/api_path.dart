@@ -1,18 +1,17 @@
 class ApiPath {
-  //Account
-  static const String register = "/accounts/register";
-  static const String login = "/accounts/login";
-  static const String loginSocialMedia = "/accounts/login-social";
-  static const String refreshToken = "/accounts/refresh-token";
-  static const String trial = "/accounts/trial";
-  static const String forgotPassword = "/accounts/forgot-password";
-  static const String resetPassword = "/accounts/reset-password";
-  static const String logout = "accounts/logout";
-  static const String deleteAccount = "accounts/deleteAccount";
-  static const String integration = "accounts/integration";
-  static const String trialAccount = "/accounts/trial";
+  //Auth
+  static const String register = "/auth/register";
+  static const String login = "/auth/login";
+  static const String loginSocialMedia = "/auth/login-social";
+  static const String refreshToken = "/auth/refresh-token";
+  static const String trialAccount = "/auth/trial";
+  static const String sendOtp = "/auth/sendOtp";
+  static const String resetPassword = "/auth/reset-password";
+  static const String logout = "/auth/logout";
 
-  //Profile
+  //Account
+  static const String deleteAccount = "/accounts/deleteAccount";
+  static const String integration = "/accounts/integration";
   static const String getProfile = "/accounts/getProfile";
   static const String getListCountryCode = "/accounts/getListCountryCode";
 }

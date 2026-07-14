@@ -34,5 +34,6 @@ class Constants {
     ApiPath.refreshToken,
     ApiPath.loginSocialMedia,
     ApiPath.trialAccount,
+    ApiPath.sendOtp,
   ];
 }

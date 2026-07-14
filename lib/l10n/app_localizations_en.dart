@@ -241,4 +241,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get phoneNotNull => 'Phone number cannot be empty';
+
+  @override
+  String get phoneIsNotCorrect => 'Phone number is not correct';
+
+  @override
+  String get emailIsNotCorrect => 'Email is not correct';
+
+  @override
+  String get sendOtpFailed => 'Send OTP failed, please try again';
+
+  @override
+  String get inputYourEmail => 'Enter the email address of the account to be recovered';
 }

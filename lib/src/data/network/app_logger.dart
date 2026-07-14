@@ -33,7 +33,7 @@ class AppLogger {
     log(
       '╔╣ ============================= DioError ║ $type ================================',
     );
-    log('║  $message');
+    log('║ Message:  $message');
 
     if (data != null) {
       log(
