@@ -77,5 +77,9 @@
   "validatorFormSignUp":"Vui lòng điền đầy đủ thông tin",
   "errorLoginGoogle":"Lỗi khi đăng nhập bằng Goolge, vui lòng thử lại",
   "errorLoginFacebook":"Lỗi khi đăng nhập bằng Facebook, vui lòng thử lại",
-  "phoneNotNull":"Số điện thoại không được để trống"
+  "phoneNotNull":"Số điện thoại không được để trống",
+  "phoneIsNotCorrect":"Số điện thoại không hợp lệ",
+  "emailIsNotCorrect":"Email không hợp lệ",
+  "sendOtpFailed":"Gửi OTP không thành công, vui lòng thử lại",
+  "inputYourEmail":"Nhập email tài khoản cần khôi phục"
 }

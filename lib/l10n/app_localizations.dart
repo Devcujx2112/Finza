@@ -562,6 +562,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Phone number cannot be empty'**
   String get phoneNotNull;
+
+  /// No description provided for @phoneIsNotCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number is not correct'**
+  String get phoneIsNotCorrect;
+
+  /// No description provided for @emailIsNotCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Email is not correct'**
+  String get emailIsNotCorrect;
+
+  /// No description provided for @sendOtpFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Send OTP failed, please try again'**
+  String get sendOtpFailed;
+
+  /// No description provided for @inputYourEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the email address of the account to be recovered'**
+  String get inputYourEmail;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

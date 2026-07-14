@@ -241,4 +241,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get phoneNotNull => 'Số điện thoại không được để trống';
+
+  @override
+  String get phoneIsNotCorrect => 'Số điện thoại không hợp lệ';
+
+  @override
+  String get emailIsNotCorrect => 'Email không hợp lệ';
+
+  @override
+  String get sendOtpFailed => 'Gửi OTP không thành công, vui lòng thử lại';
+
+  @override
+  String get inputYourEmail => 'Nhập email tài khoản cần khôi phục';
 }

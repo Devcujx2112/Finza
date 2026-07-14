@@ -1,4 +1,5 @@
 import 'package:app/router/router_name.dart';
+import 'package:app/src/feature/auth/forgot_password/forgot_password_binding.dart';
 import 'package:app/src/feature/auth/forgot_password/forgot_password_view.dart';
 import 'package:app/src/feature/auth/login/login_binding.dart';
 import 'package:app/src/feature/auth/main_auth/main_auth_binding.dart';
@@ -29,7 +30,11 @@ class Pages {
       binding: SignupBinding(),
     ),
     GetPage(name: RouterName.notification, page: () => NotificationView()),
-    GetPage(name: RouterName.forgotPassword, page: () => ForgotPasswordView()),
+    GetPage(
+      name: RouterName.forgotPassword,
+      page: () => ForgotPasswordView(),
+      binding: ForgotPasswordBinding(),
+    ),
     GetPage(name: RouterName.newPassword, page: () => NewPasswordView()),
     // GetPage(name: RouterName.profile, page: () => ProfileView()),
     // GetPage(name: RouterName.setting, page: () => SettingView()),

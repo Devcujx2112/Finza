@@ -13,12 +13,10 @@ class LoginController extends GetxController {
   LoginController(this.loginUsecase);
 
   final LoginUsecase loginUsecase;
+  
   TextEditingController userName = TextEditingController();
   TextEditingController password = TextEditingController();
 
-  final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-  final phoneRegex = RegExp(r'^(0|\+84)[0-9]{9}$');
-  final safeRegex = RegExp(r'^[a-zA-Z0-9@._+-]+$');
   final isSubmitted = false.obs;
 
   Rx<bool> hintPassword = true.obs;
@@ -62,39 +60,11 @@ class LoginController extends GetxController {
     rememberPassword.value = !rememberPassword.value;
   }
 
-  String? validatorUserName(String? value) {
-    if (!isSubmitted.value) return null;
-    final appLocal = AppLocalizations.of(Get.context!)!;
-    if (value == null || value.trim().isEmpty) {
-      return appLocal.validatorUserName;
-    }
-    final input = value.trim();
-    if (!safeRegex.hasMatch(input)) return appLocal.validatorSpecialCharacters;
-    if (!emailRegex.hasMatch(input) && !phoneRegex.hasMatch(input)) {
-      return appLocal.validatorEmailOrPhone;
-    }
-    return null;
-  }
-
-  String? validatorPassword(String? value) {
-    if (!isSubmitted.value) return null;
-    final appLocal = AppLocalizations.of(Get.context!)!;
-    if (value == null || value.trim().isEmpty) {
-      return appLocal.validatorPassword;
-    }
-    final input = value.trim();
-    if (!safeRegex.hasMatch(input)) return appLocal.validatorSpecialCharacters;
-    if (input.length < 6) return appLocal.validatorPasswordLength;
-    return null;
-  }
-
   Future<void> login({
     required Function(String) showError,
     required GlobalKey<FormState> formKey,
   }) async {
     try {
-      if (!formKey.currentState!.validate()) return;
-
       isLoading.value = true;
       final user = await loginUsecase.login(
         userName.text.trim(),

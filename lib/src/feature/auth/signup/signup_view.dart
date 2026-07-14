@@ -471,8 +471,10 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                         if (value?.isEmpty ?? true) {
                           return appLocal.phoneNotNull;
                         }
-                        if (!Utils.isValidPhoneNumber(value!)) {
-                          return appLocal.phoneNotNull;
+                        final phoneNumber =
+                            controller.selectedDialCode.value + value!;
+                        if (!Utils.isValidPhoneNumber(phoneNumber)) {
+                          return appLocal.phoneIsNotCorrect;
                         }
                         return null;
                       },

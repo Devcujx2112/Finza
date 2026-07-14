@@ -9,4 +9,8 @@ class SignupUsecase {
   Future<User?> register(User user) async {
     return await _signupRepository.register(user);
   }
+
+  Future<bool?> forgotPassword(String? email) async {
+    return await _signupRepository.forgotPassword(email);
+  }
 }

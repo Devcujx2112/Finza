@@ -144,7 +144,7 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
                 icon: Icons.person_outline_rounded,
                 controllerText: _controller.userName,
                 isPassword: false,
-                validator: (value) => _controller.validatorUserName(value),
+                validator: (value) => Utils.validatorEmail(value),
                 focusNode: _controller.userNameFocus,
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: () {
@@ -160,7 +160,7 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
                 icon: Icons.lock_outline_rounded,
                 controllerText: _controller.password,
                 isPassword: true,
-                validator: (value) => _controller.validatorPassword(value),
+                validator: (value) => Utils.validatorPassword(value),
                 focusNode: _controller.passwordFocus,
                 textInputAction: TextInputAction.done,
                 onFieldSubmitted: () {
