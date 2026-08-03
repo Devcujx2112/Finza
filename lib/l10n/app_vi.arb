@@ -81,5 +81,9 @@
   "phoneIsNotCorrect":"Số điện thoại không hợp lệ",
   "emailIsNotCorrect":"Email không hợp lệ",
   "sendOtpFailed":"Gửi OTP không thành công, vui lòng thử lại",
-  "inputYourEmail":"Nhập email tài khoản cần khôi phục"
+  "inputYourEmail":"Nhập email tài khoản cần khôi phục",
+  "resendOtpSuccess":"Gửi lại OTP thành công, vui lòng kiểm tra email",
+  "resendOtpLimit":"Bạn đã gửi quá số lần quy định, vui lòng thử lại sau",
+  "invalidOtp":"Mã OTP không chính xác, vui lòng thử lại",
+  "verifyOtpSuccess":"Xác thực OTP thành công"
 }

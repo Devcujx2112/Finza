@@ -25,7 +25,10 @@ class ForgotPasswordController extends GetxController {
       _isLoading.value = true;
       final result = await signupUsecase.forgotPassword(emailController.text);
       if (result == true) {
-        Get.toNamed(RouterName.verifyCode);
+        Get.toNamed(
+          RouterName.verifyCode,
+          arguments: {'email': emailController.text},
+        );
       } else {
         showError(appLocal.sendOtpFailed);
       }

@@ -13,4 +13,8 @@ class SignupUsecase {
   Future<bool?> forgotPassword(String? email) async {
     return await _signupRepository.forgotPassword(email);
   }
+
+  Future<bool?> verifyOtp(String? email, String? otp) async {
+    return await _signupRepository.verifyOtp(email, otp);
+  }
 }

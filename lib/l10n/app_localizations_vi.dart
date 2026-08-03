@@ -253,4 +253,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get inputYourEmail => 'Nhập email tài khoản cần khôi phục';
+
+  @override
+  String get resendOtpSuccess => 'Gửi lại OTP thành công, vui lòng kiểm tra email';
+
+  @override
+  String get resendOtpLimit => 'Bạn đã gửi quá số lần quy định, vui lòng thử lại sau';
+
+  @override
+  String get invalidOtp => 'Mã OTP không chính xác, vui lòng thử lại';
+
+  @override
+  String get verifyOtpSuccess => 'Xác thực OTP thành công';
 }
