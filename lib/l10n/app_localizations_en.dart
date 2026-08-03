@@ -253,4 +253,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get inputYourEmail => 'Enter the email address of the account to be recovered';
+
+  @override
+  String get resendOtpSuccess => 'OTP successfully resent, please check your email';
+
+  @override
+  String get resendOtpLimit => 'You have exceeded the allowed number of attempts; please try again later';
+
+  @override
+  String get invalidOtp => 'Incorrect OTP, please try again.';
+
+  @override
+  String get verifyOtpSuccess => 'OTP authentication successful.';
 }

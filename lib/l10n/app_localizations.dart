@@ -586,6 +586,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter the email address of the account to be recovered'**
   String get inputYourEmail;
+
+  /// No description provided for @resendOtpSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP successfully resent, please check your email'**
+  String get resendOtpSuccess;
+
+  /// No description provided for @resendOtpLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'You have exceeded the allowed number of attempts; please try again later'**
+  String get resendOtpLimit;
+
+  /// No description provided for @invalidOtp.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect OTP, please try again.'**
+  String get invalidOtp;
+
+  /// No description provided for @verifyOtpSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP authentication successful.'**
+  String get verifyOtpSuccess;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/constant/utils.dart';

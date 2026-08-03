@@ -1,8 +1,9 @@
+import 'dart:async';
 import 'package:app/l10n/app_localizations.dart';
-import 'package:app/router/router_name.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
 import 'package:app/src/feature/auth/verify_code/verify_code_controller.dart';
+import 'package:app/src/feature/widget/form_notification_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,52 @@ class VerifyCodeView extends StatefulWidget {
 }
 
 class _VerifyCodeViewState extends State<VerifyCodeView> with AdaptivePage {
-  final VerifyCodeController _controller = VerifyCodeController();
+  final VerifyCodeController _controller = Get.find<VerifyCodeController>();
+
+  Timer? _countdownTimer;
+  int _remainingSeconds = 180;
+
+  @override
+  void initState() {
+    super.initState();
+    _startCountdown();
+  }
+
+  void _startCountdown() {
+    final shouldNotify = mounted && _countdownTimer != null;
+    if (shouldNotify) {
+      setState(() {
+        _remainingSeconds = 180;
+      });
+    } else {
+      _remainingSeconds = 180;
+    }
+    _countdownTimer?.cancel();
+    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (mounted) {
+        if (_remainingSeconds > 0) {
+          setState(() {
+            _remainingSeconds--;
+          });
+        } else {
+          _controller.verifyNumberSendOtp();
+          timer.cancel();
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _countdownTimer?.cancel();
+    super.dispose();
+  }
+
+  String get _formattedTime {
+    int minutes = _remainingSeconds ~/ 60;
+    int seconds = _remainingSeconds % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,15 +97,7 @@ class _VerifyCodeViewState extends State<VerifyCodeView> with AdaptivePage {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
+        automaticallyImplyLeading: false,
       ),
       backgroundColor: AppColors.primarySecondaryColor,
       body: Container(
@@ -158,6 +196,52 @@ class _VerifyCodeViewState extends State<VerifyCodeView> with AdaptivePage {
                   fontWeight: FontWeight.w700,
                 ),
               ),
+              SizedBox(height: 20.h),
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 8.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: _remainingSeconds > 0
+                        ? AppColors.buttonLogin.withOpacity(0.08)
+                        : AppColors.errorColor.withOpacity(0.08),
+                    borderRadius: BorderRadius.circular(16.r),
+                    border: Border.all(
+                      color: _remainingSeconds > 0
+                          ? AppColors.buttonLogin.withOpacity(0.2)
+                          : AppColors.errorColor.withOpacity(0.2),
+                      width: 1.5,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.timer_outlined,
+                        color: _remainingSeconds > 0
+                            ? AppColors.buttonLogin
+                            : AppColors.errorColor,
+                        size: 18.sp,
+                      ),
+                      SizedBox(width: 8.w),
+                      Text(
+                        _formattedTime,
+                        style: TextStyle(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w700,
+                          color: _remainingSeconds > 0
+                              ? AppColors.buttonLogin
+                              : AppColors.errorColor,
+                          letterSpacing: 1.2,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               SizedBox(height: 32.h),
               GestureDetector(
                 onTap: () {
@@ -188,29 +272,59 @@ class _VerifyCodeViewState extends State<VerifyCodeView> with AdaptivePage {
               SizedBox(height: 40.h),
               SizedBox(
                 height: 48.h,
-                child: ElevatedButton(
-                  onPressed: () {
-                    FocusScope.of(context).unfocus();
-                    Get.toNamed(RouterName.newPassword);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.buttonLogin,
-                    foregroundColor: Colors.white,
-                    padding: EdgeInsets.zero,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16.r),
+                child: Obx(() {
+                  final isLoading = _controller.isLoading;
+                  final isExpired = _remainingSeconds == 0;
+                  final isDisabled = isExpired || isLoading;
+
+                  return ElevatedButton(
+                    onPressed: isDisabled
+                        ? null
+                        : () {
+                            FocusScope.of(context).unfocus();
+                            _controller.verifyOtp(
+                              showError: (message) => showFormMessageDialog(
+                                context,
+                                type: FormMessageType.error,
+                                title: message,
+                              ),
+                              showSuccess: (message) {
+                                showFormMessageDialog(
+                                  context,
+                                  type: FormMessageType.success,
+                                  title: message,
+                                );
+                              },
+                              appLocal: appLocal,
+                            );
+                          },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.buttonLogin,
+                      disabledBackgroundColor: Colors.grey.shade400,
+                      foregroundColor: AppColors.whiteColor,
+                      disabledForegroundColor: AppColors.whiteColor,
+                      padding: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16.r),
+                      ),
+                      elevation: isExpired ? 0 : 4,
+                      shadowColor: isExpired
+                          ? Colors.transparent
+                          : AppColors.buttonLogin.withOpacity(0.4),
                     ),
-                    elevation: 4,
-                    shadowColor: AppColors.buttonLogin.withOpacity(0.4),
-                  ),
-                  child: Text(
-                    appLocal.nextStep,
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+                    child: isLoading
+                        ? const CircularProgressIndicator(
+                            color: AppColors.whiteColor,
+                          )
+                        : Text(
+                            appLocal.nextStep,
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                  );
+                }),
               ),
             ],
           ),
@@ -270,7 +384,7 @@ class _VerifyCodeViewState extends State<VerifyCodeView> with AdaptivePage {
                   style: TextStyle(
                     fontSize: 20.sp,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textColor,
+                    color: AppColors.darkPrimaryColor,
                   ),
                 ),
               );
@@ -290,19 +404,52 @@ class _VerifyCodeViewState extends State<VerifyCodeView> with AdaptivePage {
               ),
             ),
             SizedBox(width: 6.w),
-            GestureDetector(
-              onTap: () {},
-              child: Text(
-                appLocal.resendPin,
-                style: TextStyle(
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.buttonLogin,
-                  decoration: TextDecoration.underline,
-                  decorationColor: AppColors.buttonLogin,
+            Obx(() {
+              final isResendEnabled = _controller.isResendEnabled;
+              final isLoading = _controller.isLoading;
+              final canResend = isResendEnabled && !isLoading;
+
+              return GestureDetector(
+                onTap: canResend
+                    ? () {
+                        _controller.resendOtp(
+                          showError: (message) => showFormMessageDialog(
+                            context,
+                            type: FormMessageType.error,
+                            title: message,
+                          ),
+                          showSuccess: (message) {
+                            showFormMessageDialog(
+                              context,
+                              type: FormMessageType.success,
+                              title: message,
+                            );
+                            _startCountdown();
+                          },
+                          appLocal: appLocal,
+                        );
+                      }
+                    : () {
+                        showFormMessageDialog(
+                          context,
+                          type: FormMessageType.error,
+                          title: appLocal.resendOtpLimit,
+                        );
+                      },
+                child: Text(
+                  appLocal.resendPin,
+                  style: TextStyle(
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.bold,
+                    color: canResend ? AppColors.buttonLogin : Colors.grey,
+                    decoration: TextDecoration.underline,
+                    decorationColor: canResend
+                        ? AppColors.buttonLogin
+                        : Colors.transparent,
+                  ),
                 ),
-              ),
-            ),
+              );
+            }),
           ],
         ),
       ],

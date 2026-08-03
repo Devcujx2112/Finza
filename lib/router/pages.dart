@@ -5,6 +5,7 @@ import 'package:app/src/feature/auth/login/login_binding.dart';
 import 'package:app/src/feature/auth/main_auth/main_auth_binding.dart';
 import 'package:app/src/feature/auth/new_password/new_password_view.dart';
 import 'package:app/src/feature/auth/signup/signup_binding.dart';
+import 'package:app/src/feature/auth/verify_code/verify_code_binding.dart';
 import 'package:app/src/feature/auth/verify_code/verify_code_view.dart';
 import 'package:app/src/feature/auth/login/login_view.dart';
 import 'package:app/src/feature/auth/main_auth/main_auth_view.dart';
@@ -44,6 +45,10 @@ class Pages {
       page: () => MainAuth(),
       binding: MainAuthBinding(),
     ),
-    GetPage(name: RouterName.verifyCode, page: () => VerifyCodeView()),
+    GetPage(
+      name: RouterName.verifyCode,
+      page: () => VerifyCodeView(),
+      binding: VerifyCodeBinding(),
+    ),
   ];
 }

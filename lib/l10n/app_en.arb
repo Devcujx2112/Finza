@@ -81,5 +81,9 @@
   "phoneIsNotCorrect":"Phone number is not correct",
   "emailIsNotCorrect":"Email is not correct",
   "sendOtpFailed":"Send OTP failed, please try again",
-  "inputYourEmail":"Enter the email address of the account to be recovered"
+  "inputYourEmail":"Enter the email address of the account to be recovered",
+  "resendOtpSuccess":"OTP successfully resent, please check your email",
+  "resendOtpLimit":"You have exceeded the allowed number of attempts; please try again later",
+  "invalidOtp":"Incorrect OTP, please try again.",
+  "verifyOtpSuccess":"OTP authentication successful."
 }

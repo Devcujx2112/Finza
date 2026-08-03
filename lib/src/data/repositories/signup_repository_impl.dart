@@ -69,4 +69,29 @@ class SignupRepositoryImpl extends SignupRepository {
       return false;
     }
   }
+
+  @override
+  Future<bool?> verifyOtp(String? email, String? otp) async {
+    try {
+      final request = {"email": email, "otp": otp};
+
+      final response = await Get.find<ApiClient>().post<String>(
+        path: ApiPath.verifyOtp,
+        body: request,
+        fromJsonT: (data) => data,
+      );
+
+      if (response.isSuccess) {
+        return true;
+      }
+      throw AppException(
+        statusCode: response.statusCode,
+        message: response.message,
+      );
+    } on AppException {
+      rethrow;
+    } catch (e) {
+      return false;
+    }
+  }
 }
