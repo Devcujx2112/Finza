@@ -265,4 +265,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get verifyOtpSuccess => 'OTP authentication successful.';
+
+  @override
+  String get changePasswordSuccess => 'Password changed successfully';
+
+  @override
+  String get changePasswordFail => 'Failed to change password; please try again';
 }

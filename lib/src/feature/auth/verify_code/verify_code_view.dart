@@ -289,7 +289,7 @@ class _VerifyCodeViewState extends State<VerifyCodeView> with AdaptivePage {
                                 title: message,
                               ),
                               showSuccess: (message) {
-                                showFormMessageDialog(
+                                return showFormMessageDialog(
                                   context,
                                   type: FormMessageType.success,
                                   title: message,

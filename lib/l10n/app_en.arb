@@ -85,5 +85,7 @@
   "resendOtpSuccess":"OTP successfully resent, please check your email",
   "resendOtpLimit":"You have exceeded the allowed number of attempts; please try again later",
   "invalidOtp":"Incorrect OTP, please try again.",
-  "verifyOtpSuccess":"OTP authentication successful."
+  "verifyOtpSuccess":"OTP authentication successful.",
+  "changePasswordSuccess":"Password changed successfully",
+  "changePasswordFail":"Failed to change password; please try again"
 }
