@@ -94,4 +94,21 @@ class SignupRepositoryImpl extends SignupRepository {
       return false;
     }
   }
+
+  @override
+  Future<bool> changePassword(String? email, String? password) async {
+    try {
+      final request = {"email": email, "password": password};
+      final response = await Get.find<ApiClient>().post<String>(
+        path: ApiPath.changePassword,
+        body: request,
+        fromJsonT: (data) => data,
+      );
+      return response.isSuccess;
+    } on AppException {
+      rethrow;
+    } catch (e) {
+      return false;
+    }
+  }
 }

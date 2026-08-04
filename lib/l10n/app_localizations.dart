@@ -610,6 +610,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'OTP authentication successful.'**
   String get verifyOtpSuccess;
+
+  /// No description provided for @changePasswordSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Password changed successfully'**
+  String get changePasswordSuccess;
+
+  /// No description provided for @changePasswordFail.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to change password; please try again'**
+  String get changePasswordFail;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

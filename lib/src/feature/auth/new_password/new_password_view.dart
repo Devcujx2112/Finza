@@ -1,8 +1,9 @@
 import 'package:app/l10n/app_localizations.dart';
-import 'package:app/router/router_name.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
 import 'package:app/src/feature/auth/new_password/new_password_controller.dart';
+import 'package:app/src/feature/widget/form_notification_message.dart';
+import 'package:app/src/feature/widget/loading_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,7 @@ class NewPasswordView extends StatefulWidget {
 }
 
 class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
-  final NewPasswordController _controller = NewPasswordController();
+  final NewPasswordController _controller = Get.find<NewPasswordController>();
 
   @override
   Widget build(BuildContext context) {
@@ -46,75 +47,83 @@ class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
     final appLocal = AppLocalizations.of(context)!;
     final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Colors.white,
+    return Obx(
+      () => LoadingOverlay(
+        isLoading: _controller.isLoading,
+        child: Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Get.back();
+              },
+            ),
           ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
-      ),
-      backgroundColor: AppColors.primarySecondaryColor,
-      body: Container(
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [AppColors.primarySecondaryColor, AppColors.buttonLogin],
-          ),
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 250),
-                height: isKeyboardOpen ? 140.h : 230.h,
-                child: SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      left: 50.w,
-                      top: isKeyboardOpen ? 60.h : 100.h,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          appLocal.newPassword,
-                          style: TextStyle(
-                            fontSize: 32.sp,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white,
-                            letterSpacing: -0.5,
-                          ),
+          backgroundColor: AppColors.primarySecondaryColor,
+          body: Container(
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  AppColors.primarySecondaryColor,
+                  AppColors.buttonLogin,
+                ],
+              ),
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 250),
+                    height: isKeyboardOpen ? 140.h : 230.h,
+                    child: SingleChildScrollView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: 50.w,
+                          top: isKeyboardOpen ? 60.h : 100.h,
                         ),
-                        SizedBox(height: 8.h),
-                        if (!isKeyboardOpen)
-                          Text(
-                            appLocal.resetPassword,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: Colors.white.withOpacity(0.9),
-                              fontWeight: FontWeight.w400,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              appLocal.newPassword,
+                              style: TextStyle(
+                                fontSize: 32.sp,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.white,
+                                letterSpacing: -0.5,
+                              ),
                             ),
-                          ),
-                      ],
+                            SizedBox(height: 8.h),
+                            if (!isKeyboardOpen)
+                              Text(
+                                appLocal.resetPassword,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: Colors.white.withOpacity(0.9),
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  _buildFormNewPassword(context),
+                ],
               ),
-              _buildFormNewPassword(context),
-            ],
+            ),
           ),
         ),
       ),
@@ -151,62 +160,106 @@ class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(height: 10.h),
-              Obx(
-                () => _buildFormItem(
-                  label: appLocal.newPassword,
-                  hintText: '••••••••',
-                  icon: Icons.lock_outline_rounded,
-                  controllerText: _controller.passwordController,
-                  isPassword: true,
-                  hide: _controller.hidePassword.value,
-                  onToggleHide: _controller.togglePasswordVisibility,
-                  validator: (value) =>
-                      _controller.validateInput(value, true, context),
-                ),
+              _buildFormItem(
+                label: appLocal.newPassword,
+                hintText: '••••••••',
+                icon: Icons.lock_outline_rounded,
+                controllerText: _controller.passwordController,
+                isPassword: true,
+                validator: (value) =>
+                    _controller.validateInput(value, true, context),
+                focusNode: _controller.passwordFocus,
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: () {
+                  FocusScope.of(
+                    context,
+                  ).requestFocus(_controller.confirmPasswordFocus);
+                },
               ),
               SizedBox(height: 16.h),
-              Obx(
-                () => _buildFormItem(
-                  label: appLocal.confirmPassword,
-                  hintText: '••••••••',
-                  icon: Icons.lock_outline_rounded,
-                  controllerText: _controller.confirmPasswordController,
-                  isPassword: true,
-                  hide: _controller.hideConfirmPassword.value,
-                  onToggleHide: _controller.toggleConfirmPasswordVisibility,
-                  validator: (value) =>
-                      _controller.validateInput(value, false, context),
-                ),
+              _buildFormItem(
+                label: appLocal.confirmPassword,
+                hintText: '••••••••',
+                icon: Icons.lock_outline_rounded,
+                controllerText: _controller.confirmPasswordController,
+                isPassword: true,
+                isConfirmPassword: true,
+                validator: (value) =>
+                    _controller.validateInput(value, false, context),
+                focusNode: _controller.confirmPasswordFocus,
+                textInputAction: TextInputAction.done,
+                onFieldSubmitted: () {
+                  FocusScope.of(context).unfocus();
+                },
               ),
               SizedBox(height: 40.h),
               SizedBox(
                 height: 48.h,
-                child: ElevatedButton(
-                  onPressed: () {
-                    FocusScope.of(context).unfocus();
-                    _controller.isSubmitted.value = true;
-                    if (_controller.formKey.currentState!.validate()) {
-                      Get.toNamed(RouterName.login);
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.buttonLogin,
-                    foregroundColor: Colors.white,
-                    padding: EdgeInsets.zero,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16.r),
+                child: Obx(() {
+                  final isLoading = _controller.isLoading;
+                  return ElevatedButton(
+                    onPressed: isLoading
+                        ? null
+                        : () {
+                            FocusScope.of(context).unfocus();
+                            _controller.isSubmitted.value = true;
+                            if (_controller.formKey.currentState!.validate()) {
+                              if (!_controller.isConfirmPasswordMatched) {
+                                showFormMessageDialog(
+                                  context,
+                                  type: FormMessageType.error,
+                                  title: appLocal.validatorPasswordConfirm,
+                                );
+                                return;
+                              }
+                              _controller.changePassword(
+                                onError: (message) => showFormMessageDialog(
+                                  context,
+                                  type: FormMessageType.error,
+                                  title: message,
+                                ),
+                                onSuccess: (message) {
+                                  showFormMessageDialog(
+                                    context,
+                                    type: FormMessageType.success,
+                                    title: message,
+                                  );
+                                },
+                                appLocal: appLocal,
+                              );
+                            }
+                          },
+                    style: ElevatedButton.styleFrom(
+                      disabledBackgroundColor: AppColors.buttonLogin
+                          .withOpacity(0.7),
+                      disabledForegroundColor: Colors.white,
+                      backgroundColor: AppColors.buttonLogin,
+                      foregroundColor: Colors.white,
+                      padding: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16.r),
+                      ),
+                      elevation: 4,
+                      shadowColor: AppColors.buttonLogin.withOpacity(0.4),
                     ),
-                    elevation: 4,
-                    shadowColor: AppColors.buttonLogin.withOpacity(0.4),
-                  ),
-                  child: Text(
-                    appLocal.confirm,
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+                    child: isLoading
+                        ? SizedBox(
+                            width: 24.w,
+                            height: 24.w,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2.5.w,
+                            ),
+                          )
+                        : Text(
+                            appLocal.changePassword,
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                  );
+                }),
               ),
             ],
           ),
@@ -221,9 +274,11 @@ class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
     required IconData icon,
     required TextEditingController controllerText,
     required bool isPassword,
-    required bool hide,
-    required VoidCallback onToggleHide,
+    bool isConfirmPassword = false,
     required String? Function(String?)? validator,
+    required FocusNode focusNode,
+    TextInputAction? textInputAction,
+    VoidCallback? onFieldSubmitted,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -239,15 +294,37 @@ class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
             ),
           ),
         ),
-        _buildTextField(
-          hintText: hintText,
-          icon: icon,
-          controllerText: controllerText,
-          isPassword: isPassword,
-          hide: hide,
-          onToggleHide: onToggleHide,
-          validator: validator,
-        ),
+        if (isPassword)
+          Obx(() {
+            bool hide = isConfirmPassword
+                ? _controller.hideConfirmPassword.value
+                : _controller.hidePassword.value;
+            return _buildTextField(
+              hintText: hintText,
+              icon: icon,
+              controllerText: controllerText,
+              isPassword: isPassword,
+              validator: validator,
+              hide: hide,
+              isConfirmPassword: isConfirmPassword,
+              focusNode: focusNode,
+              textInputAction: textInputAction,
+              onFieldSubmitted: onFieldSubmitted,
+            );
+          })
+        else
+          _buildTextField(
+            hintText: hintText,
+            icon: icon,
+            controllerText: controllerText,
+            isPassword: isPassword,
+            validator: validator,
+            hide: false,
+            isConfirmPassword: false,
+            focusNode: focusNode,
+            textInputAction: textInputAction,
+            onFieldSubmitted: onFieldSubmitted,
+          ),
       ],
     );
   }
@@ -257,9 +334,12 @@ class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
     required IconData icon,
     required TextEditingController controllerText,
     required bool isPassword,
-    required bool hide,
-    required VoidCallback onToggleHide,
     required String? Function(String?)? validator,
+    required bool hide,
+    required bool isConfirmPassword,
+    required FocusNode focusNode,
+    TextInputAction? textInputAction,
+    VoidCallback? onFieldSubmitted,
   }) {
     return Container(
       decoration: BoxDecoration(
@@ -274,8 +354,11 @@ class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
       ),
       child: TextFormField(
         controller: controllerText,
+        focusNode: focusNode,
         obscureText: hide,
         validator: validator,
+        textInputAction: textInputAction,
+        onFieldSubmitted: (_) => onFieldSubmitted?.call(),
         onChanged: (_) {
           if (_controller.isSubmitted.value) {
             _controller.formKey.currentState?.validate();
@@ -299,7 +382,9 @@ class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
                     color: AppColors.iconColor,
                     size: 20.sp,
                   ),
-                  onPressed: onToggleHide,
+                  onPressed: isConfirmPassword
+                      ? _controller.toggleConfirmPasswordVisibility
+                      : _controller.togglePasswordVisibility,
                 )
               : null,
           filled: true,

@@ -265,4 +265,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get verifyOtpSuccess => 'Xác thực OTP thành công';
+
+  @override
+  String get changePasswordSuccess => 'Thay đổi mật khẩu thành công';
+
+  @override
+  String get changePasswordFail => 'Thay đổi mật khẩu không thành công, vui lòng thử lại';
 }

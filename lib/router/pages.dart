@@ -3,6 +3,7 @@ import 'package:app/src/feature/auth/forgot_password/forgot_password_binding.dar
 import 'package:app/src/feature/auth/forgot_password/forgot_password_view.dart';
 import 'package:app/src/feature/auth/login/login_binding.dart';
 import 'package:app/src/feature/auth/main_auth/main_auth_binding.dart';
+import 'package:app/src/feature/auth/new_password/new_password_binding.dart';
 import 'package:app/src/feature/auth/new_password/new_password_view.dart';
 import 'package:app/src/feature/auth/signup/signup_binding.dart';
 import 'package:app/src/feature/auth/verify_code/verify_code_binding.dart';
@@ -36,7 +37,11 @@ class Pages {
       page: () => ForgotPasswordView(),
       binding: ForgotPasswordBinding(),
     ),
-    GetPage(name: RouterName.newPassword, page: () => NewPasswordView()),
+    GetPage(
+      name: RouterName.newPassword,
+      page: () => NewPasswordView(),
+      binding: NewPasswordBinding(),
+    ),
     // GetPage(name: RouterName.profile, page: () => ProfileView()),
     // GetPage(name: RouterName.setting, page: () => SettingView()),
     GetPage(name: RouterName.onboarding, page: () => OnboardingView()),

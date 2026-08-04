@@ -85,5 +85,7 @@
   "resendOtpSuccess":"Gửi lại OTP thành công, vui lòng kiểm tra email",
   "resendOtpLimit":"Bạn đã gửi quá số lần quy định, vui lòng thử lại sau",
   "invalidOtp":"Mã OTP không chính xác, vui lòng thử lại",
-  "verifyOtpSuccess":"Xác thực OTP thành công"
+  "verifyOtpSuccess":"Xác thực OTP thành công",
+  "changePasswordSuccess":"Thay đổi mật khẩu thành công",
+  "changePasswordFail":"Thay đổi mật khẩu không thành công, vui lòng thử lại"
 }

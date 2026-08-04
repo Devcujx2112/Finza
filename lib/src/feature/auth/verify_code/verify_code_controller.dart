@@ -73,7 +73,7 @@ class VerifyCodeController extends GetxController {
 
   Future<bool> verifyOtp({
     required Function(String) showError,
-    required Function(String) showSuccess,
+    required Future<void> Function(String) showSuccess,
     required AppLocalizations appLocal,
   }) async {
     try {
@@ -83,10 +83,12 @@ class VerifyCodeController extends GetxController {
         pinController.text,
       );
       if (result == true) {
-        showSuccess(appLocal.verifyOtpSuccess);
+        _isLoading.value = false;
+        await showSuccess(appLocal.verifyOtpSuccess);
         Get.toNamed(RouterName.newPassword, arguments: {'email': _email.value});
         return true;
       } else {
+        _isLoading.value = false;
         showError(appLocal.invalidOtp);
         return false;
       }
