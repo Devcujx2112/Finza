@@ -18,5 +18,12 @@ class BottomBarController extends GetxController {
     MenubarItem(menuId: 4, title: "Admin", location: RouterName.admin),
   ];
 
+  RxInt previousIndex = 0.obs;
   RxInt currentIndex = 0.obs;
+
+  void changeTap(int index) {
+    if (currentIndex.value == index) return;
+    previousIndex.value = currentIndex.value;
+    currentIndex.value = index;
+  }
 }

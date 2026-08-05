@@ -1,11 +1,9 @@
 import 'package:app/gen/assets.gen.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
-import 'package:app/src/feature/bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get.dart';
 
 class HomepageView extends StatefulWidget {
   const HomepageView({super.key});
@@ -15,6 +13,7 @@ class HomepageView extends StatefulWidget {
 }
 
 class _HomepageViewState extends State<HomepageView> with AdaptivePage {
+
   @override
   Widget build(BuildContext context) {
     return adaptiveBody(context);
@@ -46,26 +45,25 @@ class _HomepageViewState extends State<HomepageView> with AdaptivePage {
         backgroundColor: AppColors.backgroundHomepage,
         actions: [notificationView()],
       ),
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Expanded(
-                flex: 3,
-                child: Container(color: AppColors.backgroundHomepage),
-              ),
-              Expanded(
-                flex: 8,
-                child: Container(
-                  width: double.infinity,
-                  color: AppColors.primaryColor,
-                ),
-              ),
-            ],
+      body: _buildHomeContent(),
+    );
+  }
+
+  Widget _buildHomeContent() {
+    return Column(
+      children: [
+        Expanded(
+          flex: 3,
+          child: Container(color: AppColors.backgroundHomepage),
+        ),
+        Expanded(
+          flex: 8,
+          child: Container(
+            width: double.infinity,
+            color: AppColors.primaryColor,
           ),
-          const BottomBar(),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
