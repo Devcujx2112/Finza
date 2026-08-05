@@ -27,6 +27,8 @@ class ConstantsScreenSize {
   static const int kPageSize = 20;
 }
 
+class ConstantsFontSize {}
+
 class Constants {
   static const List<String> apiPublicPaths = [
     ApiPath.login,
