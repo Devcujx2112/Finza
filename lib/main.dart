@@ -2,6 +2,9 @@ import 'package:app/l10n/app_localizations.dart';
 import 'package:app/router/pages.dart';
 import 'package:app/router/router_name.dart';
 import 'package:app/src/core/color/app_theme.dart';
+import 'package:app/src/data/local/token_storage.dart';
+import 'package:app/src/feature/main_controller/main_controller.dart';
+import 'package:app/src/feature/widget/draggable_ai_chat_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:app/src/data/network/api_client.dart';
@@ -17,6 +20,11 @@ void main() async {
   debugPrint("Firebase initialized successfully");
 
   Get.put(ApiClient());
+  final mainController = Get.put(
+    MainController(SecureTokenStorage.instance),
+    permanent: true,
+  );
+  await mainController.loadSettings();
   runApp(const FinzaApp());
 }
 
@@ -28,6 +36,8 @@ class FinzaApp extends StatefulWidget {
 }
 
 class _FinzaAppState extends State<FinzaApp> {
+  final MainController _mainController = Get.find<MainController>();
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -39,10 +49,25 @@ class _FinzaAppState extends State<FinzaApp> {
           initialRoute: RouterName.splash,
           getPages: Pages.page,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: _mainController.locale,
+          fallbackLocale: const Locale('en'),
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
-          themeMode: ThemeMode.system,
+          themeMode: _mainController.themeMode,
+          routingCallback: (routing) {
+            _mainController.updateCurrentRoute(routing?.current);
+          },
+          builder: (context, child) {
+            return Stack(
+              fit: StackFit.expand,
+              children: [
+                child ?? const SizedBox.shrink(),
+                const DraggableAiChatButton(),
+              ],
+            );
+          },
         );
       },
     );

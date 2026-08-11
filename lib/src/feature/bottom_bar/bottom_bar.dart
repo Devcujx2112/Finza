@@ -6,6 +6,7 @@ import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/constant/constant.dart';
 import 'package:app/domain/entities/bottom_bar/menubar_item.dart';
 import 'package:app/src/feature/bottom_bar/bottom_bar_controller.dart';
+import 'package:app/src/feature/main_controller/main_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   final BottomBarController _controller = Get.find<BottomBarController>();
+  final MainController _mainController = Get.find<MainController>();
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +63,17 @@ class _BottomBarState extends State<BottomBar> {
                   width: 1.5,
                 ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: _controller.menuUser
-                    .map((item) => bottomBarItem(item))
-                    .toList(),
+              child: Obx(
+                () {
+                  final languageCode = _mainController.languageCode;
+                  return Row(
+                    key: ValueKey(languageCode),
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: _controller.menuUser
+                        .map((item) => bottomBarItem(item))
+                        .toList(),
+                  );
+                },
               ),
             ),
           ),

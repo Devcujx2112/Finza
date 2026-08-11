@@ -436,24 +436,26 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
         onPressed: isLoading
             ? null
             : () {
-                FocusScope.of(context).unfocus();
-                _controller.isSubmitted.value = true;
-                if (formKey.currentState!.validate()) {
-                  _controller.login(
-                    showError: (message) => showFormMessageDialog(
-                      context,
-                      type: FormMessageType.error,
-                      title: message,
-                    ),
-                    formKey: formKey,
-                  );
-                } else {
-                  showFormMessageDialog(
-                    context,
-                    type: FormMessageType.warning,
-                    title: appLocal.validatorFormSignUp,
-                  );
-                }
+                Get.offAllNamed(RouterName.home);
+
+                // FocusScope.of(context).unfocus();
+                // _controller.isSubmitted.value = true;
+                // if (formKey.currentState!.validate()) {
+                //   _controller.login(
+                //     showError: (message) => showFormMessageDialog(
+                //       context,
+                //       type: FormMessageType.error,
+                //       title: message,
+                //     ),
+                //     formKey: formKey,
+                //   );
+                // } else {
+                //   showFormMessageDialog(
+                //     context,
+                //     type: FormMessageType.warning,
+                //     title: appLocal.validatorFormSignUp,
+                //   );
+                // }
               },
         style: ElevatedButton.styleFrom(
           disabledBackgroundColor: AppColors.buttonLogin.withOpacity(0.7),

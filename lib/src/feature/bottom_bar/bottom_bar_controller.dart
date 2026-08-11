@@ -4,18 +4,18 @@ import 'package:get/get.dart';
 
 class BottomBarController extends GetxController {
   List<MenubarItem> menuUser = [
-    MenubarItem(menuId: 0, title: "Home", location: RouterName.home),
-    MenubarItem(menuId: 1, title: "Schedule", location: RouterName.schedule),
-    MenubarItem(menuId: 2, title: "Budget", location: RouterName.budget),
-    MenubarItem(menuId: 3, title: "Profile", location: RouterName.profile),
+    MenubarItem(menuId: 0, location: RouterName.home),
+    MenubarItem(menuId: 1, location: RouterName.schedule),
+    MenubarItem(menuId: 2, location: RouterName.budget),
+    MenubarItem(menuId: 3, location: RouterName.profile),
   ];
 
   List<MenubarItem> menuAdmin = [
-    MenubarItem(menuId: 0, title: "Home", location: RouterName.home),
-    MenubarItem(menuId: 1, title: "Schedule", location: RouterName.schedule),
-    MenubarItem(menuId: 2, title: "Budget", location: RouterName.budget),
-    MenubarItem(menuId: 3, title: "Profile", location: RouterName.profile),
-    MenubarItem(menuId: 4, title: "Admin", location: RouterName.admin),
+    MenubarItem(menuId: 0, location: RouterName.home),
+    MenubarItem(menuId: 1, location: RouterName.schedule),
+    MenubarItem(menuId: 2, location: RouterName.budget),
+    MenubarItem(menuId: 3, location: RouterName.profile),
+    MenubarItem(menuId: 4, location: RouterName.admin),
   ];
 
   RxInt previousIndex = 0.obs;

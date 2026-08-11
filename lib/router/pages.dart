@@ -16,6 +16,7 @@ import 'package:app/src/feature/auth/signup/signup_view.dart';
 import 'package:app/src/feature/budget/budget_view.dart';
 import 'package:app/src/feature/notification/notification_view.dart';
 import 'package:app/src/feature/onboarding/onboarding_view.dart';
+import 'package:app/src/feature/profile/profile_binding.dart';
 import 'package:app/src/feature/profile/profile_view.dart';
 import 'package:app/src/feature/schedule/schedule_view.dart';
 import 'package:app/src/feature/splash/splash_page.dart';
@@ -58,7 +59,11 @@ class Pages {
     // GetPage(name: RouterName.profile, page: () => ProfileView()),
     // GetPage(name: RouterName.setting, page: () => SettingView()),
     GetPage(name: RouterName.onboarding, page: () => OnboardingView()),
-    GetPage(name: RouterName.profile, page: () => ProfileView()),
+    GetPage(
+      name: RouterName.profile,
+      page: () => ProfileView(),
+      binding: ProfileBinding(),
+    ),
     GetPage(name: RouterName.budget, page: () => BudgetView()),
     GetPage(
       name: RouterName.mainLogin,

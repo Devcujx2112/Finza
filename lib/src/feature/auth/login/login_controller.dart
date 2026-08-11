@@ -3,6 +3,7 @@ import 'package:app/l10n/app_localizations.dart';
 import 'package:app/router/router_name.dart';
 import 'package:app/src/core/error/app_exception.dart';
 import 'package:app/src/data/local/token_storage.dart';
+import 'package:app/src/feature/main_controller/main_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
@@ -77,6 +78,7 @@ class LoginController extends GetxController {
 
           await SecureTokenStorage.instance.saveRememberPassword(true);
         }
+        await Get.find<MainController>().refreshLoginState();
         Get.offAllNamed(RouterName.home);
       }
     } on AppException catch (e) {
@@ -110,6 +112,7 @@ class LoginController extends GetxController {
         idToken: idToken,
       );
 
+      await Get.find<MainController>().refreshLoginState();
       Get.offAllNamed(RouterName.home);
     } catch (e) {
       debugPrint("Bug loginWithGoogle:  $e");
@@ -143,6 +146,7 @@ class LoginController extends GetxController {
           accessToken: accessToken.tokenString,
         );
 
+        await Get.find<MainController>().refreshLoginState();
         Get.offAllNamed(RouterName.home);
       } else if (result.status == LoginStatus.cancelled) {
         return;
@@ -182,6 +186,7 @@ class LoginController extends GetxController {
         idToken: identityToken,
       );
 
+      await Get.find<MainController>().refreshLoginState();
       Get.offAllNamed(RouterName.home);
     } on SignInWithAppleAuthorizationException catch (e) {
       if (e.code == AuthorizationErrorCode.canceled) {
