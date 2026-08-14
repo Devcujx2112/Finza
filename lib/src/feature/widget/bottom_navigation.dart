@@ -1,3 +1,4 @@
+import 'package:app/src/core/color/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,8 +13,8 @@ class BottomNavigation extends StatefulWidget {
       context: context,
       builder: (context) {
         final textColor = Theme.of(context).brightness == Brightness.dark
-            ? Colors.white
-            : Colors.black;
+            ? AppColors.whiteColor
+            : AppColors.blackColor;
 
         return CupertinoActionSheet(
           actions: items

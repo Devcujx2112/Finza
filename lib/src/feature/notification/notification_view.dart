@@ -43,7 +43,7 @@ class _NotificationViewState extends State<NotificationView> with AdaptivePage {
         OutlinedButton(
           onPressed: () {},
           style: OutlinedButton.styleFrom(
-            backgroundColor: Colors.transparent,
+            backgroundColor: AppColors.transparentColor,
             side: BorderSide(
               color: AppColors.primarySecondaryColor,
               width: 2,

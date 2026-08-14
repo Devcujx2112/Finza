@@ -53,12 +53,12 @@ class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
         child: Scaffold(
           extendBodyBehindAppBar: true,
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
+            backgroundColor: AppColors.transparentColor,
             elevation: 0,
             leading: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_new_rounded,
-                color: Colors.white,
+                color: AppColors.whiteColor,
               ),
               onPressed: () {
                 Get.back();
@@ -101,7 +101,7 @@ class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
                               style: TextStyle(
                                 fontSize: 32.sp,
                                 fontWeight: FontWeight.w800,
-                                color: Colors.white,
+                                color: AppColors.whiteColor,
                                 letterSpacing: -0.5,
                               ),
                             ),
@@ -111,7 +111,7 @@ class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
                                 appLocal.resetPassword,
                                 style: TextStyle(
                                   fontSize: 14.sp,
-                                  color: Colors.white.withOpacity(0.9),
+                                  color: AppColors.whiteColor.withOpacity(0.9),
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
@@ -146,7 +146,7 @@ class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.black12,
             blurRadius: 20,
             offset: Offset(0, -5),
           ),
@@ -232,9 +232,9 @@ class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
                     style: ElevatedButton.styleFrom(
                       disabledBackgroundColor: AppColors.buttonLogin
                           .withOpacity(0.7),
-                      disabledForegroundColor: Colors.white,
+                      disabledForegroundColor: AppColors.whiteColor,
                       backgroundColor: AppColors.buttonLogin,
-                      foregroundColor: Colors.white,
+                      foregroundColor: AppColors.whiteColor,
                       padding: EdgeInsets.zero,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16.r),
@@ -247,7 +247,7 @@ class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
                             width: 24.w,
                             height: 24.w,
                             child: CircularProgressIndicator(
-                              color: Colors.white,
+                              color: AppColors.whiteColor,
                               strokeWidth: 2.5.w,
                             ),
                           )
@@ -346,7 +346,7 @@ class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
+            color: AppColors.blackColor.withOpacity(0.03),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -428,7 +428,7 @@ class _NewPasswordViewState extends State<NewPasswordView> with AdaptivePage {
             color: AppColors.errorColor,
             height: 1.2,
           ),
-          hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14.sp),
+          hintStyle: TextStyle(color: AppColors.greyShade400, fontSize: 14.sp),
         ),
       ),
     );

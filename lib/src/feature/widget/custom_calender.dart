@@ -75,11 +75,11 @@ class _CustomCalendarState extends State<CustomCalendar>
     return Container(
       width: 340.w,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.whiteColor,
         borderRadius: BorderRadius.circular(24.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: AppColors.blackColor.withOpacity(0.08),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -212,7 +212,7 @@ class _CustomCalendarState extends State<CustomCalendar>
                         style: TextStyle(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w600,
-                          color: Colors.grey.shade500,
+                          color: AppColors.greyShade500,
                         ),
                       ),
                     ),
@@ -331,7 +331,7 @@ class _CustomCalendarState extends State<CustomCalendar>
         duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: isSelected ? AppColors.buttonLogin : Colors.transparent,
+          color: isSelected ? AppColors.buttonLogin : AppColors.transparentColor,
           border: isToday && !isSelected
               ? Border.all(color: AppColors.buttonLogin, width: 1.5)
               : null,
@@ -354,8 +354,8 @@ class _CustomCalendarState extends State<CustomCalendar>
                   ? FontWeight.bold
                   : FontWeight.w500,
               color: isSelected
-                  ? Colors.white
-                  : (isToday ? AppColors.buttonLogin : Colors.black87),
+                  ? AppColors.whiteColor
+                  : (isToday ? AppColors.buttonLogin : AppColors.black87),
             ),
           ),
         ),
@@ -393,7 +393,7 @@ class _CustomCalendarState extends State<CustomCalendar>
             style: TextStyle(
               fontSize: 14.sp,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.w600,
-              color: isSelected ? Colors.white : AppColors.buttonLogin,
+              color: isSelected ? AppColors.whiteColor : AppColors.buttonLogin,
             ),
           ),
         ),

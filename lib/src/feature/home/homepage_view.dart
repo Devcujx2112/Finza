@@ -85,12 +85,12 @@ class _HomepageViewState extends State<HomepageView> with AdaptivePage {
               width: 36.w,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.whiteColor,
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
                     // ignore: deprecated_member_use
-                    color: Colors.black.withOpacity(0.1),
+                    color: AppColors.blackColor.withOpacity(0.1),
                     blurRadius: 8,
                   ),
                 ],
@@ -106,7 +106,7 @@ class _HomepageViewState extends State<HomepageView> with AdaptivePage {
               child: Container(
                 padding: EdgeInsets.all(3),
                 decoration: BoxDecoration(
-                  color: Colors.red,
+                  color: AppColors.redColor,
                   shape: BoxShape.circle,
                 ),
                 constraints: BoxConstraints(minWidth: 14.w, minHeight: 14.h),
@@ -114,7 +114,7 @@ class _HomepageViewState extends State<HomepageView> with AdaptivePage {
                   "3",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: AppColors.whiteColor,
                     fontSize: 9,
                     fontWeight: FontWeight.bold,
                   ),

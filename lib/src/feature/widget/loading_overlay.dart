@@ -1,3 +1,4 @@
+import 'package:app/src/core/color/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class LoadingOverlay extends StatelessWidget {
@@ -18,7 +19,7 @@ class LoadingOverlay extends StatelessWidget {
         if (isLoading)
           AbsorbPointer(
             absorbing: true,
-            child: Container(color: Colors.black.withOpacity(0.3)),
+            child: Container(color: AppColors.blackColor.withOpacity(0.3)),
           ),
       ],
     );

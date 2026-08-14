@@ -1,4 +1,5 @@
 import 'package:app/gen/assets.gen.dart';
+import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/feature/main_controller/main_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -73,11 +74,11 @@ class _DraggableAiChatButtonState extends State<DraggableAiChatButton> {
                       height: bounds.buttonSize,
                       padding: EdgeInsets.all(1.w),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: AppColors.whiteColor,
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.18),
+                            color: AppColors.blackColor.withOpacity(0.18),
                             blurRadius: 3,
                             offset: const Offset(0, 8),
                           ),

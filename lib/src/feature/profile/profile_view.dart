@@ -46,10 +46,10 @@ class _ProfileViewState extends State<ProfileView> with AdaptivePage {
 
       return Scaffold(
         backgroundColor: isDark
-            ? const Color(0xFF051C1C)
-            : const Color(0xFFF6F9F7),
+            ? AppColors.profileDarkBackground
+            : AppColors.profileLightBackground,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: AppColors.transparentColor,
           elevation: 0,
           centerTitle: true,
           title: Text(
@@ -57,7 +57,7 @@ class _ProfileViewState extends State<ProfileView> with AdaptivePage {
             style: TextStyle(
               fontSize: 20.sp,
               fontWeight: FontWeight.bold,
-              color: isDark ? Colors.white : AppColors.lightTextColor,
+              color: isDark ? AppColors.whiteColor : AppColors.lightTextColor,
             ),
           ),
         ),
@@ -218,12 +218,12 @@ class _ProfileViewState extends State<ProfileView> with AdaptivePage {
                 child: Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: isDark ? const Color(0xFF0C2B2B) : Colors.white,
+                    color: isDark ? AppColors.profileDarkSurface : AppColors.whiteColor,
                   ),
                   padding: EdgeInsets.all(2.r),
                   child: CircleAvatar(
                     radius: 36.r,
-                    backgroundColor: Colors.transparent,
+                    backgroundColor: AppColors.transparentColor,
                     child: ClipOval(
                       child: Image.network(
                         'https://gamek.mediacdn.vn/133514250583805952/2025/9/3/22364594957542295474145163382n-1750237882973423289132-1750240923623-17502409242321933157267-1756872051880-17568720522711720338480-1756884511242-1756884511720618231688.jpg',
@@ -234,7 +234,7 @@ class _ProfileViewState extends State<ProfileView> with AdaptivePage {
                           CupertinoIcons.person_fill,
                           size: 36.r,
                           color: isDark
-                              ? Colors.white70
+                              ? AppColors.white70
                               : AppColors.lightTextColor,
                         ),
                       ),
@@ -250,7 +250,7 @@ class _ProfileViewState extends State<ProfileView> with AdaptivePage {
                     Text(
                       'Trần Hà Linh',
                       style: TextStyle(
-                        color: isDark ? Colors.white : AppColors.lightTextColor,
+                        color: isDark ? AppColors.whiteColor : AppColors.lightTextColor,
                         fontSize: 22.sp,
                         fontWeight: FontWeight.w800,
                         letterSpacing: -0.3,
@@ -260,7 +260,7 @@ class _ProfileViewState extends State<ProfileView> with AdaptivePage {
                     Text(
                       'diannerussel@mail.com',
                       style: TextStyle(
-                        color: isDark ? Colors.white70 : Colors.grey.shade600,
+                        color: isDark ? AppColors.white70 : AppColors.greyShade600,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w400,
                         letterSpacing: 0.1,
@@ -279,7 +279,10 @@ class _ProfileViewState extends State<ProfileView> with AdaptivePage {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24.r),
                 gradient: const LinearGradient(
-                  colors: [AppColors.primarySecondaryColor, Color(0xFF4BD573)],
+                  colors: [
+                    AppColors.primarySecondaryColor,
+                    AppColors.buttonLogin,
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -294,14 +297,14 @@ class _ProfileViewState extends State<ProfileView> with AdaptivePage {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(CupertinoIcons.pencil, size: 18.sp, color: Colors.white),
+                  Icon(CupertinoIcons.pencil, size: 18.sp, color: AppColors.whiteColor),
                   SizedBox(width: 6.w),
                   Text(
                     appLocalizations.edit,
                     style: TextStyle(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: AppColors.whiteColor,
                       letterSpacing: 0.2,
                     ),
                   ),
@@ -325,7 +328,7 @@ class _ProfileViewState extends State<ProfileView> with AdaptivePage {
             thickness: 0.5,
             indent: 56.w,
             endIndent: 16.w,
-            color: isDark ? Colors.white10 : Colors.grey.shade200,
+            color: isDark ? AppColors.white10 : AppColors.greyShade200,
           ),
         );
       }
@@ -334,18 +337,18 @@ class _ProfileViewState extends State<ProfileView> with AdaptivePage {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w),
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF0C2B2B) : Colors.white,
+        color: isDark ? AppColors.profileDarkSurface : AppColors.whiteColor,
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(
           color: isDark
-              ? Colors.white.withOpacity(0.06)
-              : Colors.black.withOpacity(0.04),
+              ? AppColors.whiteColor.withOpacity(0.06)
+              : AppColors.blackColor.withOpacity(0.04),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
             // ignore: deprecated_member_use
-            color: Colors.black.withOpacity(isDark ? 0.15 : 0.02),
+            color: AppColors.blackColor.withOpacity(isDark ? 0.15 : 0.02),
             blurRadius: 16,
             offset: const Offset(0, 6),
           ),
@@ -369,11 +372,15 @@ class _ProfileViewState extends State<ProfileView> with AdaptivePage {
     final Color iconBgColor;
 
     if (isDestructive) {
-      iconColor = isDark ? const Color(0xFFFF6B6B) : const Color(0xFFE53935);
-      iconBgColor = isDark ? const Color(0xFF3A1E1E) : const Color(0xFFFFEBEE);
+      iconColor = isDark
+          ? AppColors.profileDestructiveDark
+          : AppColors.errorColor;
+      iconBgColor = isDark
+          ? AppColors.profileDestructiveDarkBg
+          : AppColors.profileDestructiveLightBg;
     } else {
       iconColor = isDark
-          ? const Color(0xFF5CD883)
+          ? AppColors.profileDarkIconGreen
           : AppColors.primarySecondaryColor;
       iconBgColor = isDark
           // ignore: deprecated_member_use
@@ -383,7 +390,7 @@ class _ProfileViewState extends State<ProfileView> with AdaptivePage {
     }
 
     return Material(
-      color: Colors.transparent,
+      color: AppColors.transparentColor,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(16.r),
@@ -407,7 +414,7 @@ class _ProfileViewState extends State<ProfileView> with AdaptivePage {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
-                    color: isDark ? Colors.white : AppColors.lightTextColor,
+                    color: isDark ? AppColors.whiteColor : AppColors.lightTextColor,
                   ),
                 ),
               ),
@@ -417,7 +424,7 @@ class _ProfileViewState extends State<ProfileView> with AdaptivePage {
                 Icon(
                   CupertinoIcons.chevron_right,
                   size: 14.sp,
-                  color: isDark ? Colors.grey.shade600 : Colors.grey.shade400,
+                  color: isDark ? AppColors.greyShade600 : AppColors.greyShade400,
                 ),
             ],
           ),
@@ -435,7 +442,7 @@ class _ProfileViewState extends State<ProfileView> with AdaptivePage {
           value,
           style: TextStyle(
             fontSize: 14.sp,
-            color: isDark ? Colors.grey.shade400 : Colors.grey.shade500,
+            color: isDark ? AppColors.greyShade400 : AppColors.greyShade500,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -443,7 +450,7 @@ class _ProfileViewState extends State<ProfileView> with AdaptivePage {
         Icon(
           CupertinoIcons.chevron_right,
           size: 12.sp,
-          color: isDark ? Colors.grey.shade600 : Colors.grey.shade400,
+          color: isDark ? AppColors.greyShade600 : AppColors.greyShade400,
         ),
       ],
     );

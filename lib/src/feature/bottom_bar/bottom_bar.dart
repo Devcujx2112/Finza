@@ -34,7 +34,7 @@ class _BottomBarState extends State<BottomBar> {
           boxShadow: [
             BoxShadow(
               // ignore: deprecated_member_use
-              color: Colors.black.withOpacity(0.08),
+              color: AppColors.blackColor.withOpacity(0.08),
               blurRadius: 25,
               offset: const Offset(0, 12),
             ),
@@ -55,11 +55,11 @@ class _BottomBarState extends State<BottomBar> {
               padding: EdgeInsets.symmetric(horizontal: 10.w),
               decoration: BoxDecoration(
                 // ignore: deprecated_member_use
-                color: Colors.white.withOpacity(0.4),
+                color: AppColors.whiteColor.withOpacity(0.4),
                 borderRadius: BorderRadius.circular(32.r),
                 border: Border.all(
                   // ignore: deprecated_member_use
-                  color: Colors.white.withOpacity(0.5),
+                  color: AppColors.whiteColor.withOpacity(0.5),
                   width: 1.5,
                 ),
               ),
@@ -113,7 +113,7 @@ class _BottomBarState extends State<BottomBar> {
                 color: isSelected
                     // ignore: deprecated_member_use
                     ? AppColors.primarySecondaryColor.withOpacity(0.35)
-                    : Colors.transparent,
+                    : AppColors.transparentColor,
                 blurRadius: 12,
                 offset: const Offset(0, 4),
               ),
@@ -133,7 +133,7 @@ class _BottomBarState extends State<BottomBar> {
                   buildLabelMenu(menuId: item.menuId ?? 0),
                   style: TextStyle(
                     color: isSelected
-                        ? Colors.white
+                        ? AppColors.whiteColor
                         // ignore: deprecated_member_use
                         : AppColors.lightTextColor.withOpacity(0.6),
                     fontSize: 10.sp,
@@ -150,7 +150,7 @@ class _BottomBarState extends State<BottomBar> {
 
   Widget buildIconMenu({required int menuId, required bool isSelected}) {
     final Color iconColor = isSelected
-        ? Colors.white
+        ? AppColors.whiteColor
         // ignore: deprecated_member_use
         : AppColors.lightTextColor.withOpacity(0.65);
 

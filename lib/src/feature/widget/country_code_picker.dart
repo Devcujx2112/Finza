@@ -129,7 +129,7 @@ class _BottomSheetContent extends StatelessWidget {
                       ),
                       color: isSelected
                           ? AppColors.buttonLogin.withOpacity(0.2)
-                          : Colors.transparent,
+                          : AppColors.transparentColor,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -155,7 +155,7 @@ class _BottomSheetContent extends StatelessWidget {
                                   : FontWeight.w500,
                               color: isSelected
                                   ? AppColors.errorColor
-                                  : Colors.grey[700],
+                                  : AppColors.greyShade700,
                             ),
                           ),
                         ],
