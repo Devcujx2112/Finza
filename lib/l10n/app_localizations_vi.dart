@@ -30,16 +30,16 @@ class AppLocalizationsVi extends AppLocalizations {
   String get introductionSecond => 'Một nơi để quản lý thời gian và tài chính của bạn';
 
   @override
-  String get homePage => 'Home';
+  String get homePage => 'Trang chủ';
 
   @override
-  String get schedule => 'Schedule';
+  String get schedule => 'Lịch trình';
 
   @override
-  String get budget => 'Budget';
+  String get budget => 'Ngân sách';
 
   @override
-  String get profile => 'Profile';
+  String get profile => 'Hồ sơ';
 
   @override
   String get textSignature => 'Cân bằng thời gian. Cân bằng cuộc sống của bạn';
@@ -271,4 +271,46 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get changePasswordFail => 'Thay đổi mật khẩu không thành công, vui lòng thử lại';
+
+  @override
+  String get setting => 'Cài đặt';
+
+  @override
+  String get loginFaceId => 'Sinh trắc học';
+
+  @override
+  String get darkMode => 'Chế độ tối';
+
+  @override
+  String get chatWithAI => 'Chat với AI';
+
+  @override
+  String get language => 'Ngôn ngữ';
+
+  @override
+  String get currency => 'Tiền tệ';
+
+  @override
+  String get autoTimezone => 'Tự động múi giờ';
+
+  @override
+  String get timezone => 'Múi giờ';
+
+  @override
+  String get format12h24h => 'Định dạng 12h/24h';
+
+  @override
+  String get contactUs => 'Liên hệ chúng tôi';
+
+  @override
+  String get termsOfService => 'Điều khoản sử dụng';
+
+  @override
+  String get logout => 'Đăng xuất';
+
+  @override
+  String get deleteAccount => 'Xóa tài khoản';
+
+  @override
+  String get edit => 'Chỉnh sửa';
 }

@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/constant/utils.dart';
@@ -54,12 +53,12 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView>
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.transparentColor,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_rounded,
-            color: Colors.white,
+            color: AppColors.whiteColor,
           ),
           onPressed: () {
             Get.back();
@@ -99,7 +98,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView>
                           style: TextStyle(
                             fontSize: 32.sp,
                             fontWeight: FontWeight.w800,
-                            color: Colors.white,
+                            color: AppColors.whiteColor,
                             letterSpacing: -0.5,
                           ),
                         ),
@@ -109,7 +108,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView>
                             appLocal.enterYourEmailOrPhoneToReset,
                             style: TextStyle(
                               fontSize: 14.sp,
-                              color: Colors.white.withOpacity(0.9),
+                              color: AppColors.whiteColor.withOpacity(0.9),
                               fontWeight: FontWeight.w400,
                             ),
                           ),
@@ -142,7 +141,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView>
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.black12,
             blurRadius: 20,
             offset: Offset(0, -5),
           ),
@@ -193,7 +192,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView>
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.buttonLogin,
-                      foregroundColor: Colors.white,
+                      foregroundColor: AppColors.whiteColor,
                       padding: EdgeInsets.zero,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16.r),
@@ -206,7 +205,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView>
                             width: 24.w,
                             height: 24.h,
                             child: const CircularProgressIndicator(
-                              color: Colors.white,
+                              color: AppColors.whiteColor,
                               strokeWidth: 2.5,
                             ),
                           )
@@ -269,7 +268,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView>
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
+            color: AppColors.blackColor.withOpacity(0.03),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -333,7 +332,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView>
             color: AppColors.errorColor,
             height: 1.2,
           ),
-          hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14.sp),
+          hintStyle: TextStyle(color: AppColors.greyShade400, fontSize: 14.sp),
         ),
       ),
     );

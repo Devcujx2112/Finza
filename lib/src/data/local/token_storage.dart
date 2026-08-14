@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 abstract class TokenStorage {
@@ -14,6 +12,14 @@ abstract class TokenStorage {
   Future<String?> getPassword();
   Future<void> saveRememberPassword(bool rememberPassword);
   Future<bool?> getRememberPassword();
+  Future<void> saveDarkMode(bool isDarkMode);
+  Future<bool?> getDarkMode();
+  Future<void> saveLanguage(String language);
+  Future<String?> getLanguage();
+  Future<void> saveBiometricsEnabled(bool isBiometricsEnabled);
+  Future<bool?> getBiometricsEnabled();
+  Future<void> saveChatWithAIEnabled(bool isChatWithAIEnabled);
+  Future<bool?> getChatWithAIEnabled();
 
   Future<void> clearTokens();
 }
@@ -24,6 +30,10 @@ class SecureTokenStorage implements TokenStorage {
   static const _emailKey = 'email';
   static const _passwordKey = 'password';
   static const _rememberPasswordKey = 'remember_password';
+  static const _darkModeKey = 'dark_mode';
+  static const _languageKey = 'language';
+  static const _biometricsEnabledKey = 'biometrics_enabled';
+  static const _chatWithAIEnabledKey = 'chat_with_ai_enabled';
   final FlutterSecureStorage _storage;
 
   static final SecureTokenStorage instance = SecureTokenStorage._internal();
@@ -78,4 +88,38 @@ class SecureTokenStorage implements TokenStorage {
   @override
   Future<bool?> getRememberPassword() =>
       _storage.read(key: _rememberPasswordKey).then((value) => value == "true");
+
+  @override
+  Future<void> saveDarkMode(bool isDarkMode) =>
+      _storage.write(key: _darkModeKey, value: isDarkMode.toString());
+
+  @override
+  Future<bool?> getDarkMode() => _storage
+      .read(key: _darkModeKey)
+      .then((value) => value == null ? null : value == "true");
+
+  @override
+  Future<void> saveLanguage(String language) =>
+      _storage.write(key: _languageKey, value: language);
+
+  @override
+  Future<String?> getLanguage() => _storage.read(key: _languageKey);
+
+  @override
+  Future<void> saveBiometricsEnabled(bool isBiometricsEnabled) => _storage
+      .write(key: _biometricsEnabledKey, value: isBiometricsEnabled.toString());
+
+  @override
+  Future<bool?> getBiometricsEnabled() => _storage
+      .read(key: _biometricsEnabledKey)
+      .then((value) => value == null ? null : value == "true");
+
+  @override
+  Future<void> saveChatWithAIEnabled(bool isChatWithAIEnabled) => _storage
+      .write(key: _chatWithAIEnabledKey, value: isChatWithAIEnabled.toString());
+
+  @override
+  Future<bool?> getChatWithAIEnabled() => _storage
+      .read(key: _chatWithAIEnabledKey)
+      .then((value) => value == null ? null : value == "true");
 }

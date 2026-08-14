@@ -1,3 +1,4 @@
+import 'package:app/src/core/color/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -56,11 +57,11 @@ class _FormNotificationMessageState extends State<FormNotificationMessage>
   Color get _color {
     switch (widget.type) {
       case FormMessageType.success:
-        return const Color(0xFF10B981);
+        return AppColors.notificationSuccess;
       case FormMessageType.warning:
-        return const Color(0xFFF59E0B);
+        return AppColors.notificationWarning;
       case FormMessageType.error:
-        return const Color(0xFFEF4444);
+        return AppColors.notificationError;
     }
   }
 
@@ -84,12 +85,12 @@ class _FormNotificationMessageState extends State<FormNotificationMessage>
           margin: EdgeInsets.symmetric(horizontal: 40.w),
           padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 24.h),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.whiteColor,
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(24.r),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.08),
+                color: AppColors.blackColor.withOpacity(0.08),
                 blurRadius: 24,
                 offset: const Offset(0, 12),
               ),

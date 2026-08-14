@@ -75,7 +75,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                           style: TextStyle(
                             fontSize: 32.sp,
                             fontWeight: FontWeight.w800,
-                            color: Colors.white,
+                            color: AppColors.whiteColor,
                             letterSpacing: -0.5,
                           ),
                         ),
@@ -84,7 +84,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                           appLocal?.createAccountIntroduction ?? "",
                           style: TextStyle(
                             fontSize: 14.sp,
-                            color: Colors.white.withOpacity(0.9),
+                            color: AppColors.whiteColor.withOpacity(0.9),
                             fontWeight: FontWeight.w400,
                           ),
                         ),
@@ -117,7 +117,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.black12,
             blurRadius: 20,
             offset: Offset(0, -5),
           ),
@@ -306,7 +306,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
+            color: AppColors.blackColor.withOpacity(0.03),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -403,7 +403,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
             color: AppColors.errorColor,
             height: 1.2,
           ),
-          hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14.sp),
+          hintStyle: TextStyle(color: AppColors.greyShade400, fontSize: 14.sp),
         ),
       ),
     );
@@ -429,7 +429,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.03),
+                color: AppColors.blackColor.withOpacity(0.03),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -461,7 +461,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                       ),
                     ),
                   ),
-                  Container(width: 1, color: Colors.grey.shade200),
+                  Container(width: 1, color: AppColors.greyShade200),
                   Expanded(
                     child: TextFormField(
                       controller: controller.phoneNumberController,
@@ -532,7 +532,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
                         fillColor: AppColors.backgroundMenu,
                         hintText: "888 888 888",
                         hintStyle: TextStyle(
-                          color: Colors.grey.shade400,
+                          color: AppColors.greyShade400,
                           fontSize: 14.sp,
                         ),
                         contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -583,7 +583,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.buttonLogin,
-        foregroundColor: Colors.white,
+        foregroundColor: AppColors.whiteColor,
         padding: EdgeInsets.symmetric(vertical: 16.h),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
@@ -593,7 +593,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
       ),
       child: Obx(() {
         if (controller.isLoading.value) {
-          return const CircularProgressIndicator(color: Colors.white);
+          return const CircularProgressIndicator(color: AppColors.whiteColor);
         }
         return Text(
           appLocal.signUp,
@@ -609,7 +609,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
       children: [
         Text(
           appLocal.alreadyHaveAccount,
-          style: TextStyle(fontSize: 14.sp, color: Colors.grey.shade600),
+          style: TextStyle(fontSize: 14.sp, color: AppColors.greyShade600),
         ),
         TextButton(
           onPressed: () => Get.toNamed(RouterName.login),
@@ -632,7 +632,7 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
       text: TextSpan(
         style: TextStyle(
           fontSize: 11.sp,
-          color: Colors.grey.shade600,
+          color: AppColors.greyShade600,
           height: 1.5,
         ),
         children: [
@@ -663,12 +663,12 @@ class _SignUpViewState extends State<SignUpView> with AdaptivePage {
       context: context,
       barrierDismissible: true,
       barrierLabel: "Calendar",
-      barrierColor: Colors.black54,
+      barrierColor: AppColors.black54,
       transitionDuration: const Duration(milliseconds: 300),
       pageBuilder: (context, anim1, anim2) {
         return Center(
           child: Material(
-            color: Colors.transparent,
+            color: AppColors.transparentColor,
             child: ScaleTransition(
               scale: anim1,
               child: Container(

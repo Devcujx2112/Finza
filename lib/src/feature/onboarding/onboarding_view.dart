@@ -124,7 +124,7 @@ class _OnboardingViewState extends State<OnboardingView> with AdaptivePage {
                             }
                           },
                           style: OutlinedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
+                            backgroundColor: AppColors.transparentColor,
                             side: BorderSide(
                               color: AppColors.primarySecondaryColor,
                               width: 2,

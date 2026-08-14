@@ -28,6 +28,10 @@ class $AssetsFontsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/chat_box_ai.png
+  AssetGenImage get chatBoxAi =>
+      const AssetGenImage('assets/images/chat_box_ai.png');
+
   /// File path: assets/images/ic_apple_login.svg
   SvgGenImage get icAppleLogin =>
       const SvgGenImage('assets/images/ic_apple_login.svg');
@@ -81,6 +85,7 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<dynamic> get values => [
+    chatBoxAi,
     icAppleLogin,
     icFaceId,
     icFacebookLogin,

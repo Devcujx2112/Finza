@@ -271,4 +271,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get changePasswordFail => 'Failed to change password; please try again';
+
+  @override
+  String get setting => 'Settings';
+
+  @override
+  String get loginFaceId => 'Biometrics';
+
+  @override
+  String get darkMode => 'Dark Mode';
+
+  @override
+  String get chatWithAI => 'Chat with AI';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get currency => 'Currency';
+
+  @override
+  String get autoTimezone => 'Automatic timezone';
+
+  @override
+  String get timezone => 'Timezone';
+
+  @override
+  String get format12h24h => '12h/24h format';
+
+  @override
+  String get contactUs => 'Contact us';
+
+  @override
+  String get termsOfService => 'Terms of Service';
+
+  @override
+  String get logout => 'Log out';
+
+  @override
+  String get deleteAccount => 'Delete account';
+
+  @override
+  String get edit => 'Edit';
 }

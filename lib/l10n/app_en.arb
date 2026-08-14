@@ -87,5 +87,19 @@
   "invalidOtp":"Incorrect OTP, please try again.",
   "verifyOtpSuccess":"OTP authentication successful.",
   "changePasswordSuccess":"Password changed successfully",
-  "changePasswordFail":"Failed to change password; please try again"
+  "changePasswordFail":"Failed to change password; please try again",
+  "setting":"Settings",
+  "loginFaceId":"Login with Face ID",
+  "darkMode":"Dark Mode",
+  "chatWithAI":"Chat with AI",
+  "language":"Language",
+  "currency":"Currency",
+  "autoTimezone":"Automatic timezone",
+  "timezone":"Timezone",
+  "format12h24h":"12h/24h format",
+  "contactUs":"Contact us",
+  "termsOfService":"Terms of Service",
+  "logout":"Log out",
+  "deleteAccount":"Delete account",
+  "edit":"Edit"
 }

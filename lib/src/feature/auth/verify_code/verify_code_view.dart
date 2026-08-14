@@ -95,7 +95,7 @@ class _VerifyCodeViewState extends State<VerifyCodeView> with AdaptivePage {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.transparentColor,
         elevation: 0,
         automaticallyImplyLeading: false,
       ),
@@ -132,7 +132,7 @@ class _VerifyCodeViewState extends State<VerifyCodeView> with AdaptivePage {
                           style: TextStyle(
                             fontSize: 32.sp,
                             fontWeight: FontWeight.w800,
-                            color: Colors.white,
+                            color: AppColors.whiteColor,
                             letterSpacing: -0.5,
                           ),
                         ),
@@ -142,7 +142,7 @@ class _VerifyCodeViewState extends State<VerifyCodeView> with AdaptivePage {
                             appLocal.enterTheCodeSentTo,
                             style: TextStyle(
                               fontSize: 14.sp,
-                              color: Colors.white.withOpacity(0.9),
+                              color: AppColors.whiteColor.withOpacity(0.9),
                               fontWeight: FontWeight.w400,
                             ),
                           ),
@@ -175,7 +175,7 @@ class _VerifyCodeViewState extends State<VerifyCodeView> with AdaptivePage {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.black12,
             blurRadius: 20,
             offset: Offset(0, -5),
           ),
@@ -300,7 +300,7 @@ class _VerifyCodeViewState extends State<VerifyCodeView> with AdaptivePage {
                           },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.buttonLogin,
-                      disabledBackgroundColor: Colors.grey.shade400,
+                      disabledBackgroundColor: AppColors.greyShade400,
                       foregroundColor: AppColors.whiteColor,
                       disabledForegroundColor: AppColors.whiteColor,
                       padding: EdgeInsets.zero,
@@ -309,7 +309,7 @@ class _VerifyCodeViewState extends State<VerifyCodeView> with AdaptivePage {
                       ),
                       elevation: isExpired ? 0 : 4,
                       shadowColor: isExpired
-                          ? Colors.transparent
+                          ? AppColors.transparentColor
                           : AppColors.buttonLogin.withOpacity(0.4),
                     ),
                     child: isLoading
@@ -363,16 +363,16 @@ class _VerifyCodeViewState extends State<VerifyCodeView> with AdaptivePage {
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: isFocused
-                        ? Colors.green
+                        ? AppColors.greenColor
                         : hasValue
-                        ? Colors.green.withOpacity(0.6)
-                        : Colors.grey.shade300,
+                        ? AppColors.greenColor.withOpacity(0.6)
+                        : AppColors.greyShade300,
                     width: isFocused ? 2.2 : 1.5,
                   ),
                   boxShadow: isFocused
                       ? [
                           BoxShadow(
-                            color: Colors.green.withOpacity(0.15),
+                            color: AppColors.greenColor.withOpacity(0.15),
                             blurRadius: 8,
                             offset: const Offset(0, 2),
                           ),
@@ -400,7 +400,7 @@ class _VerifyCodeViewState extends State<VerifyCodeView> with AdaptivePage {
               style: TextStyle(
                 fontSize: 13.sp,
                 fontWeight: FontWeight.w400,
-                color: Colors.grey.shade600,
+                color: AppColors.greyShade600,
               ),
             ),
             SizedBox(width: 6.w),
@@ -441,11 +441,11 @@ class _VerifyCodeViewState extends State<VerifyCodeView> with AdaptivePage {
                   style: TextStyle(
                     fontSize: 13.sp,
                     fontWeight: FontWeight.bold,
-                    color: canResend ? AppColors.buttonLogin : Colors.grey,
+                    color: canResend ? AppColors.buttonLogin : AppColors.greyColor,
                     decoration: TextDecoration.underline,
                     decorationColor: canResend
                         ? AppColors.buttonLogin
-                        : Colors.transparent,
+                        : AppColors.transparentColor,
                   ),
                 ),
               );

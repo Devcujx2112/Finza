@@ -1,10 +1,8 @@
 import 'package:app/domain/usecases/login_usecase.dart';
 import 'package:app/router/router_name.dart';
 import 'package:app/src/core/error/app_exception.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:app/src/feature/main_controller/main_controller.dart';
+import 'package:get/get.dart';
 
 class MainAuthController extends GetxController {
   MainAuthController(this.loginUsecase);
@@ -23,6 +21,7 @@ class MainAuthController extends GetxController {
       _isLoading.value = true;
       final isSuccess = await loginUsecase.trialAccount();
       if (isSuccess != null) {
+        await Get.find<MainController>().refreshLoginState();
         onSuccess();
         Get.offAllNamed(RouterName.home);
       } else {

@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:app/src/core/constant/constant.dart';
 import 'package:app/src/data/local/token_storage.dart';
 import 'package:app/src/data/network/app_logger.dart';
+import 'package:app/src/feature/main_controller/main_controller.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get.dart' hide Response;
 
 class ApiInterceptor extends Interceptor {
   static bool _isRefreshing = false;
@@ -151,6 +151,9 @@ class ApiInterceptor extends Interceptor {
 
   Future<void> _onRefreshFailed() async {
     await _tokenStorage.clearTokens();
+    if (Get.isRegistered<MainController>()) {
+      Get.find<MainController>().markLoggedOut();
+    }
     Get.offAllNamed('/login');
   }
 }
