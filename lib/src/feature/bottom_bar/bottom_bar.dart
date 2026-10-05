@@ -1,10 +1,10 @@
 import 'dart:ui';
 
+import 'package:app/domain/entities/bottom_bar/menubar_item.dart';
 import 'package:app/gen/assets.gen.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/constant/constant.dart';
-import 'package:app/domain/entities/bottom_bar/menubar_item.dart';
 import 'package:app/src/feature/bottom_bar/bottom_bar_controller.dart';
 import 'package:app/src/feature/main_controller/main_controller.dart';
 import 'package:flutter/material.dart';
@@ -24,56 +24,126 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Positioned(
       left: 16.w,
       right: 16.w,
-      bottom: 24.h,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(32.r),
-          boxShadow: [
-            BoxShadow(
-              // ignore: deprecated_member_use
-              color: AppColors.blackColor.withOpacity(0.08),
-              blurRadius: 25,
-              offset: const Offset(0, 12),
-            ),
-            BoxShadow(
-              // ignore: deprecated_member_use
-              color: AppColors.primarySecondaryColor.withOpacity(0.03),
-              blurRadius: 15,
-              offset: const Offset(0, -2),
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(32.r),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-            child: Container(
-              height: 76.h,
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
-              decoration: BoxDecoration(
-                // ignore: deprecated_member_use
-                color: AppColors.whiteColor.withOpacity(0.4),
-                borderRadius: BorderRadius.circular(32.r),
-                border: Border.all(
-                  // ignore: deprecated_member_use
-                  color: AppColors.whiteColor.withOpacity(0.5),
-                  width: 1.5,
+      bottom: 12.h,
+      child: SafeArea(
+        bottom: true,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(32.r),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.blackColor.withValues(
+                  alpha: isDark ? 0.28 : 0.08,
                 ),
+                blurRadius: 24,
+                offset: const Offset(0, 10),
               ),
-              child: Obx(
-                () {
+              BoxShadow(
+                color: AppColors.primarySecondaryColor.withValues(
+                  alpha: isDark ? 0.08 : 0.04,
+                ),
+                blurRadius: 16,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(32.r),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+              child: Container(
+                height: 66.h,
+                padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
+                decoration: BoxDecoration(
+                  color: isDark
+                      ? AppColors.homeDarkSurface.withValues(alpha: 0.85)
+                      : AppColors.homeSurface.withValues(alpha: 0.85),
+                  borderRadius: BorderRadius.circular(32.r),
+                  border: Border.all(
+                    color: isDark
+                        ? AppColors.whiteColor.withValues(alpha: 0.1)
+                        : AppColors.blackColor.withValues(alpha: 0.06),
+                    width: 1.w,
+                  ),
+                ),
+                child: Obx(() {
                   final languageCode = _mainController.languageCode;
-                  return Row(
+                  final menuItems = _controller.menuUser;
+                  final currentIndex = _controller.currentIndex.value;
+
+                  return LayoutBuilder(
                     key: ValueKey(languageCode),
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: _controller.menuUser
-                        .map((item) => bottomBarItem(item))
-                        .toList(),
+                    builder: (context, constraints) {
+                      final totalWidth = constraints.maxWidth;
+                      final itemCount = menuItems.length;
+                      if (itemCount == 0) return const SizedBox.shrink();
+
+                      final itemWidth = totalWidth / itemCount;
+                      final activeIndex = menuItems.indexWhere(
+                        (e) => e.menuId == currentIndex,
+                      );
+                      final validActiveIndex = activeIndex >= 0
+                          ? activeIndex
+                          : 0;
+
+                      // Alignment formula mapping index [0..itemCount-1] to [-1.0 .. 1.0]
+                      final double alignmentX = itemCount > 1
+                          ? -1.0 + (2.0 * validActiveIndex / (itemCount - 1))
+                          : 0.0;
+
+                      return Stack(
+                        children: [
+                          // Sliding active pill background indicator
+                          AnimatedAlign(
+                            duration: const Duration(milliseconds: 280),
+                            curve: Curves.fastOutSlowIn,
+                            alignment: Alignment(alignmentX, 0),
+                            child: Container(
+                              width: itemWidth,
+                              height: double.infinity,
+                              padding: EdgeInsets.symmetric(horizontal: 4.w),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(22.r),
+                                  color: isDark
+                                      ? Colors.white.withValues(alpha: 0.08)
+                                      : AppColors.primarySecondaryColor
+                                            .withValues(alpha: 0.12),
+                                  border: Border.all(
+                                    color: isDark
+                                        ? Colors.white.withValues(alpha: 0.35)
+                                        : AppColors.primarySecondaryColor
+                                              .withValues(alpha: 0.18),
+                                    width: 1.w,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          // Tab Items Row
+                          Row(
+                            children: menuItems.map((item) {
+                              final isSelected = currentIndex == item.menuId;
+                              return Expanded(
+                                child: _buildBottomBarItem(
+                                  item: item,
+                                  isSelected: isSelected,
+                                  isDark: isDark,
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      );
+                    },
                   );
-                },
+                }),
               ),
             ),
           ),
@@ -82,118 +152,113 @@ class _BottomBarState extends State<BottomBar> {
     );
   }
 
-  Widget bottomBarItem(MenubarItem item) {
-    return Obx(() {
-      final isSelected = _controller.currentIndex.value == item.menuId;
-
-      return GestureDetector(
-        onTap: () {
-          _controller.changeTap(item.menuId ?? 0);
-        },
-        behavior: HitTestBehavior.opaque,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOutBack,
-          width: 68.w,
-          padding: EdgeInsets.symmetric(vertical: 8.h),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24.r),
-            gradient: isSelected
-                ? const LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      AppColors.backgroundHomepage,
-                      AppColors.primarySecondaryColor,
-                    ],
-                  )
-                : null,
-            boxShadow: [
-              BoxShadow(
-                color: isSelected
-                    // ignore: deprecated_member_use
-                    ? AppColors.primarySecondaryColor.withOpacity(0.35)
-                    : AppColors.transparentColor,
-                blurRadius: 12,
-                offset: const Offset(0, 4),
+  Widget _buildBottomBarItem({
+    required MenubarItem item,
+    required bool isSelected,
+    required bool isDark,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        _controller.changeTap(item.menuId ?? 0);
+      },
+      behavior: HitTestBehavior.opaque,
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedScale(
+              duration: const Duration(milliseconds: 240),
+              curve: Curves.easeOutCubic,
+              scale: isSelected ? 1.08 : 1.0,
+              child: buildIconMenu(
+                menuId: item.menuId ?? 0,
+                isSelected: isSelected,
+                isDark: isDark,
               ),
-            ],
-          ),
-          child: AnimatedScale(
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeOutBack,
-            scale: isSelected ? 1.2 : 1.0,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                buildIconMenu(menuId: item.menuId ?? 0, isSelected: isSelected),
-                SizedBox(height: 3.h),
-                Text(
-                  buildLabelMenu(menuId: item.menuId ?? 0),
-                  style: TextStyle(
-                    color: isSelected
-                        ? AppColors.whiteColor
-                        // ignore: deprecated_member_use
-                        : AppColors.lightTextColor.withOpacity(0.6),
-                    fontSize: 10.sp,
-                    fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-                  ),
-                ),
-              ],
             ),
-          ),
+            SizedBox(height: 3.h),
+            AnimatedDefaultTextStyle(
+              duration: const Duration(milliseconds: 240),
+              curve: Curves.easeOutCubic,
+              style: TextStyle(
+                color: _getLabelColor(isSelected: isSelected, isDark: isDark),
+                fontSize: 10.5.sp,
+                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                letterSpacing: 0.1,
+              ),
+              child: Text(
+                buildLabelMenu(menuId: item.menuId ?? 0),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
         ),
-      );
-    });
+      ),
+    );
   }
 
-  Widget buildIconMenu({required int menuId, required bool isSelected}) {
+  Color _getLabelColor({required bool isSelected, required bool isDark}) {
+    if (isSelected) {
+      return isDark ? AppColors.whiteColor : AppColors.primarySecondaryColor;
+    }
+
+    return isDark
+        ? AppColors.homeDarkMutedText.withValues(alpha: 0.75)
+        : AppColors.homeMutedText;
+  }
+
+  Widget buildIconMenu({
+    required int menuId,
+    required bool isSelected,
+    required bool isDark,
+  }) {
     final Color iconColor = isSelected
-        ? AppColors.whiteColor
-        // ignore: deprecated_member_use
-        : AppColors.lightTextColor.withOpacity(0.65);
+        ? (isDark ? AppColors.whiteColor : AppColors.primarySecondaryColor)
+        : (isDark
+              ? AppColors.homeDarkMutedText.withValues(alpha: 0.75)
+              : AppColors.homeMutedText);
 
     switch (menuId) {
       case StatusConstant.homeId:
         return Assets.images.icMenuHome.svg(
-          width: 22.w,
-          height: 22.h,
-          // ignore: deprecated_member_use
-          color: iconColor,
+          width: 21.w,
+          height: 21.h,
+          colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
         );
+
       case StatusConstant.scheduleId:
         return Assets.images.icMenuCalendar.svg(
-          width: 22.w,
-          height: 22.h,
-          // ignore: deprecated_member_use
-          color: iconColor,
+          width: 21.w,
+          height: 21.h,
+          colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
         );
+
       case StatusConstant.budgetId:
         return Assets.images.icMenuBudget.svg(
-          width: 22.w,
-          height: 22.h,
-          // ignore: deprecated_member_use
-          color: iconColor,
+          width: 21.w,
+          height: 21.h,
+          colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
         );
+
       case StatusConstant.profileId:
         return Assets.images.icMenuProfile.svg(
-          width: 22.w,
-          height: 22.h,
-          // ignore: deprecated_member_use
-          color: iconColor,
+          width: 21.w,
+          height: 21.h,
+          colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
         );
+
       default:
         return Assets.images.icMenuHome.svg(
-          width: 22.w,
-          height: 22.h,
-          // ignore: deprecated_member_use
-          color: iconColor,
+          width: 21.w,
+          height: 21.h,
+          colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
         );
     }
   }
 
-  buildLabelMenu({required int menuId}) {
+  String buildLabelMenu({required int menuId}) {
     final app = AppLocalizations.of(context);
     switch (menuId) {
       case StatusConstant.homeId:

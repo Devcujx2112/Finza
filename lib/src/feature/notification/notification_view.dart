@@ -1,3 +1,4 @@
+import 'package:app/l10n/app_localizations.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class _NotificationViewState extends State<NotificationView> with AdaptivePage {
             ),
           ),
           child: Text(
-            "Send Notification",
+            AppLocalizations.of(context)?.sendNotification ?? "Send Notification",
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,

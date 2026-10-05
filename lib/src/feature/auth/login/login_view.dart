@@ -1,6 +1,7 @@
 import 'package:app/gen/assets.gen.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/router/router_name.dart';
+import 'package:app/src/feature/onboarding_setup/onboarding_setup_gate.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/constant/utils.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
@@ -436,7 +437,7 @@ class _LoginViewState extends State<LoginView> with AdaptivePage {
         onPressed: isLoading
             ? null
             : () {
-                Get.offAllNamed(RouterName.home);
+                OnboardingSetupGate.enterApp();
 
                 // FocusScope.of(context).unfocus();
                 // _controller.isSubmitted.value = true;

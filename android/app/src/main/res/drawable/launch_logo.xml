@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generated from assets/images/logo_app.svg: same path, no redraw. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="288dp"
+    android:height="288dp"
+    android:viewportWidth="288"
+    android:viewportHeight="288">
+    <group
+        android:scaleX="1.20968"
+        android:scaleY="1.20968"
+        android:translateX="72.629"
+        android:translateY="69.000">
+        <path
+            android:pathData="M55.7656 119.109V66.3307H76.9708V119.109M20.2606 119.109V93.5043H41.4658V119.109M92.1261 119.109V41.1126H113.331V119.109M4.33125 77.9212L49.6953 32.5572L65.1358 46.4699L106.242 5.38354M105.305 24.1647L107.2 7.01316C107.235 6.65223 107.189 6.28797 107.066 5.9468C106.943 5.60563 106.746 5.29608 106.489 5.04063C106.232 4.78517 105.921 4.5902 105.578 4.46983C105.236 4.34946 104.872 4.30671 104.511 4.3447L87.3797 6.23909"
+            android:strokeColor="@color/launch_logo"
+            android:strokeWidth="8.6625"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+    </group>
+</vector>

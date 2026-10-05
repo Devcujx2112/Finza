@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Launch screen colours, mirroring the app's light theme so the native
+     splash and the first Flutter frame paint the same background. -->
+<resources>
+    <color name="launch_background">#F4F7F2</color>
+    <color name="launch_logo">#1A9E47</color>
+</resources>
