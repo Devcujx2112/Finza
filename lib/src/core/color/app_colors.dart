@@ -54,4 +54,47 @@ class AppColors {
   static const Color profileDestructiveDarkBg = Color(0xFF3A1E1E);
   static const Color profileDestructiveLightBg = Color(0xFFFFEBEE);
   static const Color profileDarkIconGreen = Color(0xFF5CD883);
+
+  // Homepage colors
+  static const Color homeLightBackground = Color(0xFFF4F7F2);
+  static const Color homeDarkBackground = Color(0xFF061C1C);
+  static const Color homeHeroStart = Color(0xFF063B3D);
+  static const Color homeHeroEnd = Color(0xFF0E5F54);
+  static const Color homeSurface = Color(0xFFFFFFFF);
+  static const Color homeDarkSurface = Color(0xFF0B2B2B);
+  static const Color homeSoftSurface = Color(0xFFEAF6EF);
+  static const Color homeDarkSoftSurface = Color(0xFF123B38);
+  static const Color homeMutedText = Color(0xFF6F7F78);
+  static const Color homeDarkMutedText = Color(0xFFB8C8C1);
+  static const Color homeAccentBlue = Color(0xFF276EF1);
+  static const Color homeAccentOrange = Color(0xFFE97845);
+  static const Color homeExpenseSoft = Color(0xFFEAF1FF);
+  static const Color homeBalanceSoft = Color(0xFFE8F8EE);
+  static const Color homeBudgetTrack = Color(0xFFDCE8E1);
+  static const Color homeTimelineTrack = Color(0xFFD7E4DE);
+
+  // Schedule colors. The holiday tone is reserved for system events, so it
+  // is never offered in the user event palette.
+  static const Color scheduleHoliday = Color(0xFFD64545); // 5.7:1 on white
+  static const Color scheduleHolidayDark = Color(0xFFFF8A80); // 6.6:1 on dark surface
+  static const Color scheduleHolidaySoft = Color(0xFFFDECEC);
+  static const Color scheduleHolidayDarkSoft = Color(0xFF3A2424);
+  // Fill behind white text (selected day, primary buttons): the brand green
+  // only reaches 2.3:1 with white, this one reaches 5.1:1.
+  static const Color scheduleAction = Color(0xFF0E8038);
+
+  // Onboarding setup colors.
+  // The questionnaire runs before the user can reach the theme switch in
+  // Settings, so it is designed light only. These tones are lighter and
+  // fresher than the home palette while still clearing WCAG AA: the
+  // contrast ratio against the surface each one sits on is noted.
+  static const Color setupPrimaryText = Color(0xFF0B2B26); // 15.2:1 on white
+  static const Color setupSecondaryText = Color(0xFF63756E); // 4.9:1 on white
+  static const Color setupFieldSurface = Color(0xFFF4F8F6);
+  static const Color setupBorder = Color(0xFFE1EBE6);
+  static const Color setupControlOutline = Color(0xFFCFDCD5);
+  static const Color setupAction = Color(0xFF0E8038); // 5.1:1 with white text
+  static const Color setupActionDisabled = Color(0xFFEDF3F0);
+  static const Color setupActionDisabledLabel = Color(0xFF5F7168); // 4.6:1
+  static const Color setupErrorText = Color(0xFFC62828); // 4.9:1 on its tint
 }

@@ -26,13 +26,51 @@ class ProfileController extends GetxController {
   bool get isChatWithAIEnabled => _mainController.isChatWithAIEnabled;
 
   final List<BottomNavigationPickerItem<String>> languageItems = [
-    const BottomNavigationPickerItem(value: 'en', title: 'English'),
-    const BottomNavigationPickerItem(value: 'vi', title: 'Tiếng Việt'),
+    const BottomNavigationPickerItem(
+      value: 'en',
+      title: 'English',
+      subtitle: 'United States',
+      symbol: 'EN',
+    ),
+    const BottomNavigationPickerItem(
+      value: 'vi',
+      title: 'Tiếng Việt',
+      subtitle: 'Việt Nam',
+      symbol: 'VI',
+    ),
   ];
 
   final List<BottomNavigationPickerItem<String>> moneyType = [
-    const BottomNavigationPickerItem(value: 'VND (đ)', title: 'VND (đ)'),
-    const BottomNavigationPickerItem(value: 'USD (\$)', title: 'USD (\$)'),
+    const BottomNavigationPickerItem(
+      value: 'VND (đ)',
+      title: 'VND',
+      subtitle: 'Vietnamese Dong',
+      symbol: '₫',
+    ),
+    const BottomNavigationPickerItem(
+      value: 'USD (\$)',
+      title: 'USD',
+      subtitle: 'US Dollar',
+      symbol: '\$',
+    ),
+    const BottomNavigationPickerItem(
+      value: 'EUR (€)',
+      title: 'EUR',
+      subtitle: 'Euro',
+      symbol: '€',
+    ),
+    const BottomNavigationPickerItem(
+      value: 'JPY (¥)',
+      title: 'JPY',
+      subtitle: 'Japanese Yen',
+      symbol: '¥',
+    ),
+    const BottomNavigationPickerItem(
+      value: 'GBP (£)',
+      title: 'GBP',
+      symbol: '£',
+      subtitle: 'British Pound',
+    ),
   ];
 
   void setBiometricsEnabled(bool value) {

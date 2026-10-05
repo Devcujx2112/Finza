@@ -1,6 +1,6 @@
 import 'package:app/domain/usecases/login_usecase.dart';
 import 'package:app/l10n/app_localizations.dart';
-import 'package:app/router/router_name.dart';
+import 'package:app/src/feature/onboarding_setup/onboarding_setup_gate.dart';
 import 'package:app/src/core/error/app_exception.dart';
 import 'package:app/src/data/local/token_storage.dart';
 import 'package:app/src/feature/main_controller/main_controller.dart';
@@ -79,7 +79,7 @@ class LoginController extends GetxController {
           await SecureTokenStorage.instance.saveRememberPassword(true);
         }
         await Get.find<MainController>().refreshLoginState();
-        Get.offAllNamed(RouterName.home);
+        await OnboardingSetupGate.enterApp();
       }
     } on AppException catch (e) {
       showError(e.message);
@@ -113,7 +113,7 @@ class LoginController extends GetxController {
       );
 
       await Get.find<MainController>().refreshLoginState();
-      Get.offAllNamed(RouterName.home);
+      await OnboardingSetupGate.enterApp();
     } catch (e) {
       debugPrint("Bug loginWithGoogle:  $e");
       showError(e.toString());
@@ -137,7 +137,7 @@ class LoginController extends GetxController {
         debugPrint(result.accessToken.runtimeType.toString());
         debugPrint(result.accessToken?.tokenString.substring(0, 20));
         if (accessToken == null) {
-          showError(AppLocalizations.of(Get.context!)!.errrorLoginFacebook);
+          showError(AppLocalizations.of(Get.context!)!.errorLoginFacebook);
           return;
         }
 
@@ -147,13 +147,13 @@ class LoginController extends GetxController {
         );
 
         await Get.find<MainController>().refreshLoginState();
-        Get.offAllNamed(RouterName.home);
+        await OnboardingSetupGate.enterApp();
       } else if (result.status == LoginStatus.cancelled) {
         return;
       } else {
         showError(
           result.message ??
-              AppLocalizations.of(Get.context!)!.errrorLoginFacebook,
+              AppLocalizations.of(Get.context!)!.errorLoginFacebook,
         );
       }
     } catch (e) {
@@ -187,7 +187,7 @@ class LoginController extends GetxController {
       );
 
       await Get.find<MainController>().refreshLoginState();
-      Get.offAllNamed(RouterName.home);
+      await OnboardingSetupGate.enterApp();
     } on SignInWithAppleAuthorizationException catch (e) {
       if (e.code == AuthorizationErrorCode.canceled) {
         showError('User cancelled Apple Sign In');

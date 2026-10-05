@@ -15,11 +15,14 @@ class MainController extends GetxController {
   ThemeMode get themeMode =>
       _isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
 
-  final Rx<Locale> _locale = const Locale('en').obs;
+  static const String _defaultLanguageCode = 'en';
+  static const String _vietnameseLanguageCode = 'vi';
+
+  final Rx<Locale> _locale = const Locale(_defaultLanguageCode).obs;
   Locale get locale => _locale.value;
   String get languageCode => _locale.value.languageCode;
   String get selectedLanguageLabel =>
-      languageCode == 'vi' ? 'Tiếng Việt' : 'English';
+      languageCode == _vietnameseLanguageCode ? 'Tiếng Việt' : 'English';
 
   final RxBool _isChatWithAIEnabled = false.obs;
   bool get isChatWithAIEnabled => _isChatWithAIEnabled.value;
@@ -40,6 +43,7 @@ class MainController extends GetxController {
   static const Set<String> _excludedAiChatRoutes = {
     RouterName.splash,
     RouterName.onboarding,
+    RouterName.onboardingSetup,
     RouterName.mainLogin,
     RouterName.login,
     RouterName.signUp,
@@ -53,11 +57,18 @@ class MainController extends GetxController {
     final accessToken = await _tokenStorage.getAccessToken();
     final savedLanguage = await _tokenStorage.getLanguage();
     final chatWithAIEnabled = await _tokenStorage.getChatWithAIEnabled();
+    final isFirstLaunch = savedLanguage == null;
     final languageCode = _normalizeLanguageCode(
-      savedLanguage ?? ui.PlatformDispatcher.instance.locale.languageCode,
+      savedLanguage ?? _deviceLanguageCode,
     );
     _isDarkMode.value = savedDarkMode ?? false;
     _locale.value = Locale(languageCode);
+    // The device language decides the language once, on the first launch.
+    // Saving it here means a later change to the phone's language does not
+    // move the app off what the user has been reading.
+    if (isFirstLaunch) {
+      await _tokenStorage.saveLanguage(languageCode);
+    }
     _isChatWithAIEnabled.value = chatWithAIEnabled ?? false;
     _isLoggedIn.value = accessToken != null && accessToken.isNotEmpty;
   }
@@ -100,7 +111,27 @@ class MainController extends GetxController {
     _aiChatButtonOffset.value = offset;
   }
 
+  /// The language the phone is set to. Read only on the first launch, to
+  /// pick the starting language of the app.
+  String get _deviceLanguageCode {
+    final dispatcher = ui.PlatformDispatcher.instance;
+    final primary = dispatcher.locale.languageCode;
+    // `locale` is still undefined this early on some platforms, in which
+    // case the preference list is the reliable source.
+    if (primary.isNotEmpty && primary != 'und') return primary;
+    for (final locale in dispatcher.locales) {
+      if (locale.languageCode.isNotEmpty && locale.languageCode != 'und') {
+        return locale.languageCode;
+      }
+    }
+    return _defaultLanguageCode;
+  }
+
+  /// Vietnamese phones start in Vietnamese. Every other language, including
+  /// ones the app has no translation for, starts in English.
   String _normalizeLanguageCode(String languageCode) {
-    return languageCode == 'vi' ? 'vi' : 'en';
+    return languageCode == _vietnameseLanguageCode
+        ? _vietnameseLanguageCode
+        : _defaultLanguageCode;
   }
 }
