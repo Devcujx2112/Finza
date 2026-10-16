@@ -15,9 +15,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Splits what is left of the income across the spending categories,
-/// either with a suggested split or by hand. Beyond the built-in categories
-/// the user can add their own, each with an icon, a name and an amount.
 class AllocationStep extends StatefulWidget {
   const AllocationStep({
     super.key,
@@ -40,9 +37,7 @@ class _AllocationStepState extends State<AllocationStep> {
     super.initState();
     _amountControllers = <SetupCategory, TextEditingController>{
       for (final category in SetupCategory.values)
-        category: TextEditingController(
-          text: _seedFor(category),
-        ),
+        category: TextEditingController(text: _seedFor(category)),
     };
   }
 
@@ -62,7 +57,11 @@ class _AllocationStepState extends State<AllocationStep> {
   Future<void> _addCustom() async {
     final draft = await showCustomCategorySheet(context);
     if (draft == null) return;
-    widget.controller.addCustomCategory(draft.name, draft.iconKey, draft.amount);
+    widget.controller.addCustomCategory(
+      draft.name,
+      draft.iconKey,
+      draft.amount,
+    );
   }
 
   Future<void> _editCustom(CustomCategory category) async {
@@ -99,10 +98,8 @@ class _AllocationStepState extends State<AllocationStep> {
           action: SnackBarAction(
             label: l10n.undo,
             textColor: palette.accent,
-            onPressed: () => categories.insert(
-              index.clamp(0, categories.length),
-              category,
-            ),
+            onPressed: () =>
+                categories.insert(index.clamp(0, categories.length), category),
           ),
         ),
       );
@@ -143,8 +140,6 @@ class _AllocationStepState extends State<AllocationStep> {
         SizedBox(height: 28.h),
         Obx(() {
           if (controller.hasNothingToAllocate) {
-            // Custom categories stay listed so any that no longer fit can
-            // still be edited or removed.
             return Column(
               children: <Widget>[
                 _NothingToAllocate(palette: palette),
@@ -176,8 +171,9 @@ class _AllocationStepState extends State<AllocationStep> {
                 title: l10n.setupAllocationManualTitle,
                 description: l10n.setupAllocationManualDescription,
                 isSelected: mode == BudgetAllocationMode.manual,
-                onTap: () =>
-                    controller.selectAllocationMode(BudgetAllocationMode.manual),
+                onTap: () => controller.selectAllocationMode(
+                  BudgetAllocationMode.manual,
+                ),
               ),
               AnimatedSize(
                 duration: SetupMotion.resolve(context, SetupMotion.reveal),
@@ -232,11 +228,8 @@ class _BudgetLedger extends StatelessWidget {
   final double fixed;
   final double remaining;
 
-  /// Subtracted lines carry a minus, except when there is nothing to
-  /// subtract, where "-0" would read as a mistake.
-  String _signed(double amount) => amount > 0
-      ? '-${SetupCurrency.format(amount)}'
-      : SetupCurrency.format(0);
+  String _signed(double amount) =>
+      amount > 0 ? '-${SetupCurrency.format(amount)}' : SetupCurrency.format(0);
 
   @override
   Widget build(BuildContext context) {
@@ -323,11 +316,7 @@ class _SuggestedSplit extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 10.h),
               child: Row(
                 children: <Widget>[
-                  Icon(
-                    SetupLabels.categoryIcon(category),
-                    size: 18.sp,
-                    color: palette.secondaryText,
-                  ),
+                  CategoryEmoji(SetupLabels.categoryEmoji(category)),
                   SizedBox(width: 12.w),
                   Expanded(
                     child: Text(
@@ -373,11 +362,7 @@ class _ManualSplit extends StatelessWidget {
               padding: EdgeInsets.zero,
               child: Row(
                 children: <Widget>[
-                  Icon(
-                    SetupLabels.categoryIcon(category),
-                    size: 18.sp,
-                    color: palette.secondaryText,
-                  ),
+                  CategoryEmoji(SetupLabels.categoryEmoji(category)),
                   SizedBox(width: 10.w),
                   Expanded(
                     flex: 4,
@@ -481,8 +466,6 @@ class _AllocationTotals extends StatelessWidget {
   }
 }
 
-/// The categories the user added. Their amounts are set aside first, in
-/// either allocation mode.
 class _CustomCategoriesSection extends StatelessWidget {
   const _CustomCategoriesSection({
     required this.palette,
@@ -558,11 +541,7 @@ class _CustomCategoryRow extends StatelessWidget {
               color: palette.accentSoft,
               borderRadius: BorderRadius.circular(12.r),
             ),
-            child: Icon(
-              SetupCategoryIcons.resolve(category.iconKey),
-              size: 19.sp,
-              color: palette.accentStrong,
-            ),
+            child: CategoryEmoji(category.iconKey, size: 19),
           ),
           SizedBox(width: 12.w),
           Expanded(
@@ -629,11 +608,7 @@ class _RowAction extends StatelessWidget {
         scale: 0.88,
         child: Padding(
           padding: EdgeInsets.all(10.w),
-          child: Icon(
-            icon,
-            size: 20.sp,
-            color: color ?? palette.secondaryText,
-          ),
+          child: Icon(icon, size: 20.sp, color: color ?? palette.secondaryText),
         ),
       ),
     );
@@ -663,11 +638,7 @@ class _AddCustomTile extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Icon(
-                Icons.add_rounded,
-                size: 20.sp,
-                color: palette.accentStrong,
-              ),
+              Icon(Icons.add_rounded, size: 20.sp, color: palette.accentStrong),
               SizedBox(width: 8.w),
               Text(
                 l10n.setupCustomCategoryAdd,

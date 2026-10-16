@@ -3,10 +3,13 @@ import 'package:app/domain/entities/onboarding_setup/cycle_day.dart';
 import 'package:app/domain/entities/onboarding_setup/fixed_expense.dart';
 import 'package:app/domain/entities/onboarding_setup/onboarding_setup_config.dart';
 import 'package:app/domain/usecases/onboarding_setup_usecase.dart';
+import 'package:app/models/onboarding/setup_user_budget_request_model.dart';
+import 'package:app/src/core/constant/constant.dart';
+import 'package:app/src/core/error/app_exception.dart';
+import 'package:app/src/feature/budget/models/expense_model.dart';
+import 'package:app/src/feature/onboarding_setup/widgets/category_icons.dart';
 import 'package:get/get.dart';
 
-/// The ordered screens of the questionnaire. The concrete list depends on
-/// [ExpenseManagementMode]; see [OnboardingSetupController.steps].
 enum SetupStep {
   method,
   analyticsCycleDay,
@@ -18,9 +21,6 @@ enum SetupStep {
   completion,
 }
 
-/// A problem the user has to resolve before the step can be completed.
-/// The controller reports the case, the view resolves the localized text,
-/// so no user facing copy lives in the state layer.
 enum SetupValidationIssue {
   savingGoalNotBelowIncome,
   commitmentsExceedIncome,
@@ -28,11 +28,6 @@ enum SetupValidationIssue {
   allocationUnderBudget,
 }
 
-/// Drives the setup questionnaire: which step is on screen, what the user
-/// has answered so far, and whether the current answer lets them continue.
-///
-/// Answers are kept per branch, so switching the management mode or walking
-/// back through the flow never discards what was already filled in.
 class OnboardingSetupController extends GetxController {
   OnboardingSetupController(this._usecase, {DateTime Function()? clock})
     : _clock = clock ?? DateTime.now;
@@ -40,13 +35,13 @@ class OnboardingSetupController extends GetxController {
   final OnboardingSetupUsecase _usecase;
   final DateTime Function() _clock;
 
-  /// Amounts are entered in whole dong, so allocation totals are compared
-  /// with a tolerance rather than an exact double equality.
   static const double _amountTolerance = 0.5;
 
-  static const List<double> savingGoalPresets = <double>[2000000, 3000000, 5000000];
-
-  // --- Answers -------------------------------------------------------------
+  static const List<double> savingGoalPresets = <double>[
+    2000000,
+    3000000,
+    5000000,
+  ];
 
   final Rxn<ExpenseManagementMode> mode = Rxn<ExpenseManagementMode>();
   final Rxn<CycleDay> analyticsCycleDay = Rxn<CycleDay>();
@@ -57,24 +52,17 @@ class OnboardingSetupController extends GetxController {
   final RxList<FixedExpense> fixedExpenses = <FixedExpense>[].obs;
   final Rxn<BudgetAllocationMode> allocationMode = Rxn<BudgetAllocationMode>();
 
-  /// Amounts typed for the built-in categories in the manual mode.
   final RxMap<String, double> manualAllocations = <String, double>{}.obs;
 
-  /// Categories the user added on the allocation step. Each carries its own
-  /// amount, which is reserved in both allocation modes.
   final RxList<CustomCategory> customCategories = <CustomCategory>[].obs;
 
-  /// True while the custom day grid is open on a cycle day step.
   final RxBool isAnalyticsCustomDayOpen = false.obs;
   final RxBool isIncomeCustomDayOpen = false.obs;
 
-  /// True when the saving goal amount is typed instead of picked.
   final RxBool isSavingGoalCustom = false.obs;
 
   final RxInt stepIndex = 0.obs;
   final RxBool isSaving = false.obs;
-
-  // --- Flow ----------------------------------------------------------------
 
   List<SetupStep> get steps {
     return switch (mode.value) {
@@ -101,15 +89,10 @@ class OnboardingSetupController extends GetxController {
     return all[stepIndex.value.clamp(0, all.length - 1)];
   }
 
-  /// Number of question steps, which is every step but the closing one.
   int get questionCount => steps.length - 1;
 
   bool get isOnCompletion => currentStep == SetupStep.completion;
 
-  bool get isOnLastQuestion => stepIndex.value == questionCount - 1;
-
-  /// Back stays available on the closing screen too, so an answer can
-  /// still be corrected after the summary is shown.
   bool get canGoBack => stepIndex.value > 0;
 
   void goNext() {
@@ -126,8 +109,6 @@ class OnboardingSetupController extends GetxController {
     if (!canGoBack) return;
     stepIndex.value = stepIndex.value - 1;
   }
-
-  // --- Answer mutations ----------------------------------------------------
 
   void selectMode(ExpenseManagementMode value) => mode.value = value;
 
@@ -243,15 +224,12 @@ class OnboardingSetupController extends GetxController {
   void removeCustomCategory(String id) =>
       customCategories.removeWhere((item) => item.id == id);
 
-  // --- Derived figures -----------------------------------------------------
-
   double get totalFixedExpenses =>
       fixedExpenses.fold(0, (sum, item) => sum + item.amount);
 
   double get remainingBudget =>
       monthlyIncome.value - monthlySavingGoal.value - totalFixedExpenses;
 
-  /// Nothing to split once saving and commitments use up the whole income.
   bool get hasNothingToAllocate => remainingBudget <= _amountTolerance;
 
   double get customCategoriesTotal =>
@@ -261,9 +239,6 @@ class OnboardingSetupController extends GetxController {
     for (final category in customCategories) category.id: category.amount,
   };
 
-  /// The suggested split of the built-in categories. Custom categories keep
-  /// the amounts the user gave them, and only what is left after them is
-  /// shared out.
   Map<String, double> get automaticAllocations {
     final budget = remainingBudget - customCategoriesTotal;
     if (budget <= 0) {
@@ -273,16 +248,11 @@ class OnboardingSetupController extends GetxController {
       };
     }
     final result = <String, double>{};
-    double assigned = 0;
     for (final category in SetupCategory.values) {
-      if (category == SetupCategory.food) continue;
-      // Round to the nearest thousand so the split reads like real money.
-      final share = ((budget * category.defaultShare) / 1000).roundToDouble() * 1000;
+      final share =
+          ((budget * category.defaultShare) / 1000).roundToDouble() * 1000;
       result[category.id] = share;
-      assigned += share;
     }
-    // The largest bucket absorbs the rounding remainder.
-    result[SetupCategory.food.id] = (budget - assigned).clamp(0, budget);
     return <String, double>{
       for (final category in SetupCategory.values)
         category.id: result[category.id]!,
@@ -290,8 +260,6 @@ class OnboardingSetupController extends GetxController {
     };
   }
 
-  /// Built-in amounts are read by id so values left over from an earlier
-  /// automatic split never leak in under a removed custom category.
   Map<String, double> get _manualSplit => <String, double>{
     for (final category in SetupCategory.values)
       category.id: manualAllocations[category.id] ?? 0,
@@ -315,14 +283,10 @@ class OnboardingSetupController extends GetxController {
 
   double get unallocatedAmount => remainingBudget - allocatedTotal;
 
-  /// The day the first full cycle begins on, in the current month.
-  CycleDay? get cycleStartDay =>
-      mode.value == ExpenseManagementMode.budget
+  CycleDay? get cycleStartDay => mode.value == ExpenseManagementMode.budget
       ? incomeDay.value
       : analyticsCycleDay.value;
 
-  /// True when setup finishes on any day other than the cycle start day,
-  /// so the budget plan only takes effect at the next cycle.
   bool get isMidCycle {
     if (mode.value != ExpenseManagementMode.budget) return false;
     final day = incomeDay.value;
@@ -335,8 +299,6 @@ class OnboardingSetupController extends GetxController {
     final now = _clock();
     return cycleStartDay?.resolveFor(now) ?? now.day;
   }
-
-  // --- Validation ----------------------------------------------------------
 
   SetupValidationIssue? get validationIssue {
     switch (currentStep) {
@@ -353,8 +315,6 @@ class OnboardingSetupController extends GetxController {
         }
         return null;
       case SetupStep.allocation:
-        // Custom categories can overspend in either mode, and even when
-        // nothing is left to split.
         if (unallocatedAmount < -_amountTolerance) {
           return SetupValidationIssue.allocationOverBudget;
         }
@@ -390,7 +350,6 @@ class OnboardingSetupController extends GetxController {
       case SetupStep.fixedExpenses:
         return validationIssue == null;
       case SetupStep.allocation:
-        // The mode choice is hidden when there is nothing to split.
         if (validationIssue != null) return false;
         return hasNothingToAllocate || allocationMode.value != null;
       case SetupStep.completion:
@@ -398,10 +357,6 @@ class OnboardingSetupController extends GetxController {
     }
   }
 
-  // --- Result --------------------------------------------------------------
-
-  /// Locks the automatic split into `manualAllocations` so the saved
-  /// configuration always carries concrete numbers.
   void _freezeAllocations() {
     if (mode.value != ExpenseManagementMode.budget) return;
     if (allocationMode.value == BudgetAllocationMode.automatic) {
@@ -437,13 +392,67 @@ class OnboardingSetupController extends GetxController {
     );
   }
 
-  Future<bool> persist() async {
+  List<SetupUserBudgetRequestModel> budgetRequests({
+    required String Function(SetupCategory category) categoryName,
+    required String fixedCostCategoryName,
+  }) {
+    if (mode.value != ExpenseManagementMode.budget) return const [];
+    final allocations = effectiveAllocations;
+    return <SetupUserBudgetRequestModel>[
+      for (final item in fixedExpenses)
+        SetupUserBudgetRequestModel(
+          typeCost: Constants.fixedCost,
+          nameCost: item.name,
+          amount: item.amount.round(),
+          categoriesName: fixedCostCategoryName,
+          stringIcon: SetupCategoryIcons.fixedCost,
+        ),
+      for (final category in SetupCategory.values)
+        if ((allocations[category.id] ?? 0) > 0)
+          SetupUserBudgetRequestModel(
+            typeCost: Constants.flexibleCosts,
+            nameCost: categoryName(category),
+            amount: allocations[category.id]!.round(),
+            categoriesName: categoryName(category),
+            stringIcon: ExpenseCategory.getById(category.id).emoji,
+          ),
+      for (final category in customCategories)
+        if (category.amount > 0)
+          SetupUserBudgetRequestModel(
+            typeCost: Constants.flexibleCosts,
+            nameCost: category.name,
+            amount: category.amount.round(),
+            categoriesName: category.name,
+            stringIcon: SetupCategoryIcons.resolve(category.iconKey),
+          ),
+    ];
+  }
+
+  Future<bool> persist({
+    required String Function(SetupCategory category) categoryName,
+    required String fixedCostCategoryName,
+    required void Function(String message) showError,
+    required String fallbackError,
+  }) async {
     final config = buildConfig();
     if (config == null) return false;
     isSaving.value = true;
     try {
-      await _usecase.completeSetup(config);
-      return true;
+      final saved = await _usecase.completeSetup(
+        config,
+        budgets: budgetRequests(
+          categoryName: categoryName,
+          fixedCostCategoryName: fixedCostCategoryName,
+        ),
+      );
+      if (!saved) showError(fallbackError);
+      return saved;
+    } on AppException catch (e) {
+      showError(e.message.isNotEmpty ? e.message : fallbackError);
+      return false;
+    } catch (_) {
+      showError(fallbackError);
+      return false;
     } finally {
       isSaving.value = false;
     }

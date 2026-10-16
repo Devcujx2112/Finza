@@ -268,7 +268,6 @@
       }
     }
   },
-  "setupMidCycleTitle": "You are in the middle of the current cycle",
   "setupMidCycleBody": "Finza records and analyses what you spend in the meantime. Your budget plan switches on from day {day}, when the new cycle begins.",
   "@setupMidCycleBody": {
     "placeholders": {
@@ -277,8 +276,6 @@
       }
     }
   },
-  "setupMidCycleCta": "Start tracking spending",
-  "setupDoneTitle": "Your setup is ready",
   "setupDoneBudgetBody": "Your budget cycle starts today. You can adjust any of this later in settings.",
   "setupDoneAnalyticsBody": "Your reporting cycle starts on day {day}. You can adjust it later in settings.",
   "@setupDoneAnalyticsBody": {
@@ -336,5 +333,144 @@
   "scheduleEventTypeAnniversary": "Anniversary",
   "scheduleEventTypeSpecial": "Special day",
   "scheduleEventTypeCustom": "Other",
-  "scheduleEventTypeHoliday": "Holiday"
+  "scheduleEventTypeHoliday": "Holiday",
+  "spendingPatternTitle": "Spending plan",
+  "spendingPatternSection": "FINANCE",
+  "spendingPatternPerMonth": "/ month",
+  "spendingPatternFixedCount": "{count} items",
+  "@spendingPatternFixedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "spendingPatternUnallocated": "Unallocated",
+  "spendingPatternEdit": "Edit plan",
+  "spendingPatternSpendingBudget": "Spending budget",
+  "spendingPatternSpendingBudgetHint": "Income minus saving",
+  "spendingPatternAllocationSection": "By category",
+  "spendingPatternAllocationHint": "Left after fixed costs: {amount}",
+  "@spendingPatternAllocationHint": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "spendingPatternAutoSplit": "Split for me",
+  "spendingPatternAllocated": "{allocated} of {total} allocated",
+  "@spendingPatternAllocated": {
+    "placeholders": {
+      "allocated": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "spendingPatternConfirmTitle": "Apply these changes?",
+  "spendingPatternConfirmBody": "The new plan starts in {next}. Your {current} plan does not change.",
+  "@spendingPatternConfirmBody": {
+    "placeholders": {
+      "next": {
+        "type": "String"
+      },
+      "current": {
+        "type": "String"
+      }
+    }
+  },
+  "spendingPatternCompareTo": "Compared with {month}",
+  "@spendingPatternCompareTo": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "spendingPatternConfirm": "Confirm",
+  "spendingPatternSaved": "Plan updated. The new plan applies from {month}.",
+  "@spendingPatternSaved": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "spendingPatternReverted": "Updated. {month} will keep the current plan.",
+  "@spendingPatternReverted": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "spendingPatternSaveFailed": "Couldn't save your plan. Please try again.",
+  "spendingPatternLoadFailed": "Couldn't load your spending plan.",
+  "spendingPatternRetry": "Try again",
+  "spendingPatternDiscardTitle": "Discard your changes?",
+  "spendingPatternDiscardBody": "What you just changed will not be saved.",
+  "spendingPatternDiscard": "Discard",
+  "spendingPatternKeepEditing": "Keep editing",
+  "spendingPatternCreate": "Create a plan",
+  "spendingPatternErrorIncome": "Enter a monthly income above 0.",
+  "spendingPatternErrorNegative": "Amounts can't be below 0.",
+  "spendingPatternErrorCategoryName": "Give the category a name.",
+  "spendingPatternRemoved": "Removed",
+  "spendingPatternAdded": "New",
+  "spendingPatternRemoveCategory": "Remove category",
+  "spendingPatternRemoveFixed": "Remove expense",
+  "spendingPatternEditTitle": "Edit budget",
+  "spendingPatternApplyNote": "Applies from {next}. Your {current} budget stays the same.",
+  "@spendingPatternApplyNote": {
+    "placeholders": {
+      "next": {
+        "type": "String"
+      },
+      "current": {
+        "type": "String"
+      }
+    }
+  },
+  "spendingPatternSaveChanges": "Save changes",
+  "spendingPatternBreakdownTitle": "Budget by category",
+  "spendingPatternEditAction": "Edit",
+  "spendingPatternUpcomingLine": "From {month}: {amount} / month",
+  "@spendingPatternUpcomingLine": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "spendingPatternNoPlanForMonth": "No plan for this month.",
+  "spendingPatternNoPlan": "You haven't split your budget by category yet.",
+  "setupEmojiMore": "More icons",
+  "setupEmojiSheetTitle": "Choose an icon",
+  "setupEmojiGroupFood": "Food",
+  "setupEmojiGroupShopping": "Shopping",
+  "setupEmojiGroupTransport": "Transport",
+  "setupEmojiGroupHome": "Home",
+  "setupEmojiGroupHealth": "Health",
+  "setupEmojiGroupFun": "Fun",
+  "setupEmojiGroupFamily": "Family",
+  "setupEmojiGroupWork": "Work",
+  "setupEmojiGroupOther": "Other",
+  "setupSyncFailed": "Couldn't save your setup. Check your connection and try again.",
+  "setupWelcomeTitle": "Welcome to Finza",
+  "setupWelcomeMidCycleBody": "Finza tracks your spending from today. Your budget plan starts on day {day}, when the new cycle begins.",
+  "@setupWelcomeMidCycleBody": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "setupReviewTitle": "Review your setup",
+  "setupReviewBody": "Check everything before saving. You can go back and change any answer."
 }

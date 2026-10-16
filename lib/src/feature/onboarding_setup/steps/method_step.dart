@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-/// The first decision: which of the two ways of working the user wants.
 class MethodStep extends StatelessWidget {
   const MethodStep({
     super.key,

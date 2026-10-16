@@ -10,8 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-/// Optional saving goal. The amount only appears once the user says yes,
-/// so the screen still reads as a single question.
 class SavingGoalStep extends StatefulWidget {
   const SavingGoalStep({
     super.key,

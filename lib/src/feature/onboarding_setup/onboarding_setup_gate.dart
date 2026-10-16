@@ -3,8 +3,6 @@ import 'package:app/router/router_name.dart';
 import 'package:app/src/data/repositories/onboarding_setup_repository_impl.dart';
 import 'package:get/get.dart';
 
-/// Decides where a signed in user lands: the setup questionnaire the first
-/// time, the app itself once it has been answered.
 class OnboardingSetupGate {
   const OnboardingSetupGate._();
 

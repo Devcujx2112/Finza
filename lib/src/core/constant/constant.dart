@@ -38,4 +38,9 @@ class Constants {
     ApiPath.trialAccount,
     ApiPath.sendOtp,
   ];
+
+  static const String expenditureAnalysis = 'EXPENDITURE_ANALYSIS';
+  static const String budgetManagement = 'BUDGET_MANAGEMENT';
+  static const String fixedCost = 'FIXED_COST';
+  static const String flexibleCosts = 'FLEXIBLE_COSTS';
 }

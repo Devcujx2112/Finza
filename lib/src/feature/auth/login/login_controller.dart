@@ -14,7 +14,7 @@ class LoginController extends GetxController {
   LoginController(this.loginUsecase);
 
   final LoginUsecase loginUsecase;
-  
+
   TextEditingController userName = TextEditingController();
   TextEditingController password = TextEditingController();
 

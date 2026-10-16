@@ -17,11 +17,10 @@ enum BudgetAllocationMode { automatic, manual }
 /// category ids the budget feature already uses, so the configuration lines up
 /// with recorded expenses later on. Anything beyond these is added by the user
 /// as a [CustomCategory] instead of falling into a fixed "other" bucket.
-enum SetupCategory { food, transport, shopping, entertainment }
+enum SetupCategory { transport, shopping, entertainment }
 
 extension SetupCategoryData on SetupCategory {
   String get id => switch (this) {
-    SetupCategory.food => 'food',
     SetupCategory.transport => 'transport',
     SetupCategory.shopping => 'shopping',
     SetupCategory.entertainment => 'entertainment',
@@ -30,7 +29,6 @@ extension SetupCategoryData on SetupCategory {
   /// Share of the budget the automatic allocation gives this category. The
   /// shares add up to one.
   double get defaultShare => switch (this) {
-    SetupCategory.food => 0.45,
     SetupCategory.transport => 0.15,
     SetupCategory.shopping => 0.20,
     SetupCategory.entertainment => 0.20,
@@ -107,8 +105,9 @@ class OnboardingSetupConfig {
       fixedExpenses:
           (json['fixedExpenses'] as List?)
               ?.map(
-                (item) =>
-                    FixedExpense.fromJson((item as Map).cast<String, dynamic>()),
+                (item) => FixedExpense.fromJson(
+                  (item as Map).cast<String, dynamic>(),
+                ),
               )
               .toList() ??
           const <FixedExpense>[],

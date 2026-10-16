@@ -7,7 +7,6 @@ import 'package:app/src/feature/onboarding_setup/widgets/setup_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// Monthly income. One field, nothing else on the screen.
 class IncomeStep extends StatefulWidget {
   const IncomeStep({
     super.key,
@@ -28,7 +27,6 @@ class _IncomeStepState extends State<IncomeStep> {
   @override
   void initState() {
     super.initState();
-    // Seeded from state so a value entered before going back is still here.
     final current = widget.controller.monthlyIncome.value;
     _amountController = TextEditingController(
       text: current > 0 ? SetupCurrency.formatPlain(current) : '',

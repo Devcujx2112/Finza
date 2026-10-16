@@ -9,8 +9,6 @@ import 'package:app/src/feature/onboarding_setup/widgets/setup_typography.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// Closing screen. It either confirms the setup is live, or explains
-/// calmly that the budget plan starts with the next cycle.
 class CompletionStep extends StatelessWidget {
   const CompletionStep({
     super.key,
@@ -24,71 +22,18 @@ class CompletionStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final mode = controller.mode.value;
-    final isMidCycle = controller.isMidCycle;
-
-    final title = isMidCycle ? l10n.setupMidCycleTitle : l10n.setupDoneTitle;
-    final body = isMidCycle
+    final body = controller.isMidCycle
         ? l10n.setupMidCycleBody(controller.resolvedCycleStartDay.toString())
-        : mode == ExpenseManagementMode.budget
-        ? l10n.setupDoneBudgetBody
-        : l10n.setupDoneAnalyticsBody(
-            controller.resolvedCycleStartDay.toString(),
-          );
+        : l10n.setupReviewBody;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _CompletionHero(
-          palette: palette,
-          icon: isMidCycle
-              ? Icons.hourglass_bottom_rounded
-              : Icons.check_circle_outline_rounded,
-          title: title,
-          body: body,
-        ),
-        SizedBox(height: 32.h),
-        _SummaryCard(controller: controller, palette: palette),
-      ],
-    );
-  }
-}
-
-class _CompletionHero extends StatelessWidget {
-  const _CompletionHero({
-    required this.palette,
-    required this.icon,
-    required this.title,
-    required this.body,
-  });
-
-  final SetupPalette palette;
-  final IconData icon;
-  final String title;
-  final String body;
-
-  @override
-  Widget build(BuildContext context) {
-    // No card and no gradient here. The closing screen is the lightest
-    // moment of the flow, so the mark, the headline and the space around
-    // them do the work on the page itself.
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          height: 64.r,
-          width: 64.r,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: palette.accentSoft,
-            shape: BoxShape.circle,
-          ),
-          child: Icon(icon, size: 30.sp, color: palette.accentStrong),
-        ),
-        SizedBox(height: 24.h),
-        Text(title, style: SetupText.question(palette)),
+        Text(l10n.setupReviewTitle, style: SetupText.question(palette)),
         SizedBox(height: 10.h),
         Text(body, style: SetupText.description(palette)),
+        SizedBox(height: 28.h),
+        _SummaryCard(controller: controller, palette: palette),
       ],
     );
   }

@@ -3,11 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// The type scale for the setup flow, in the app's Poppins.
-///
-/// The question carries the screen, so it sits well above everything else;
-/// the description steps down in both size and weight so the two never
-/// compete for attention.
 class SetupText {
   const SetupText._();
 
@@ -73,7 +68,6 @@ class SetupText {
     fontWeight: FontWeight.w500,
   );
 
-  /// The step counter in the header, kept quiet next to the question.
   static TextStyle stepCounter(SetupPalette palette) => GoogleFonts.poppins(
     color: palette.secondaryText,
     fontSize: 13.sp,

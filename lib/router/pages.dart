@@ -17,8 +17,11 @@ import 'package:app/src/feature/budget/budget_view.dart';
 import 'package:app/src/feature/notification/notification_view.dart';
 import 'package:app/src/feature/onboarding/onboarding_view.dart';
 import 'package:app/src/feature/onboarding_setup/onboarding_setup_binding.dart';
+import 'package:app/src/feature/onboarding_setup/setup_welcome_view.dart';
 import 'package:app/src/feature/onboarding_setup/onboarding_setup_view.dart';
 import 'package:app/src/feature/profile/profile_binding.dart';
+import 'package:app/src/feature/spending_pattern/spending_pattern_binding.dart';
+import 'package:app/src/feature/spending_pattern/spending_pattern_edit_view.dart';
 import 'package:app/src/feature/profile/profile_view.dart';
 import 'package:app/src/feature/schedule/schedule_view.dart';
 import 'package:app/src/feature/splash/splash_page.dart';
@@ -67,11 +70,20 @@ class Pages {
       binding: OnboardingSetupBinding(),
     ),
     GetPage(
+      name: RouterName.setupWelcome,
+      page: () => const SetupWelcomeView(),
+    ),
+    GetPage(
       name: RouterName.profile,
       page: () => ProfileView(),
       binding: ProfileBinding(),
     ),
     GetPage(name: RouterName.budget, page: () => BudgetView()),
+    GetPage(
+      name: RouterName.spendingPatternEdit,
+      page: () => const SpendingPatternEditView(),
+      binding: SpendingPatternEditBinding(),
+    ),
     GetPage(
       name: RouterName.mainLogin,
       page: () => MainAuth(),

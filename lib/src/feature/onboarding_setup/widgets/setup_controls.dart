@@ -3,8 +3,6 @@ import 'package:app/src/feature/onboarding_setup/widgets/setup_typography.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// Shared motion timings. Short and eased, so moving through the flow feels
-/// continuous without pulling attention away from the question.
 class SetupMotion {
   const SetupMotion._();
 
@@ -13,15 +11,12 @@ class SetupMotion {
   static const Duration stepChange = Duration(milliseconds: 280);
   static const Curve curve = Curves.easeOutCubic;
 
-  /// Collapses every duration to zero when the platform asks for reduced
-  /// motion, so the flow still works without any movement.
   static Duration resolve(BuildContext context, Duration duration) =>
       MediaQuery.maybeDisableAnimationsOf(context) ?? false
       ? Duration.zero
       : duration;
 }
 
-/// Wraps a tappable surface with a small push-down response.
 class SetupPressable extends StatefulWidget {
   const SetupPressable({
     super.key,
@@ -64,8 +59,6 @@ class _SetupPressableState extends State<SetupPressable> {
   }
 }
 
-/// Back control, step counter and progress line. A plain icon rather than a
-/// filled circle, so the header stays quiet under the question.
 class SetupHeader extends StatelessWidget {
   const SetupHeader({
     super.key,
@@ -139,7 +132,6 @@ class SetupHeader extends StatelessWidget {
   }
 }
 
-/// The question and its supporting line, the top of every step.
 class SetupStepHeader extends StatelessWidget {
   const SetupStepHeader({
     super.key,
@@ -167,9 +159,6 @@ class SetupStepHeader extends StatelessWidget {
   }
 }
 
-/// A selectable row. Reads as a selection control rather than a button: a
-/// quiet tinted field at rest, and an unmistakable tinted, outlined and
-/// ticked state once chosen.
 class SetupSelectionTile extends StatelessWidget {
   const SetupSelectionTile({
     super.key,
@@ -279,7 +268,6 @@ class SetupSelectionMark extends StatelessWidget {
   }
 }
 
-/// Compact selectable pill, for days of the month and preset amounts.
 class SetupChoiceChip extends StatelessWidget {
   const SetupChoiceChip({
     super.key,
@@ -336,8 +324,6 @@ class SetupChoiceChip extends StatelessWidget {
   }
 }
 
-/// Primary action at the bottom of every step. One flat fill, one soft
-/// shadow tinted to its own hue, no gradient.
 class SetupPrimaryButton extends StatelessWidget {
   const SetupPrimaryButton({
     super.key,
@@ -409,11 +395,8 @@ class SetupPrimaryButton extends StatelessWidget {
   }
 }
 
-/// How firmly an inline message is pitched. Something the user still has to
-/// do reads as guidance; something they got wrong reads as an error.
 enum SetupMessageTone { guidance, error }
 
-/// Inline message explaining why the step cannot be completed yet.
 class SetupValidationMessage extends StatelessWidget {
   const SetupValidationMessage({
     super.key,
@@ -472,8 +455,6 @@ class SetupValidationMessage extends StatelessWidget {
   }
 }
 
-/// A quiet grouping surface. Flat fill, hairline border, no elevation, used
-/// only where content genuinely needs to be set apart from the page.
 class SetupPanel extends StatelessWidget {
   const SetupPanel({
     super.key,
@@ -500,7 +481,6 @@ class SetupPanel extends StatelessWidget {
   }
 }
 
-/// One line of the income breakdown shown before allocation.
 class SetupLedgerRow extends StatelessWidget {
   const SetupLedgerRow({
     super.key,
@@ -548,7 +528,6 @@ class SetupLedgerRow extends StatelessWidget {
   }
 }
 
-/// Hairline divider, used sparingly to separate a total from its inputs.
 class SetupHairline extends StatelessWidget {
   const SetupHairline({super.key, required this.palette});
 

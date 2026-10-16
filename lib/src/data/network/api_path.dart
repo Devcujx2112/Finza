@@ -16,4 +16,8 @@ class ApiPath {
   static const String integration = "/accounts/integration";
   static const String getProfile = "/accounts/getProfile";
   static const String getListCountryCode = "/accounts/getListCountryCode";
+
+  //Onboarding setup
+  static const String saveSpendingConfig = "/onboarding/save-spendingConfig";
+  static const String saveBudget = "/onboarding/save-budget";
 }

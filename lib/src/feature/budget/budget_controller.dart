@@ -1,10 +1,34 @@
+import 'package:app/domain/entities/spending_pattern/spending_pattern.dart';
+import 'package:app/domain/usecases/spending_pattern_usecase.dart';
 import 'package:app/src/feature/budget/models/expense_model.dart';
+import 'package:app/src/feature/spending_pattern/spending_pattern_binding.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class BudgetController extends GetxController {
+  BudgetController({
+    SpendingPatternUsecase? spendingPatternUsecase,
+    DateTime Function()? clock,
+  }) : _planUsecase = spendingPatternUsecase ?? buildSpendingPatternUsecase(),
+       _clock = clock ?? DateTime.now;
+
+  final SpendingPatternUsecase _planUsecase;
+  final DateTime Function() _clock;
+
+  /// Shown for a month that has no spending plan yet.
+  static const double _fallbackBudget = 15000000; // 15.000.000 ₫
+
   final Rx<DateTime> selectedMonth = DateTime(2026, 9, 1).obs;
-  final RxDouble monthlyBudget = 15000000.0.obs; // 15.000.000 ₫
+  final RxDouble monthlyBudget = _fallbackBudget.obs;
+
+  /// The spending plan in force for [selectedMonth], if there is one.
+  final Rxn<SpendingPattern> plan = Rxn<SpendingPattern>();
+
+  /// A plan already scheduled to start next month, counted from today.
+  final Rxn<SpendingPattern> upcomingPlan = Rxn<SpendingPattern>();
+
+  /// Whether the user has a spending plan for any month at all.
+  final RxBool hasAnyPlan = false.obs;
 
   final RxList<ExpenseItem> expenses = <ExpenseItem>[].obs;
   final RxSet<String> expandedDays = <String>{}.obs;
@@ -13,6 +37,33 @@ class BudgetController extends GetxController {
   void onInit() {
     super.onInit();
     _seedInitialData();
+    ever<DateTime>(selectedMonth, (_) => loadPlan());
+    loadPlan();
+  }
+
+  /// Reads the plan for the month on screen. The budget figure follows the
+  /// plan of that month, so a change scheduled for next month only shows up
+  /// once the user moves to next month.
+  Future<void> loadPlan() async {
+    final month = selectedMonth.value;
+    try {
+      final overview = await _planUsecase.loadOverview(_clock());
+      final monthPlan = await _planUsecase.patternFor(month);
+      // A newer month was picked while this one was loading.
+      if (selectedMonth.value != month) return;
+      plan.value = monthPlan;
+      upcomingPlan.value = overview.upcoming;
+      hasAnyPlan.value = overview.hasPlan;
+      monthlyBudget.value = monthPlan?.spendingBudget ?? _fallbackBudget;
+    } catch (_) {
+      // Keep the figures already on screen; the edit screen reports errors.
+    }
+  }
+
+  bool get isViewingCurrentMonth {
+    final now = _clock();
+    return selectedMonth.value.year == now.year &&
+        selectedMonth.value.month == now.month;
   }
 
   void _seedInitialData() {
@@ -121,14 +172,6 @@ class BudgetController extends GetxController {
     return double.parse((budgetProgressRatio * 100).toStringAsFixed(1));
   }
 
-  String get formattedPercentageLabel {
-    final pct = budgetProgressPercentage;
-    if (pct == pct.roundToDouble()) {
-      return '${pct.toInt()}% ngân sách đã sử dụng';
-    }
-    return '$pct% ngân sách đã sử dụng';
-  }
-
   double get maxDailyTotalInMonth {
     final groups = groupedExpensesByDay;
     if (groups.isEmpty) return 1.0;
@@ -205,12 +248,6 @@ class BudgetController extends GetxController {
 
   void setSelectedMonth(DateTime date) {
     selectedMonth.value = DateTime(date.year, date.month, 1);
-  }
-
-  void updateBudget(double newBudget) {
-    if (newBudget >= 0) {
-      monthlyBudget.value = newBudget;
-    }
   }
 
   void toggleDayExpanded(String dateKey) {
