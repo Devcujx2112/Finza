@@ -9,7 +9,6 @@ import 'package:app/models/onboarding/setup_user_budget_request_model.dart';
 import 'package:app/src/core/constant/constant.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// Records what would have been sent, instead of calling the server.
 class _RecordingRepository implements OnboardingSetupRepository {
   _RecordingRepository({this.budgetAccepted = true});
 
