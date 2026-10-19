@@ -11,8 +11,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Recurring monthly commitments. Adding any is optional, so this step can
-/// always be completed.
 class FixedExpensesStep extends StatelessWidget {
   const FixedExpensesStep({
     super.key,
@@ -235,11 +233,7 @@ class _RowAction extends StatelessWidget {
         scale: 0.88,
         child: Padding(
           padding: EdgeInsets.all(10.w),
-          child: Icon(
-            icon,
-            size: 20.sp,
-            color: color ?? palette.secondaryText,
-          ),
+          child: Icon(icon, size: 20.sp, color: color ?? palette.secondaryText),
         ),
       ),
     );
@@ -302,11 +296,7 @@ class _AddTile extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Icon(
-                Icons.add_rounded,
-                size: 20.sp,
-                color: palette.accentStrong,
-              ),
+              Icon(Icons.add_rounded, size: 20.sp, color: palette.accentStrong),
               SizedBox(width: 8.w),
               Text(
                 l10n.setupFixedAdd,

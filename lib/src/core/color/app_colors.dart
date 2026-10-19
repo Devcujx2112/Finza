@@ -97,4 +97,8 @@ class AppColors {
   static const Color setupActionDisabled = Color(0xFFEDF3F0);
   static const Color setupActionDisabledLabel = Color(0xFF5F7168); // 4.6:1
   static const Color setupErrorText = Color(0xFFC62828); // 4.9:1 on its tint
+
+  // Spending plan. Amber text for budget still waiting to be split: the
+  // notification amber only reaches 2.1:1 on white, this one 5.3:1.
+  static const Color planGuidanceText = Color(0xFF9A6200);
 }

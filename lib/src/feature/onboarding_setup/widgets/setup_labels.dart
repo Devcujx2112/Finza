@@ -4,10 +4,8 @@ import 'package:app/domain/entities/onboarding_setup/onboarding_setup_config.dar
 import 'package:app/src/feature/onboarding_setup/onboarding_setup_controller.dart';
 import 'package:app/src/feature/onboarding_setup/widgets/setup_controls.dart';
 import 'package:app/src/feature/onboarding_setup/widgets/setup_currency.dart';
-import 'package:flutter/material.dart';
+import 'package:app/src/feature/budget/models/expense_model.dart';
 
-/// Turns setup state into localized labels and icons. Keeping this in one
-/// place means no step widget carries user facing strings of its own.
 class SetupLabels {
   const SetupLabels._();
 
@@ -27,21 +25,14 @@ class SetupLabels {
 
   static String category(AppLocalizations l10n, SetupCategory category) =>
       switch (category) {
-        SetupCategory.food => l10n.setupCategoryFood,
         SetupCategory.transport => l10n.setupCategoryTransport,
         SetupCategory.shopping => l10n.setupCategoryShopping,
         SetupCategory.entertainment => l10n.setupCategoryEntertainment,
       };
 
-  static IconData categoryIcon(SetupCategory category) => switch (category) {
-    SetupCategory.food => Icons.restaurant_rounded,
-    SetupCategory.transport => Icons.directions_bus_rounded,
-    SetupCategory.shopping => Icons.shopping_bag_outlined,
-    SetupCategory.entertainment => Icons.local_activity_outlined,
-  };
+  static String categoryEmoji(SetupCategory category) =>
+      ExpenseCategory.getById(category.id).emoji;
 
-  /// [difference] is how far the manual allocation is from the remaining
-  /// budget, and is only read for the two allocation cases.
   static String? validation(
     AppLocalizations l10n,
     SetupValidationIssue? issue, {
@@ -57,8 +48,6 @@ class SetupLabels {
       l10n.setupErrorAllocationUnder(SetupCurrency.format(difference.abs())),
   };
 
-  /// Budget still waiting to be split is work in progress, not a mistake,
-  /// so it is pitched as guidance rather than as an error.
   static SetupMessageTone validationTone(SetupValidationIssue? issue) =>
       issue == SetupValidationIssue.allocationUnderBudget
       ? SetupMessageTone.guidance

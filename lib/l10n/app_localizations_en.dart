@@ -748,18 +748,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get setupMidCycleTitle => 'You are in the middle of the current cycle';
-
-  @override
   String setupMidCycleBody(String day) {
     return 'Finza records and analyses what you spend in the meantime. Your budget plan switches on from day $day, when the new cycle begins.';
   }
-
-  @override
-  String get setupMidCycleCta => 'Start tracking spending';
-
-  @override
-  String get setupDoneTitle => 'Your setup is ready';
 
   @override
   String get setupDoneBudgetBody => 'Your budget cycle starts today. You can adjust any of this later in settings.';
@@ -896,4 +887,195 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get scheduleEventTypeHoliday => 'Holiday';
+
+  @override
+  String get spendingPatternTitle => 'Spending plan';
+
+  @override
+  String get spendingPatternSection => 'FINANCE';
+
+  @override
+  String get spendingPatternPerMonth => '/ month';
+
+  @override
+  String spendingPatternFixedCount(int count) {
+    return '$count items';
+  }
+
+  @override
+  String get spendingPatternUnallocated => 'Unallocated';
+
+  @override
+  String get spendingPatternEdit => 'Edit plan';
+
+  @override
+  String get spendingPatternSpendingBudget => 'Spending budget';
+
+  @override
+  String get spendingPatternSpendingBudgetHint => 'Income minus saving';
+
+  @override
+  String get spendingPatternAllocationSection => 'By category';
+
+  @override
+  String spendingPatternAllocationHint(String amount) {
+    return 'Left after fixed costs: $amount';
+  }
+
+  @override
+  String get spendingPatternAutoSplit => 'Split for me';
+
+  @override
+  String spendingPatternAllocated(String allocated, String total) {
+    return '$allocated of $total allocated';
+  }
+
+  @override
+  String get spendingPatternConfirmTitle => 'Apply these changes?';
+
+  @override
+  String spendingPatternConfirmBody(String next, String current) {
+    return 'The new plan starts in $next. Your $current plan does not change.';
+  }
+
+  @override
+  String spendingPatternCompareTo(String month) {
+    return 'Compared with $month';
+  }
+
+  @override
+  String get spendingPatternConfirm => 'Confirm';
+
+  @override
+  String spendingPatternSaved(String month) {
+    return 'Plan updated. The new plan applies from $month.';
+  }
+
+  @override
+  String spendingPatternReverted(String month) {
+    return 'Updated. $month will keep the current plan.';
+  }
+
+  @override
+  String get spendingPatternSaveFailed => 'Couldn\'t save your plan. Please try again.';
+
+  @override
+  String get spendingPatternLoadFailed => 'Couldn\'t load your spending plan.';
+
+  @override
+  String get spendingPatternRetry => 'Try again';
+
+  @override
+  String get spendingPatternDiscardTitle => 'Discard your changes?';
+
+  @override
+  String get spendingPatternDiscardBody => 'What you just changed will not be saved.';
+
+  @override
+  String get spendingPatternDiscard => 'Discard';
+
+  @override
+  String get spendingPatternKeepEditing => 'Keep editing';
+
+  @override
+  String get spendingPatternCreate => 'Create a plan';
+
+  @override
+  String get spendingPatternErrorIncome => 'Enter a monthly income above 0.';
+
+  @override
+  String get spendingPatternErrorNegative => 'Amounts can\'t be below 0.';
+
+  @override
+  String get spendingPatternErrorCategoryName => 'Give the category a name.';
+
+  @override
+  String get spendingPatternRemoved => 'Removed';
+
+  @override
+  String get spendingPatternAdded => 'New';
+
+  @override
+  String get spendingPatternRemoveCategory => 'Remove category';
+
+  @override
+  String get spendingPatternRemoveFixed => 'Remove expense';
+
+  @override
+  String get spendingPatternEditTitle => 'Edit budget';
+
+  @override
+  String spendingPatternApplyNote(String next, String current) {
+    return 'Applies from $next. Your $current budget stays the same.';
+  }
+
+  @override
+  String get spendingPatternSaveChanges => 'Save changes';
+
+  @override
+  String get spendingPatternBreakdownTitle => 'Budget by category';
+
+  @override
+  String get spendingPatternEditAction => 'Edit';
+
+  @override
+  String spendingPatternUpcomingLine(String month, String amount) {
+    return 'From $month: $amount / month';
+  }
+
+  @override
+  String get spendingPatternNoPlanForMonth => 'No plan for this month.';
+
+  @override
+  String get spendingPatternNoPlan => 'You haven\'t split your budget by category yet.';
+
+  @override
+  String get setupEmojiMore => 'More icons';
+
+  @override
+  String get setupEmojiSheetTitle => 'Choose an icon';
+
+  @override
+  String get setupEmojiGroupFood => 'Food';
+
+  @override
+  String get setupEmojiGroupShopping => 'Shopping';
+
+  @override
+  String get setupEmojiGroupTransport => 'Transport';
+
+  @override
+  String get setupEmojiGroupHome => 'Home';
+
+  @override
+  String get setupEmojiGroupHealth => 'Health';
+
+  @override
+  String get setupEmojiGroupFun => 'Fun';
+
+  @override
+  String get setupEmojiGroupFamily => 'Family';
+
+  @override
+  String get setupEmojiGroupWork => 'Work';
+
+  @override
+  String get setupEmojiGroupOther => 'Other';
+
+  @override
+  String get setupSyncFailed => 'Couldn\'t save your setup. Check your connection and try again.';
+
+  @override
+  String get setupWelcomeTitle => 'Welcome to Finza';
+
+  @override
+  String setupWelcomeMidCycleBody(String day) {
+    return 'Finza tracks your spending from today. Your budget plan starts on day $day, when the new cycle begins.';
+  }
+
+  @override
+  String get setupReviewTitle => 'Review your setup';
+
+  @override
+  String get setupReviewBody => 'Check everything before saving. You can go back and change any answer.';
 }

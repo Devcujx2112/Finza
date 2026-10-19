@@ -7,9 +7,6 @@ import 'package:app/src/feature/onboarding_setup/widgets/setup_typography.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// Picks the day a cycle starts on. Shared by the reporting cycle question
-/// of the analysis flow and the income day question of the budget flow,
-/// which differ only in their copy and their shortlist of days.
 class CycleDayStep extends StatelessWidget {
   const CycleDayStep({
     super.key,
@@ -113,8 +110,6 @@ class _CustomDayGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    // No container around the grid: the day cells are controls in their own
-    // right, so a card here would only add another box to the page.
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

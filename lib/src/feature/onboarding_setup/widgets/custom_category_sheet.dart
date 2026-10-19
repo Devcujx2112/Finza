@@ -9,7 +9,6 @@ import 'package:app/src/feature/onboarding_setup/widgets/setup_typography.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// Result of the add or edit sheet.
 class CustomCategoryDraft {
   const CustomCategoryDraft({
     required this.name,
@@ -22,8 +21,6 @@ class CustomCategoryDraft {
   final double amount;
 }
 
-/// Opens the sheet used to add or edit one custom category. Returns null
-/// when the user dismisses it.
 Future<CustomCategoryDraft?> showCustomCategorySheet(
   BuildContext context, {
   CustomCategory? existing,
@@ -92,7 +89,6 @@ class _CustomCategorySheetState extends State<_CustomCategorySheet> {
     final isEditing = widget.existing != null;
 
     return Padding(
-      // Keeps the fields and the save button clear of the keyboard.
       padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
       child: Container(
         constraints: BoxConstraints(
@@ -155,9 +151,17 @@ class _CustomCategorySheetState extends State<_CustomCategorySheet> {
                 style: SetupText.fieldLabel(palette),
               ),
               SizedBox(height: 10.h),
-              _IconGrid(
-                palette: palette,
-                selectedKey: _iconKey,
+              CategoryEmojiPicker(
+                style: CategoryEmojiPickerStyle(
+                  fill: palette.fieldSurface,
+                  selectedFill: palette.accentSoft,
+                  border: palette.border,
+                  selectedBorder: palette.accent,
+                  primaryText: palette.primaryText,
+                  secondaryText: palette.secondaryText,
+                  sheetBackground: palette.pageBackground,
+                ),
+                selected: _iconKey,
                 onSelected: (key) => setState(() => _iconKey = key),
               ),
               SizedBox(height: 20.h),
@@ -184,82 +188,6 @@ class _CustomCategorySheetState extends State<_CustomCategorySheet> {
                 onTap: _submit,
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _IconGrid extends StatelessWidget {
-  const _IconGrid({
-    required this.palette,
-    required this.selectedKey,
-    required this.onSelected,
-  });
-
-  final SetupPalette palette;
-  final String selectedKey;
-  final ValueChanged<String> onSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: 6,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      mainAxisSpacing: 10.h,
-      crossAxisSpacing: 10.w,
-      children: <Widget>[
-        for (final entry in SetupCategoryIcons.catalog.entries)
-          _IconOption(
-            palette: palette,
-            icon: entry.value,
-            isSelected: entry.key == selectedKey,
-            onTap: () => onSelected(entry.key),
-          ),
-      ],
-    );
-  }
-}
-
-class _IconOption extends StatelessWidget {
-  const _IconOption({
-    required this.palette,
-    required this.icon,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  final SetupPalette palette;
-  final IconData icon;
-  final bool isSelected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      button: true,
-      selected: isSelected,
-      child: SetupPressable(
-        onTap: onTap,
-        scale: 0.92,
-        child: AnimatedContainer(
-          duration: SetupMotion.resolve(context, SetupMotion.selection),
-          curve: SetupMotion.curve,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: isSelected ? palette.accentSoft : palette.fieldSurface,
-            borderRadius: BorderRadius.circular(14.r),
-            border: Border.all(
-              color: isSelected ? palette.accent : palette.border,
-              width: isSelected ? 1.5.w : 1.w,
-            ),
-          ),
-          child: Icon(
-            icon,
-            size: 20.sp,
-            color: isSelected ? palette.accentStrong : palette.secondaryText,
           ),
         ),
       ),

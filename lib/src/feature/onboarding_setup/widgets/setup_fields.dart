@@ -7,8 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Money input. Digits only, grouped as the user types, with the dong
-/// suffix pinned next to the figure.
 class SetupAmountField extends StatefulWidget {
   const SetupAmountField({
     super.key,
@@ -31,7 +29,6 @@ class SetupAmountField extends StatefulWidget {
   final bool isLarge;
   final bool autofocus;
 
-  /// Right aligns the figure so amounts in a column line up.
   final bool alignEnd;
   final TextInputAction textInputAction;
 
@@ -107,9 +104,7 @@ class _SetupAmountFieldState extends State<SetupAmountField> {
                     ThousandsSeparatorFormatter(),
                   ],
                   style: valueStyle,
-                  textAlign: widget.alignEnd
-                      ? TextAlign.end
-                      : TextAlign.start,
+                  textAlign: widget.alignEnd ? TextAlign.end : TextAlign.start,
                   cursorColor: palette.accentStrong,
                   decoration: InputDecoration(
                     isDense: true,
@@ -140,7 +135,6 @@ class _SetupAmountFieldState extends State<SetupAmountField> {
   }
 }
 
-/// Plain single line text input, used for the name of a fixed expense.
 class SetupTextField extends StatefulWidget {
   const SetupTextField({
     super.key,

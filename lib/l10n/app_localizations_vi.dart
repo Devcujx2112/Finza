@@ -748,18 +748,9 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get setupMidCycleTitle => 'Bạn đang ở giữa chu kỳ ngân sách hiện tại';
-
-  @override
   String setupMidCycleBody(String day) {
     return 'Trong thời gian này, hệ thống sẽ hỗ trợ ghi nhận và phân tích chi tiêu. Kế hoạch Quản lý Ngân sách sẽ được kích hoạt từ ngày $day, khi chu kỳ mới bắt đầu.';
   }
-
-  @override
-  String get setupMidCycleCta => 'Bắt đầu theo dõi chi tiêu';
-
-  @override
-  String get setupDoneTitle => 'Thiết lập của bạn đã sẵn sàng';
 
   @override
   String get setupDoneBudgetBody => 'Chu kỳ ngân sách của bạn bắt đầu từ hôm nay. Bạn có thể điều chỉnh lại trong phần cài đặt.';
@@ -896,4 +887,195 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get scheduleEventTypeHoliday => 'Ngày lễ';
+
+  @override
+  String get spendingPatternTitle => 'Thiết lập chi tiêu';
+
+  @override
+  String get spendingPatternSection => 'TÀI CHÍNH';
+
+  @override
+  String get spendingPatternPerMonth => '/ tháng';
+
+  @override
+  String spendingPatternFixedCount(int count) {
+    return '$count khoản';
+  }
+
+  @override
+  String get spendingPatternUnallocated => 'Chưa phân bổ';
+
+  @override
+  String get spendingPatternEdit => 'Chỉnh sửa kế hoạch';
+
+  @override
+  String get spendingPatternSpendingBudget => 'Ngân sách chi tiêu';
+
+  @override
+  String get spendingPatternSpendingBudgetHint => 'Thu nhập trừ tiết kiệm';
+
+  @override
+  String get spendingPatternAllocationSection => 'Phân bổ theo nhóm';
+
+  @override
+  String spendingPatternAllocationHint(String amount) {
+    return 'Phần còn lại sau chi phí cố định: $amount';
+  }
+
+  @override
+  String get spendingPatternAutoSplit => 'Chia tự động';
+
+  @override
+  String spendingPatternAllocated(String allocated, String total) {
+    return 'Đã phân bổ $allocated / $total';
+  }
+
+  @override
+  String get spendingPatternConfirmTitle => 'Áp dụng thay đổi?';
+
+  @override
+  String spendingPatternConfirmBody(String next, String current) {
+    return 'Kế hoạch chi tiêu mới sẽ bắt đầu từ tháng $next. Kế hoạch tháng $current vẫn không thay đổi.';
+  }
+
+  @override
+  String spendingPatternCompareTo(String month) {
+    return 'So với tháng $month';
+  }
+
+  @override
+  String get spendingPatternConfirm => 'Xác nhận';
+
+  @override
+  String spendingPatternSaved(String month) {
+    return 'Đã cập nhật kế hoạch. Kế hoạch mới sẽ được áp dụng từ tháng $month.';
+  }
+
+  @override
+  String spendingPatternReverted(String month) {
+    return 'Đã cập nhật. Tháng $month sẽ tiếp tục dùng kế hoạch hiện tại.';
+  }
+
+  @override
+  String get spendingPatternSaveFailed => 'Chưa lưu được kế hoạch. Vui lòng thử lại.';
+
+  @override
+  String get spendingPatternLoadFailed => 'Không tải được kế hoạch chi tiêu.';
+
+  @override
+  String get spendingPatternRetry => 'Thử lại';
+
+  @override
+  String get spendingPatternDiscardTitle => 'Bỏ các thay đổi?';
+
+  @override
+  String get spendingPatternDiscardBody => 'Những gì bạn vừa chỉnh sẽ không được lưu.';
+
+  @override
+  String get spendingPatternDiscard => 'Bỏ thay đổi';
+
+  @override
+  String get spendingPatternKeepEditing => 'Tiếp tục chỉnh sửa';
+
+  @override
+  String get spendingPatternCreate => 'Lập kế hoạch';
+
+  @override
+  String get spendingPatternErrorIncome => 'Hãy nhập thu nhập hàng tháng lớn hơn 0.';
+
+  @override
+  String get spendingPatternErrorNegative => 'Số tiền không được nhỏ hơn 0.';
+
+  @override
+  String get spendingPatternErrorCategoryName => 'Hãy đặt tên cho danh mục.';
+
+  @override
+  String get spendingPatternRemoved => 'Đã xóa';
+
+  @override
+  String get spendingPatternAdded => 'Mới';
+
+  @override
+  String get spendingPatternRemoveCategory => 'Xóa danh mục';
+
+  @override
+  String get spendingPatternRemoveFixed => 'Xóa khoản chi';
+
+  @override
+  String get spendingPatternEditTitle => 'Chỉnh sửa ngân sách';
+
+  @override
+  String spendingPatternApplyNote(String next, String current) {
+    return 'Áp dụng từ tháng $next. Ngân sách tháng $current được giữ nguyên.';
+  }
+
+  @override
+  String get spendingPatternSaveChanges => 'Lưu thay đổi';
+
+  @override
+  String get spendingPatternBreakdownTitle => 'Phân bổ ngân sách';
+
+  @override
+  String get spendingPatternEditAction => 'Chỉnh sửa';
+
+  @override
+  String spendingPatternUpcomingLine(String month, String amount) {
+    return 'Từ tháng $month: $amount / tháng';
+  }
+
+  @override
+  String get spendingPatternNoPlanForMonth => 'Tháng này chưa có kế hoạch phân bổ.';
+
+  @override
+  String get spendingPatternNoPlan => 'Bạn chưa chia ngân sách cho từng nhóm chi tiêu.';
+
+  @override
+  String get setupEmojiMore => 'Thêm biểu tượng';
+
+  @override
+  String get setupEmojiSheetTitle => 'Chọn biểu tượng';
+
+  @override
+  String get setupEmojiGroupFood => 'Ăn uống';
+
+  @override
+  String get setupEmojiGroupShopping => 'Mua sắm';
+
+  @override
+  String get setupEmojiGroupTransport => 'Di chuyển';
+
+  @override
+  String get setupEmojiGroupHome => 'Nhà cửa';
+
+  @override
+  String get setupEmojiGroupHealth => 'Sức khỏe';
+
+  @override
+  String get setupEmojiGroupFun => 'Giải trí';
+
+  @override
+  String get setupEmojiGroupFamily => 'Gia đình';
+
+  @override
+  String get setupEmojiGroupWork => 'Công việc';
+
+  @override
+  String get setupEmojiGroupOther => 'Khác';
+
+  @override
+  String get setupSyncFailed => 'Chưa lưu được thiết lập. Vui lòng kiểm tra kết nối và thử lại.';
+
+  @override
+  String get setupWelcomeTitle => 'Chào mừng đến với Finza';
+
+  @override
+  String setupWelcomeMidCycleBody(String day) {
+    return 'Finza ghi nhận chi tiêu của bạn từ hôm nay. Kế hoạch ngân sách bắt đầu từ ngày $day, khi chu kỳ mới đến.';
+  }
+
+  @override
+  String get setupReviewTitle => 'Xem lại thiết lập của bạn';
+
+  @override
+  String get setupReviewBody => 'Kiểm tra lại trước khi lưu. Bạn có thể quay lại để sửa bất kỳ câu trả lời nào.';
 }

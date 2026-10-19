@@ -1,3 +1,6 @@
+import 'package:app/domain/entities/onboarding_setup/onboarding_setup_config.dart';
+import 'package:app/src/feature/onboarding_setup/setup_welcome_view.dart';
+import 'package:app/src/feature/widget/form_notification_message.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/router/router_name.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
@@ -17,9 +20,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-/// The setup questionnaire. One question per screen, a progress bar at the
-/// top and a single action at the bottom, so it reads as a guided setup
-/// rather than a form.
 class OnboardingSetupView extends StatefulWidget {
   const OnboardingSetupView({super.key});
 
@@ -32,13 +32,10 @@ class _OnboardingSetupViewState extends State<OnboardingSetupView>
   final OnboardingSetupController _controller =
       Get.find<OnboardingSetupController>();
 
-  /// Which way the last step change went, used to pick the slide direction.
   bool _isMovingForward = true;
 
-  /// Days offered as a shortlist for the reporting cycle question.
   static const List<int> _analyticsPresetDays = <int>[1, 5, 10, 15, 20, 25];
 
-  /// Pay days cluster later in the month, so this list starts at day 5.
   static const List<int> _incomePresetDays = <int>[5, 10, 15, 20, 25];
 
   void _goNext() {
@@ -61,9 +58,27 @@ class _OnboardingSetupViewState extends State<OnboardingSetupView>
   void _dismissKeyboard() => FocusManager.instance.primaryFocus?.unfocus();
 
   Future<void> _finish() async {
-    await _controller.persist();
-    if (!mounted) return;
-    Get.offAllNamed(RouterName.navigationMenu);
+    final l10n = AppLocalizations.of(context)!;
+    final saved = await _controller.persist(
+      categoryName: (category) => SetupLabels.category(l10n, category),
+      fixedCostCategoryName: l10n.setupLedgerFixed,
+      fallbackError: l10n.setupSyncFailed,
+      showError: (message) => showFormMessageDialog(
+        context,
+        type: FormMessageType.error,
+        title: message,
+      ),
+    );
+    if (!saved || !mounted) return;
+    final mode = _controller.mode.value ?? ExpenseManagementMode.analytics;
+    Get.offAllNamed(
+      RouterName.setupWelcome,
+      arguments: SetupWelcomeArgs(
+        mode: mode,
+        isMidCycle: _controller.isMidCycle,
+        cycleStartDay: _controller.resolvedCycleStartDay,
+      ),
+    );
   }
 
   @override
@@ -113,8 +128,6 @@ class _OnboardingSetupViewState extends State<OnboardingSetupView>
 
   Widget _buildHeader(SetupPalette palette) {
     final l10n = AppLocalizations.of(context)!;
-    // Before a mode is picked the flow length is unknown, so the counter
-    // shows the shortest flow rather than collapsing to nothing.
     final stepCount = _controller.questionCount < 2
         ? 2
         : _controller.questionCount;
@@ -132,8 +145,6 @@ class _OnboardingSetupViewState extends State<OnboardingSetupView>
     );
   }
 
-  /// How far a step travels as it is swapped. Enough to read as forward
-  /// motion, short enough that it never feels like a new page arriving.
   static const double _stepSlide = 0.22;
 
   Widget _buildStepBody(SetupPalette palette, SetupStep step) {
@@ -154,9 +165,6 @@ class _OnboardingSetupViewState extends State<OnboardingSetupView>
         transitionBuilder: (child, animation) {
           final key = child.key;
           final isIncoming = key is ValueKey<SetupStep> && key.value == step;
-          // The step arriving and the step leaving travel in opposite
-          // directions. Giving both the same offset is what made one
-          // question appear to sit underneath the other.
           final begin = isIncoming
               ? Offset(forward ? _stepSlide : -_stepSlide, 0)
               : Offset(forward ? -_stepSlide : _stepSlide, 0);
@@ -166,9 +174,6 @@ class _OnboardingSetupViewState extends State<OnboardingSetupView>
             ),
             child: child,
           );
-          // The arriving step stays fully opaque and paints its own
-          // background, so it covers the one leaving instead of blending
-          // with it. Only the leaving step fades.
           return isIncoming
               ? slide
               : FadeTransition(opacity: animation, child: slide);
@@ -275,9 +280,6 @@ class _OnboardingSetupViewState extends State<OnboardingSetupView>
   }
 
   String _primaryLabel(AppLocalizations l10n, SetupStep step) {
-    if (step == SetupStep.completion) {
-      return _controller.isMidCycle ? l10n.setupMidCycleCta : l10n.setupDoneCta;
-    }
-    return _controller.isOnLastQuestion ? l10n.setupFinish : l10n.setupContinue;
+    return step == SetupStep.completion ? l10n.setupFinish : l10n.setupContinue;
   }
 }

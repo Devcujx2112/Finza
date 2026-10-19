@@ -8,7 +8,6 @@ import 'package:app/src/feature/onboarding_setup/widgets/setup_typography.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// Result of the add or edit sheet.
 class FixedExpenseDraft {
   const FixedExpenseDraft({required this.name, required this.amount});
 
@@ -16,8 +15,6 @@ class FixedExpenseDraft {
   final double amount;
 }
 
-/// Opens the sheet used to add or edit one fixed cost. Returns null when
-/// the user dismisses it.
 Future<FixedExpenseDraft?> showFixedExpenseSheet(
   BuildContext context, {
   FixedExpense? existing,
@@ -80,7 +77,6 @@ class _FixedExpenseSheetState extends State<_FixedExpenseSheet> {
     final isEditing = widget.existing != null;
 
     return Padding(
-      // Keeps the fields and the save button clear of the keyboard.
       padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
       child: Container(
         constraints: BoxConstraints(

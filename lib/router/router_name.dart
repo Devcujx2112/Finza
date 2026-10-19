@@ -9,9 +9,11 @@ class RouterName {
   static const String splash = '/splash';
   static const String onboarding = '/onboarding';
   static const String onboardingSetup = '/onboardingSetup';
+  static const String setupWelcome = '/setupWelcome';
   static const String forgotPassword = '/forgotPassword';
   static const String schedule = '/schedule';
   static const String budget = '/budget';
+  static const String spendingPatternEdit = '/spendingPatternEdit';
   static const String admin = '/admin';
   static const String verifyCode = '/verifyCode';
   static const String newPassword = '/newPassword';

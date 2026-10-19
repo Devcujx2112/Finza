@@ -1529,29 +1529,11 @@ abstract class AppLocalizations {
   /// **'{amount} of the remaining budget is not allocated yet.'**
   String setupErrorAllocationUnder(String amount);
 
-  /// No description provided for @setupMidCycleTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'You are in the middle of the current cycle'**
-  String get setupMidCycleTitle;
-
   /// No description provided for @setupMidCycleBody.
   ///
   /// In en, this message translates to:
   /// **'Finza records and analyses what you spend in the meantime. Your budget plan switches on from day {day}, when the new cycle begins.'**
   String setupMidCycleBody(String day);
-
-  /// No description provided for @setupMidCycleCta.
-  ///
-  /// In en, this message translates to:
-  /// **'Start tracking spending'**
-  String get setupMidCycleCta;
-
-  /// No description provided for @setupDoneTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Your setup is ready'**
-  String get setupDoneTitle;
 
   /// No description provided for @setupDoneBudgetBody.
   ///
@@ -1816,6 +1798,348 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Holiday'**
   String get scheduleEventTypeHoliday;
+
+  /// No description provided for @spendingPatternTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Spending plan'**
+  String get spendingPatternTitle;
+
+  /// No description provided for @spendingPatternSection.
+  ///
+  /// In en, this message translates to:
+  /// **'FINANCE'**
+  String get spendingPatternSection;
+
+  /// No description provided for @spendingPatternPerMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'/ month'**
+  String get spendingPatternPerMonth;
+
+  /// No description provided for @spendingPatternFixedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} items'**
+  String spendingPatternFixedCount(int count);
+
+  /// No description provided for @spendingPatternUnallocated.
+  ///
+  /// In en, this message translates to:
+  /// **'Unallocated'**
+  String get spendingPatternUnallocated;
+
+  /// No description provided for @spendingPatternEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit plan'**
+  String get spendingPatternEdit;
+
+  /// No description provided for @spendingPatternSpendingBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'Spending budget'**
+  String get spendingPatternSpendingBudget;
+
+  /// No description provided for @spendingPatternSpendingBudgetHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Income minus saving'**
+  String get spendingPatternSpendingBudgetHint;
+
+  /// No description provided for @spendingPatternAllocationSection.
+  ///
+  /// In en, this message translates to:
+  /// **'By category'**
+  String get spendingPatternAllocationSection;
+
+  /// No description provided for @spendingPatternAllocationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Left after fixed costs: {amount}'**
+  String spendingPatternAllocationHint(String amount);
+
+  /// No description provided for @spendingPatternAutoSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'Split for me'**
+  String get spendingPatternAutoSplit;
+
+  /// No description provided for @spendingPatternAllocated.
+  ///
+  /// In en, this message translates to:
+  /// **'{allocated} of {total} allocated'**
+  String spendingPatternAllocated(String allocated, String total);
+
+  /// No description provided for @spendingPatternConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply these changes?'**
+  String get spendingPatternConfirmTitle;
+
+  /// No description provided for @spendingPatternConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The new plan starts in {next}. Your {current} plan does not change.'**
+  String spendingPatternConfirmBody(String next, String current);
+
+  /// No description provided for @spendingPatternCompareTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Compared with {month}'**
+  String spendingPatternCompareTo(String month);
+
+  /// No description provided for @spendingPatternConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get spendingPatternConfirm;
+
+  /// No description provided for @spendingPatternSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan updated. The new plan applies from {month}.'**
+  String spendingPatternSaved(String month);
+
+  /// No description provided for @spendingPatternReverted.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated. {month} will keep the current plan.'**
+  String spendingPatternReverted(String month);
+
+  /// No description provided for @spendingPatternSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save your plan. Please try again.'**
+  String get spendingPatternSaveFailed;
+
+  /// No description provided for @spendingPatternLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load your spending plan.'**
+  String get spendingPatternLoadFailed;
+
+  /// No description provided for @spendingPatternRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get spendingPatternRetry;
+
+  /// No description provided for @spendingPatternDiscardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard your changes?'**
+  String get spendingPatternDiscardTitle;
+
+  /// No description provided for @spendingPatternDiscardBody.
+  ///
+  /// In en, this message translates to:
+  /// **'What you just changed will not be saved.'**
+  String get spendingPatternDiscardBody;
+
+  /// No description provided for @spendingPatternDiscard.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get spendingPatternDiscard;
+
+  /// No description provided for @spendingPatternKeepEditing.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep editing'**
+  String get spendingPatternKeepEditing;
+
+  /// No description provided for @spendingPatternCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a plan'**
+  String get spendingPatternCreate;
+
+  /// No description provided for @spendingPatternErrorIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a monthly income above 0.'**
+  String get spendingPatternErrorIncome;
+
+  /// No description provided for @spendingPatternErrorNegative.
+  ///
+  /// In en, this message translates to:
+  /// **'Amounts can\'t be below 0.'**
+  String get spendingPatternErrorNegative;
+
+  /// No description provided for @spendingPatternErrorCategoryName.
+  ///
+  /// In en, this message translates to:
+  /// **'Give the category a name.'**
+  String get spendingPatternErrorCategoryName;
+
+  /// No description provided for @spendingPatternRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed'**
+  String get spendingPatternRemoved;
+
+  /// No description provided for @spendingPatternAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get spendingPatternAdded;
+
+  /// No description provided for @spendingPatternRemoveCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove category'**
+  String get spendingPatternRemoveCategory;
+
+  /// No description provided for @spendingPatternRemoveFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove expense'**
+  String get spendingPatternRemoveFixed;
+
+  /// No description provided for @spendingPatternEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit budget'**
+  String get spendingPatternEditTitle;
+
+  /// No description provided for @spendingPatternApplyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Applies from {next}. Your {current} budget stays the same.'**
+  String spendingPatternApplyNote(String next, String current);
+
+  /// No description provided for @spendingPatternSaveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save changes'**
+  String get spendingPatternSaveChanges;
+
+  /// No description provided for @spendingPatternBreakdownTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget by category'**
+  String get spendingPatternBreakdownTitle;
+
+  /// No description provided for @spendingPatternEditAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get spendingPatternEditAction;
+
+  /// No description provided for @spendingPatternUpcomingLine.
+  ///
+  /// In en, this message translates to:
+  /// **'From {month}: {amount} / month'**
+  String spendingPatternUpcomingLine(String month, String amount);
+
+  /// No description provided for @spendingPatternNoPlanForMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'No plan for this month.'**
+  String get spendingPatternNoPlanForMonth;
+
+  /// No description provided for @spendingPatternNoPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t split your budget by category yet.'**
+  String get spendingPatternNoPlan;
+
+  /// No description provided for @setupEmojiMore.
+  ///
+  /// In en, this message translates to:
+  /// **'More icons'**
+  String get setupEmojiMore;
+
+  /// No description provided for @setupEmojiSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an icon'**
+  String get setupEmojiSheetTitle;
+
+  /// No description provided for @setupEmojiGroupFood.
+  ///
+  /// In en, this message translates to:
+  /// **'Food'**
+  String get setupEmojiGroupFood;
+
+  /// No description provided for @setupEmojiGroupShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping'**
+  String get setupEmojiGroupShopping;
+
+  /// No description provided for @setupEmojiGroupTransport.
+  ///
+  /// In en, this message translates to:
+  /// **'Transport'**
+  String get setupEmojiGroupTransport;
+
+  /// No description provided for @setupEmojiGroupHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get setupEmojiGroupHome;
+
+  /// No description provided for @setupEmojiGroupHealth.
+  ///
+  /// In en, this message translates to:
+  /// **'Health'**
+  String get setupEmojiGroupHealth;
+
+  /// No description provided for @setupEmojiGroupFun.
+  ///
+  /// In en, this message translates to:
+  /// **'Fun'**
+  String get setupEmojiGroupFun;
+
+  /// No description provided for @setupEmojiGroupFamily.
+  ///
+  /// In en, this message translates to:
+  /// **'Family'**
+  String get setupEmojiGroupFamily;
+
+  /// No description provided for @setupEmojiGroupWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Work'**
+  String get setupEmojiGroupWork;
+
+  /// No description provided for @setupEmojiGroupOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get setupEmojiGroupOther;
+
+  /// No description provided for @setupSyncFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save your setup. Check your connection and try again.'**
+  String get setupSyncFailed;
+
+  /// No description provided for @setupWelcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Finza'**
+  String get setupWelcomeTitle;
+
+  /// No description provided for @setupWelcomeMidCycleBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Finza tracks your spending from today. Your budget plan starts on day {day}, when the new cycle begins.'**
+  String setupWelcomeMidCycleBody(String day);
+
+  /// No description provided for @setupReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review your setup'**
+  String get setupReviewTitle;
+
+  /// No description provided for @setupReviewBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Check everything before saving. You can go back and change any answer.'**
+  String get setupReviewBody;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -1,4 +1,5 @@
 import 'package:app/l10n/app_localizations.dart';
+import 'package:app/router/router_name.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
 import 'package:app/src/feature/profile/profile_controller.dart';
@@ -102,6 +103,22 @@ class _ProfileViewState extends State<ProfileView> with AdaptivePage {
                   activeThumbColor: AppColors.whiteColor,
                   onChanged: _controller.setChatWithAIEnabled,
                 ),
+              ),
+            ]),
+
+            SizedBox(height: 16.h),
+
+            // Spending plan, editable after the setup questionnaire.
+            _buildSectionHeader(
+              appLocalizations.spendingPatternSection,
+              isDark,
+            ),
+            SizedBox(height: 6.h),
+            _buildSectionCard(isDark, [
+              _buildSettingTile(
+                icon: CupertinoIcons.chart_pie_fill,
+                title: appLocalizations.spendingPatternTitle,
+                onTap: () => Get.toNamed(RouterName.spendingPatternEdit),
               ),
             ]),
 

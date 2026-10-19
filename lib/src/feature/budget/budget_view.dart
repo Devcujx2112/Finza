@@ -1,4 +1,5 @@
 import 'package:app/l10n/app_localizations.dart';
+import 'package:app/router/router_name.dart';
 import 'package:app/src/core/color/app_colors.dart';
 import 'package:app/src/core/widget/adaptive_page.dart';
 import 'package:app/src/feature/budget/budget_controller.dart';
@@ -15,7 +16,7 @@ class BudgetView extends StatefulWidget {
   const BudgetView({super.key});
 
   @override
-  State<BudgetView> createState() => _BudgetViewState();
+  State<BudgetView> createState() => _BudgetViewState();   
 }
 
 class _BudgetViewState extends State<BudgetView> with AdaptivePage {
@@ -142,7 +143,8 @@ class _BudgetViewState extends State<BudgetView> with AdaptivePage {
               ),
               SizedBox(height: 2.h),
               Text(
-                appLocal?.personalFinanceTracking ?? 'Theo dõi tài chính cá nhân',
+                appLocal?.personalFinanceTracking ??
+                    'Theo dõi tài chính cá nhân',
                 style: GoogleFonts.poppins(
                   color: _secondaryText(isDark),
                   fontSize: 13.sp,
@@ -230,7 +232,6 @@ class _BudgetViewState extends State<BudgetView> with AdaptivePage {
         controller.remainingBudget,
       );
       final progressRatio = controller.budgetProgressRatio;
-      final pctLabel = controller.formattedPercentageLabel;
       final isOverBudget = controller.remainingBudget < 0;
 
       return Container(
@@ -283,21 +284,24 @@ class _BudgetViewState extends State<BudgetView> with AdaptivePage {
                   ),
                 ),
                 // Icon Container
-                Container(
-                  height: 42.r,
-                  width: 42.r,
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteColor.withValues(alpha: 0.12),
-                    borderRadius: BorderRadius.circular(14.r),
-                    border: Border.all(
-                      color: AppColors.whiteColor.withValues(alpha: 0.16),
-                      width: 1.w,
+                GestureDetector(
+                  onTap: _openBudgetEditor,
+                  child: Container(
+                    height: 42.r,
+                    width: 42.r,
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteColor.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(14.r),
+                      border: Border.all(
+                        color: AppColors.whiteColor.withValues(alpha: 0.16),
+                        width: 1.w,
+                      ),
                     ),
-                  ),
-                  child: Icon(
-                    Icons.account_balance_wallet_outlined,
-                    color: AppColors.whiteColor,
-                    size: 22.sp,
+                    child: Icon(
+                      Icons.account_balance_wallet_outlined,
+                      color: AppColors.whiteColor,
+                      size: 22.sp,
+                    ),
                   ),
                 ),
               ],
@@ -312,26 +316,13 @@ class _BudgetViewState extends State<BudgetView> with AdaptivePage {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)?.budget ?? 'Ngân sách',
-                            style: GoogleFonts.poppins(
-                              color: AppColors.white70,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(width: 4.w),
-                          GestureDetector(
-                            onTap: () => _showEditBudgetDialog(context),
-                            child: Icon(
-                              Icons.edit_rounded,
-                              size: 13.sp,
-                              color: AppColors.white70,
-                            ),
-                          ),
-                        ],
+                      Text(
+                        AppLocalizations.of(context)?.budget ?? 'Ngân sách',
+                        style: GoogleFonts.poppins(
+                          color: AppColors.white70,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                       SizedBox(height: 2.h),
                       Text(
@@ -384,7 +375,8 @@ class _BudgetViewState extends State<BudgetView> with AdaptivePage {
                 Row(
                   children: [
                     Text(
-                      AppLocalizations.of(context)?.spendingProgress ?? 'Tiến độ chi tiêu',
+                      AppLocalizations.of(context)?.spendingProgress ??
+                          'Tiến độ chi tiêu',
                       style: GoogleFonts.poppins(
                         color: AppColors.white70,
                         fontSize: 12.sp,
@@ -420,48 +412,15 @@ class _BudgetViewState extends State<BudgetView> with AdaptivePage {
                 ),
               ],
             ),
-            SizedBox(height: 16.h),
-
-            // Status Badge Strip
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 9.h),
-              decoration: BoxDecoration(
-                color: AppColors.whiteColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(16.r),
-                border: Border.all(
-                  color: AppColors.whiteColor.withValues(alpha: 0.12),
-                  width: 1.w,
-                ),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    isOverBudget
-                        ? Icons.warning_amber_rounded
-                        : Icons.check_circle_outline_rounded,
-                    color: isOverBudget
-                        ? AppColors.notificationError
-                        : AppColors.primarySecondaryColor,
-                    size: 18.sp,
-                  ),
-                  SizedBox(width: 8.w),
-                  Expanded(
-                    child: Text(
-                      pctLabel,
-                      style: GoogleFonts.poppins(
-                        color: AppColors.whiteColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
       );
     });
+  }
+
+  Future<void> _openBudgetEditor() async {
+    await Get.toNamed(RouterName.spendingPatternEdit);
+    await controller.loadPlan();
   }
 
   // --- SPENDING HISTORY SECTION MATCHING HOME SCHEDULE SECTION ---
@@ -481,7 +440,8 @@ class _BudgetViewState extends State<BudgetView> with AdaptivePage {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppLocalizations.of(context)?.spendingHistory ?? 'Lịch sử chi tiêu',
+                    AppLocalizations.of(context)?.spendingHistory ??
+                        'Lịch sử chi tiêu',
                     style: GoogleFonts.poppins(
                       color: _primaryText(isDark),
                       fontSize: 18.sp,
@@ -500,19 +460,6 @@ class _BudgetViewState extends State<BudgetView> with AdaptivePage {
                     ),
                   ),
                 ],
-              ),
-            ),
-            Container(
-              height: 36.r,
-              width: 36.r,
-              decoration: BoxDecoration(
-                color: _softSurfaceColor(isDark),
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-              child: Icon(
-                Icons.history_rounded,
-                color: AppColors.primarySecondaryColor,
-                size: 20.sp,
               ),
             ),
           ],
@@ -706,7 +653,8 @@ class _BudgetViewState extends State<BudgetView> with AdaptivePage {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              appLocal?.expenseDeletedMessage(item.note) ?? 'Đã xóa "${item.note}"',
+              appLocal?.expenseDeletedMessage(item.note) ??
+                  'Đã xóa "${item.note}"',
             ),
             duration: const Duration(seconds: 2),
           ),
@@ -800,7 +748,8 @@ class _BudgetViewState extends State<BudgetView> with AdaptivePage {
           ),
           SizedBox(height: 14.h),
           Text(
-            AppLocalizations.of(context)?.noExpensesYet ?? 'Chưa có khoản chi tiêu nào',
+            AppLocalizations.of(context)?.noExpensesYet ??
+                'Chưa có khoản chi tiêu nào',
             style: GoogleFonts.poppins(
               color: _primaryText(isDark),
               fontSize: 16.sp,
@@ -853,69 +802,13 @@ class _BudgetViewState extends State<BudgetView> with AdaptivePage {
       initialDate: controller.selectedMonth.value,
       firstDate: DateTime(2020),
       lastDate: DateTime(2030),
-      helpText: AppLocalizations.of(context)?.selectMonth ?? 'Chọn tháng xem chi tiêu',
+      helpText:
+          AppLocalizations.of(context)?.selectMonth ??
+          'Chọn tháng xem chi tiêu',
     );
     if (picked != null) {
       controller.setSelectedMonth(picked);
     }
-  }
-
-  void _showEditBudgetDialog(BuildContext context) {
-    final isDark = _isDark(context);
-    final textController = TextEditingController(
-      text: controller.monthlyBudget.value.toInt().toString(),
-    );
-
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: _surfaceColor(isDark),
-        title: Text(
-          AppLocalizations.of(context)?.changeMonthlyBudgetTitle ?? 'Thay đổi ngân sách tháng',
-          style: GoogleFonts.poppins(
-            color: _primaryText(isDark),
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        content: TextField(
-          controller: textController,
-          keyboardType: TextInputType.number,
-          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          style: GoogleFonts.poppins(color: _primaryText(isDark)),
-          decoration: InputDecoration(
-            labelText: AppLocalizations.of(context)?.budgetAmountLabel ?? 'Số tiền ngân sách (₫)',
-            labelStyle: GoogleFonts.poppins(color: _secondaryText(isDark)),
-            hintText: '15000000',
-            suffixText: '₫',
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: Text(
-              AppLocalizations.of(context)?.cancel ?? 'Hủy',
-              style: GoogleFonts.poppins(color: _secondaryText(isDark)),
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              final newVal = double.tryParse(textController.text) ?? 0;
-              if (newVal > 0) {
-                controller.updateBudget(newVal);
-              }
-              Navigator.pop(ctx);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primarySecondaryColor,
-            ),
-            child: Text(
-              AppLocalizations.of(context)?.save ?? 'Lưu',
-              style: GoogleFonts.poppins(color: Colors.white),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 
   // --- ADD / EDIT EXPENSE BOTTOM SHEET ---
@@ -989,8 +882,14 @@ class _BudgetViewState extends State<BudgetView> with AdaptivePage {
                         children: [
                           Text(
                             isEditing
-                                ? (AppLocalizations.of(sheetContext)?.editExpense ?? 'Sửa chi tiêu')
-                                : (AppLocalizations.of(sheetContext)?.addExpense ?? 'Thêm chi tiêu'),
+                                ? (AppLocalizations.of(
+                                        sheetContext,
+                                      )?.editExpense ??
+                                      'Sửa chi tiêu')
+                                : (AppLocalizations.of(
+                                        sheetContext,
+                                      )?.addExpense ??
+                                      'Thêm chi tiêu'),
                             style: GoogleFonts.poppins(
                               fontSize: 18.sp,
                               fontWeight: FontWeight.bold,
@@ -1061,7 +960,8 @@ class _BudgetViewState extends State<BudgetView> with AdaptivePage {
 
                       // FIELD 2: Danh mục
                       Text(
-                        AppLocalizations.of(sheetContext)?.category ?? 'Danh mục',
+                        AppLocalizations.of(sheetContext)?.category ??
+                            'Danh mục',
                         style: GoogleFonts.poppins(
                           fontSize: 13.sp,
                           fontWeight: FontWeight.w600,
@@ -1220,7 +1120,8 @@ class _BudgetViewState extends State<BudgetView> with AdaptivePage {
                           ),
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: AppLocalizations.of(sheetContext)?.noteHint ??
+                            hintText:
+                                AppLocalizations.of(sheetContext)?.noteHint ??
                                 'Ăn trưa, Grab, Mua sắm...',
                             hintStyle: GoogleFonts.poppins(
                               color: secondaryTextColor.withValues(alpha: 0.5),
@@ -1243,7 +1144,9 @@ class _BudgetViewState extends State<BudgetView> with AdaptivePage {
                               ScaffoldMessenger.of(sheetContext).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    AppLocalizations.of(sheetContext)?.invalidAmountError ??
+                                    AppLocalizations.of(
+                                          sheetContext,
+                                        )?.invalidAmountError ??
                                         'Vui lòng nhập số tiền hợp lệ',
                                   ),
                                 ),
@@ -1280,7 +1183,8 @@ class _BudgetViewState extends State<BudgetView> with AdaptivePage {
                             elevation: 0,
                           ),
                           child: Text(
-                            AppLocalizations.of(sheetContext)?.saveExpense ?? 'Lưu chi tiêu',
+                            AppLocalizations.of(sheetContext)?.saveExpense ??
+                                'Lưu chi tiêu',
                             style: GoogleFonts.poppins(
                               color: Colors.white,
                               fontSize: 16.sp,
