@@ -2140,6 +2140,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Check everything before saving. You can go back and change any answer.'**
   String get setupReviewBody;
+
+  /// No description provided for @trialNoticeBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Trial Account'**
+  String get trialNoticeBadge;
+
+  /// No description provided for @trialNoticeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Finza Trial Experience'**
+  String get trialNoticeTitle;
+
+  /// No description provided for @trialNoticeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You are experiencing the trial version of Finza. Here are the features available for your trial account:'**
+  String get trialNoticeSubtitle;
+
+  /// No description provided for @trialNoticeAnalyticsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Expense Analytics'**
+  String get trialNoticeAnalyticsTitle;
+
+  /// No description provided for @trialNoticeAnalyticsBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get trialNoticeAnalyticsBadge;
+
+  /// No description provided for @trialNoticeAnalyticsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Track income, cash flow, and analyze spending intelligently based on your payday cycle.'**
+  String get trialNoticeAnalyticsDesc;
+
+  /// No description provided for @trialNoticeBudgetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget Management'**
+  String get trialNoticeBudgetTitle;
+
+  /// No description provided for @trialNoticeBudgetBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Required'**
+  String get trialNoticeBudgetBadge;
+
+  /// No description provided for @trialNoticeBudgetDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Trial mode does not support budget management. Please create an account if you wish to use budget management.'**
+  String get trialNoticeBudgetDesc;
+
+  /// No description provided for @trialNoticeCycleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Next, you will set up your monthly payday to start your expense analytics cycle.'**
+  String get trialNoticeCycleHint;
+
+  /// No description provided for @trialNoticeContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Set Up Payday'**
+  String get trialNoticeContinue;
+
+  /// No description provided for @trialNoticeCreateAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Register Full Account'**
+  String get trialNoticeCreateAccount;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

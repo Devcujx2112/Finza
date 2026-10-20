@@ -34,9 +34,28 @@ class _OnboardingSetupViewState extends State<OnboardingSetupView>
 
   bool _isMovingForward = true;
 
+  /// True when navigated from TrialNoticeView – budget mode is locked out.
+  bool get _isTrial {
+    final args = Get.arguments;
+    if (args is Map) return args['isTrial'] == true;
+    return false;
+  }
+
   static const List<int> _analyticsPresetDays = <int>[1, 5, 10, 15, 20, 25];
 
   static const List<int> _incomePresetDays = <int>[5, 10, 15, 20, 25];
+
+  @override
+  void initState() {
+    super.initState();
+    // For trial accounts, pre-select analytics and skip the method step.
+    if (_isTrial) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _controller.selectMode(ExpenseManagementMode.analytics);
+        _controller.goNext(); // jump past method step
+      });
+    }
+  }
 
   void _goNext() {
     if (_controller.isOnCompletion) {
@@ -138,7 +157,7 @@ class _OnboardingSetupViewState extends State<OnboardingSetupView>
         palette: palette,
         stepNumber: stepNumber,
         stepCount: stepCount,
-        canGoBack: _controller.canGoBack,
+        canGoBack: _isTrial ? false : _controller.canGoBack,
         onBack: _goBack,
         backLabel: l10n.setupBack,
       ),

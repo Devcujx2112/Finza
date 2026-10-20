@@ -15,6 +15,7 @@ class UserModel {
   String? avatar;
   String? accessToken;
   String? refreshToken;
+  bool hasSetupSpendingConfig;
 
   UserModel({
     this.userId,
@@ -27,6 +28,7 @@ class UserModel {
     this.avatar,
     this.accessToken,
     this.refreshToken,
+    required this.hasSetupSpendingConfig,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
@@ -45,6 +47,7 @@ class UserModel {
       avatar: avatar ?? "",
       accessToken: accessToken ?? "",
       refreshToken: refreshToken ?? "",
+      hasSetupSpendingConfig: hasSetupSpendingConfig,
     );
   }
 }

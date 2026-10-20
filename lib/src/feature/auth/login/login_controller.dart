@@ -79,7 +79,9 @@ class LoginController extends GetxController {
           await SecureTokenStorage.instance.saveRememberPassword(true);
         }
         await Get.find<MainController>().refreshLoginState();
-        await OnboardingSetupGate.enterApp();
+        await OnboardingSetupGate.enterApp(
+          hasSetupSpendingConfig: user.hasSetupSpendingConfig,
+        );
       }
     } on AppException catch (e) {
       showError(e.message);
@@ -107,13 +109,15 @@ class LoginController extends GetxController {
         return;
       }
 
-      await loginUsecase.loginWithGoogle(
+      final user = await loginUsecase.loginWithGoogle(
         provider: 'google'.toUpperCase(),
         idToken: idToken,
       );
 
       await Get.find<MainController>().refreshLoginState();
-      await OnboardingSetupGate.enterApp();
+      await OnboardingSetupGate.enterApp(
+        hasSetupSpendingConfig: user?.hasSetupSpendingConfig,
+      );
     } catch (e) {
       debugPrint("Bug loginWithGoogle:  $e");
       showError(e.toString());
@@ -141,13 +145,15 @@ class LoginController extends GetxController {
           return;
         }
 
-        await loginUsecase.loginWithFacebook(
+        final user = await loginUsecase.loginWithFacebook(
           provider: 'facebook'.toUpperCase(),
           accessToken: accessToken.tokenString,
         );
 
         await Get.find<MainController>().refreshLoginState();
-        await OnboardingSetupGate.enterApp();
+        await OnboardingSetupGate.enterApp(
+          hasSetupSpendingConfig: user?.hasSetupSpendingConfig,
+        );
       } else if (result.status == LoginStatus.cancelled) {
         return;
       } else {
@@ -181,13 +187,15 @@ class LoginController extends GetxController {
         return;
       }
 
-      await loginUsecase.loginWithApple(
+      final user = await loginUsecase.loginWithApple(
         provider: 'apple'.toUpperCase(),
         idToken: identityToken,
       );
 
       await Get.find<MainController>().refreshLoginState();
-      await OnboardingSetupGate.enterApp();
+      await OnboardingSetupGate.enterApp(
+        hasSetupSpendingConfig: user?.hasSetupSpendingConfig,
+      );
     } on SignInWithAppleAuthorizationException catch (e) {
       if (e.code == AuthorizationErrorCode.canceled) {
         showError('User cancelled Apple Sign In');

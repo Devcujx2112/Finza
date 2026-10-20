@@ -383,5 +383,17 @@
   "setupWelcomeTitle": "Chào mừng đến với Finza",
   "setupWelcomeMidCycleBody": "Finza ghi nhận chi tiêu của bạn từ hôm nay. Kế hoạch ngân sách bắt đầu từ ngày {day}, khi chu kỳ mới đến.",
   "setupReviewTitle": "Xem lại thiết lập của bạn",
-  "setupReviewBody": "Kiểm tra lại trước khi lưu. Bạn có thể quay lại để sửa bất kỳ câu trả lời nào."
+  "setupReviewBody": "Kiểm tra lại trước khi lưu. Bạn có thể quay lại để sửa bất kỳ câu trả lời nào.",
+  "trialNoticeBadge": "Tài khoản dùng thử",
+  "trialNoticeTitle": "Trải nghiệm Finza Dùng thử",
+  "trialNoticeSubtitle": "Bạn đang trải nghiệm phiên bản dùng thử của Finza. Dưới đây là các tính năng áp dụng cho tài khoản của bạn:",
+  "trialNoticeAnalyticsTitle": "Phân tích chi tiêu",
+  "trialNoticeAnalyticsBadge": "Khả dụng",
+  "trialNoticeAnalyticsDesc": "Theo dõi thu chi, dòng tiền và phân tích chi tiêu thông minh theo chu kỳ nhận lương của bạn.",
+  "trialNoticeBudgetTitle": "Quản lý ngân sách",
+  "trialNoticeBudgetBadge": "Cần tài khoản",
+  "trialNoticeBudgetDesc": "Chế độ dùng thử không hỗ trợ kế hoạch quản lý ngân sách. Vui lòng tạo tài khoản nếu muốn sử dụng chế độ này.",
+  "trialNoticeCycleHint": "Tiếp theo, bạn sẽ thiết lập ngày nhận lương để bắt đầu chu kỳ phân tích chi tiêu.",
+  "trialNoticeContinue": "Chọn ngày nhận lương",
+  "trialNoticeCreateAccount": "Đăng ký tài khoản đầy đủ"
 }
