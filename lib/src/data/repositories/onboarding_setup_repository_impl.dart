@@ -13,9 +13,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Local persistence for the setup questionnaire. The stored payload is the
-/// same JSON shape a backend would receive, so moving it server side later is
-/// a transport change rather than a model change.
 class OnboardingSetupRepositoryImpl implements OnboardingSetupRepository {
   const OnboardingSetupRepositoryImpl();
 

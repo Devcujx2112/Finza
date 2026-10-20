@@ -1078,4 +1078,40 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get setupReviewBody => 'Kiểm tra lại trước khi lưu. Bạn có thể quay lại để sửa bất kỳ câu trả lời nào.';
+
+  @override
+  String get trialNoticeBadge => 'Tài khoản dùng thử';
+
+  @override
+  String get trialNoticeTitle => 'Trải nghiệm Finza Dùng thử';
+
+  @override
+  String get trialNoticeSubtitle => 'Bạn đang trải nghiệm phiên bản dùng thử của Finza. Dưới đây là các tính năng áp dụng cho tài khoản của bạn:';
+
+  @override
+  String get trialNoticeAnalyticsTitle => 'Phân tích chi tiêu';
+
+  @override
+  String get trialNoticeAnalyticsBadge => 'Khả dụng';
+
+  @override
+  String get trialNoticeAnalyticsDesc => 'Theo dõi thu chi, dòng tiền và phân tích chi tiêu thông minh theo chu kỳ nhận lương của bạn.';
+
+  @override
+  String get trialNoticeBudgetTitle => 'Quản lý ngân sách';
+
+  @override
+  String get trialNoticeBudgetBadge => 'Cần tài khoản';
+
+  @override
+  String get trialNoticeBudgetDesc => 'Chế độ dùng thử không hỗ trợ kế hoạch quản lý ngân sách. Vui lòng tạo tài khoản nếu muốn sử dụng chế độ này.';
+
+  @override
+  String get trialNoticeCycleHint => 'Tiếp theo, bạn sẽ thiết lập ngày nhận lương để bắt đầu chu kỳ phân tích chi tiêu.';
+
+  @override
+  String get trialNoticeContinue => 'Chọn ngày nhận lương';
+
+  @override
+  String get trialNoticeCreateAccount => 'Đăng ký tài khoản đầy đủ';
 }

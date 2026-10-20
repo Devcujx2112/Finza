@@ -1078,4 +1078,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get setupReviewBody => 'Check everything before saving. You can go back and change any answer.';
+
+  @override
+  String get trialNoticeBadge => 'Trial Account';
+
+  @override
+  String get trialNoticeTitle => 'Finza Trial Experience';
+
+  @override
+  String get trialNoticeSubtitle => 'You are experiencing the trial version of Finza. Here are the features available for your trial account:';
+
+  @override
+  String get trialNoticeAnalyticsTitle => 'Expense Analytics';
+
+  @override
+  String get trialNoticeAnalyticsBadge => 'Available';
+
+  @override
+  String get trialNoticeAnalyticsDesc => 'Track income, cash flow, and analyze spending intelligently based on your payday cycle.';
+
+  @override
+  String get trialNoticeBudgetTitle => 'Budget Management';
+
+  @override
+  String get trialNoticeBudgetBadge => 'Account Required';
+
+  @override
+  String get trialNoticeBudgetDesc => 'Trial mode does not support budget management. Please create an account if you wish to use budget management.';
+
+  @override
+  String get trialNoticeCycleHint => 'Next, you will set up your monthly payday to start your expense analytics cycle.';
+
+  @override
+  String get trialNoticeContinue => 'Set Up Payday';
+
+  @override
+  String get trialNoticeCreateAccount => 'Register Full Account';
 }

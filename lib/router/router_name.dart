@@ -18,4 +18,5 @@ class RouterName {
   static const String verifyCode = '/verifyCode';
   static const String newPassword = '/newPassword';
   static const String navigationMenu = '/navigationMenu';
+  static const String trialNotice = '/trialNotice';
 }

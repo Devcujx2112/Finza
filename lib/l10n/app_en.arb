@@ -472,5 +472,17 @@
     }
   },
   "setupReviewTitle": "Review your setup",
-  "setupReviewBody": "Check everything before saving. You can go back and change any answer."
+  "setupReviewBody": "Check everything before saving. You can go back and change any answer.",
+  "trialNoticeBadge": "Trial Account",
+  "trialNoticeTitle": "Finza Trial Experience",
+  "trialNoticeSubtitle": "You are experiencing the trial version of Finza. Here are the features available for your trial account:",
+  "trialNoticeAnalyticsTitle": "Expense Analytics",
+  "trialNoticeAnalyticsBadge": "Available",
+  "trialNoticeAnalyticsDesc": "Track income, cash flow, and analyze spending intelligently based on your payday cycle.",
+  "trialNoticeBudgetTitle": "Budget Management",
+  "trialNoticeBudgetBadge": "Account Required",
+  "trialNoticeBudgetDesc": "Trial mode does not support budget management. Please create an account if you wish to use budget management.",
+  "trialNoticeCycleHint": "Next, you will set up your monthly payday to start your expense analytics cycle.",
+  "trialNoticeContinue": "Set Up Payday",
+  "trialNoticeCreateAccount": "Register Full Account"
 }

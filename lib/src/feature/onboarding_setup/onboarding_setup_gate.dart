@@ -10,11 +10,21 @@ class OnboardingSetupGate {
     const OnboardingSetupRepositoryImpl(),
   );
 
-  static Future<String> routeAfterAuth() async {
+  static Future<String> routeAfterAuth({bool? hasSetupSpendingConfig}) async {
+    if (hasSetupSpendingConfig != null) {
+      if (!hasSetupSpendingConfig) {
+        // Clear any old local setup cache from another user on this device
+        await _usecase.resetSetup();
+        return RouterName.onboardingSetup;
+      }
+      return RouterName.home;
+    }
     final hasCompleted = await _usecase.hasCompletedSetup();
     return hasCompleted ? RouterName.home : RouterName.onboardingSetup;
   }
 
-  static Future<void> enterApp() async =>
-      Get.offAllNamed(await routeAfterAuth());
+  static Future<void> enterApp({bool? hasSetupSpendingConfig}) async =>
+      Get.offAllNamed(
+        await routeAfterAuth(hasSetupSpendingConfig: hasSetupSpendingConfig),
+      );
 }

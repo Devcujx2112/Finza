@@ -72,6 +72,7 @@ class SignupController extends GetxController {
         fullName: fullNameController.text,
         phoneNumber: selectedDialCode.value + phoneNumberController.text,
         dateOfBirth: dateOfBirthController.text,
+        hasSetupSpendingConfig: false,
       );
       final result = await _signupUsecase.register(user);
       if (result != null) {

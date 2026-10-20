@@ -25,6 +25,7 @@ import 'package:app/src/feature/spending_pattern/spending_pattern_edit_view.dart
 import 'package:app/src/feature/profile/profile_view.dart';
 import 'package:app/src/feature/schedule/schedule_view.dart';
 import 'package:app/src/feature/splash/splash_page.dart';
+import 'package:app/src/feature/auth/trial_notice/trial_notice_view.dart';
 import 'package:get/route_manager.dart';
 
 class Pages {
@@ -94,6 +95,10 @@ class Pages {
       name: RouterName.verifyCode,
       page: () => VerifyCodeView(),
       binding: VerifyCodeBinding(),
+    ),
+    GetPage(
+      name: RouterName.trialNotice,
+      page: () => const TrialNoticeView(),
     ),
   ];
 }

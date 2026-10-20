@@ -11,6 +11,7 @@ class User extends Equatable {
   final String avatar;
   final String accessToken;
   final String refreshToken;
+  final bool hasSetupSpendingConfig;
 
   const User({
     required this.userId,
@@ -23,6 +24,7 @@ class User extends Equatable {
     required this.avatar,
     required this.accessToken,
     required this.refreshToken,
+    required this.hasSetupSpendingConfig,
   });
 
   @override
@@ -36,5 +38,6 @@ class User extends Equatable {
     avatar,
     accessToken,
     refreshToken,
+    hasSetupSpendingConfig,
   ];
 }

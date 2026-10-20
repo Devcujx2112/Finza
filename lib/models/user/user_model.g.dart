@@ -17,6 +17,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
   avatar: json['avatar'] as String?,
   accessToken: json['accessToken'] as String?,
   refreshToken: json['refreshToken'] as String?,
+  hasSetupSpendingConfig: json['hasSetupSpendingConfig'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
@@ -30,4 +31,5 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
   'avatar': instance.avatar,
   'accessToken': instance.accessToken,
   'refreshToken': instance.refreshToken,
+  'hasSetupSpendingConfig': instance.hasSetupSpendingConfig,
 };

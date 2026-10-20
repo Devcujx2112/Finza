@@ -44,6 +44,7 @@ class MainController extends GetxController {
     RouterName.splash,
     RouterName.onboarding,
     RouterName.onboardingSetup,
+    RouterName.trialNotice,
     RouterName.mainLogin,
     RouterName.login,
     RouterName.signUp,

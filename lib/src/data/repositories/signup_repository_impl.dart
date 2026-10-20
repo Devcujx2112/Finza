@@ -22,6 +22,7 @@ class SignupRepositoryImpl extends SignupRepository {
         phoneNumber: user.phoneNumber,
         fullName: user.fullName,
         dateOfBirth: user.dateOfBirth,
+        hasSetupSpendingConfig: false,
       );
 
       final response = await Get.find<ApiClient>().post<UserModel>(
